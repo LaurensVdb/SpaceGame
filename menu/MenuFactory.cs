@@ -4,31 +4,32 @@ using Raylib_cs;
 namespace GameMenuBevahior;
 
 public abstract class MenuFactory{
-    public abstract IMenu Create();
+    public abstract IGameState Create();
 }
 public class GameMenuCreator : MenuFactory
 {
-    public override IMenu Create()
+    public override IGameState Create()
     {
          List<IMenuItem> menuItems =
             [
-                new MenuItem(GameState.Instance,"Start",20,Color.Gold,Raylib.GetScreenWidth()/3,Raylib.GetScreenHeight()/2,1,true,GameStateEnum.Playing),
-                new MenuItem(GameState.Instance,"Quit",20,Color.Gold,Raylib.GetScreenWidth()/3,(Raylib.GetScreenHeight()/2)+50,2,false,GameStateEnum.Quit),
+                new MenuItem("Start",20,Color.Gold,Raylib.GetScreenWidth()/3,Raylib.GetScreenHeight()/2,1,true,new GameWorldCreator().Create()),
+                new MenuItem("About",20,Color.Gold,Raylib.GetScreenWidth()/3,(Raylib.GetScreenHeight()/2)+50,2,false,new GameWorldCreator().Create()),
+                new MenuItem("Quit",20,Color.Gold,Raylib.GetScreenWidth()/3,(Raylib.GetScreenHeight()/2)+100,3,false,new GameWorldCreator().Create()),
               
             ]; 
-        return new GameMenu(GameState.Instance,menuItems);
+        return new GameMenu(menuItems);
     }
 }
 public class GameOverMenuCreator : MenuFactory
 {
-    public override IMenu Create()
+    public override IGameState Create()
     {
           List<IMenuItem> menuItems =
             [
-                new MenuItem(GameState.Instance,"Retry",20,Color.Gold,Raylib.GetScreenWidth()/3,Raylib.GetScreenHeight()/2,1,true,GameStateEnum.Playing),
-                new MenuItem(GameState.Instance,"Quit",20,Color.Gold,Raylib.GetScreenWidth()/3,(Raylib.GetScreenHeight()/2)+50,2,false,GameStateEnum.Quit),
+                new MenuItem("Retry",20,Color.Gold,Raylib.GetScreenWidth()/3,Raylib.GetScreenHeight()/2,1,true,new GameWorldCreator().Create()),
+                new MenuItem("Quit",20,Color.Gold,Raylib.GetScreenWidth()/3,(Raylib.GetScreenHeight()/2)+50,2,false,new GameWorldCreator().Create()),
               
             ]; 
-       return new GameOverMenu(GameState.Instance,menuItems);
+       return new GameOverMenu(menuItems);
     }
 }

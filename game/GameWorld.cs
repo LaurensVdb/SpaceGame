@@ -5,31 +5,29 @@ using GameStateBevahior;
 using Raylib_cs;
 using GameObjects.objects;
 using GameObjects.factories;
+using GameMenuBevahior;
 namespace Game;
 
-public sealed class GameWorld : IGameWorld
+public sealed class GameWorld :IGameState, IGameWorld
 {
-    private IGameObjectRepository GameObjectRepository { get; set; }
-    private IGameCamera GameCamera { get; set; }
-    private IEnemySpawner EnemySpawner { get; set; }
+     public IGameObjectRepository GameObjectRepository { get; set; }
+    public IGameCamera GameCamera { get; set; }
+    public IEnemySpawner EnemySpawner { get; set; }
 
-    private IParticleSpawner ParticleSpawner { get; set; }
-    private IGameState gameState { get; set; }
+    public IParticleSpawner ParticleSpawner { get; set; }
     private PlayerFactory playerFactory;
 
-    private int screenWidth;
-    private int screenHeight;
-    private int wave = 1;
-    public GameWorld(IGameObjectRepository gameObjectRepository,IGameState gameState, IGameCamera camera, IEnemySpawner enemySpawner, IParticleSpawner particleSpawner, 
-    int screenwidth, int screenheight)
+    public int ScreenWidth {get{return Raylib.GetScreenWidth();}}
+    public int ScreenHeight {get{return Raylib.GetScreenHeight();}}
+    public int Wave {get;set;}
+    public GameWorld(IGameObjectRepository gameObjectRepository,IGameCamera camera, IEnemySpawner enemySpawner, IParticleSpawner particleSpawner)
     {
         this.GameObjectRepository = gameObjectRepository;
         this.EnemySpawner = enemySpawner;
         this.GameCamera = camera;
-        this.screenHeight = screenheight;
-        this.screenWidth = screenwidth;
+       
         this.ParticleSpawner = particleSpawner;
-        this.gameState = gameState;
+ 
        
         playerFactory =new PlayerFactory();
          CreateCameraForPlayer();
@@ -40,7 +38,7 @@ public sealed class GameWorld : IGameWorld
     {
        
         GameObjectRepository.SetPlayer(playerFactory.FactoryMethod());
-        GameCamera.CreateCamera(GameObjectRepository.Player, screenWidth, screenHeight);
+        GameCamera.CreateCamera(GameObjectRepository.Player, ScreenWidth, ScreenHeight);
     }
     private void StickCameraToplayer()
     {
@@ -49,20 +47,20 @@ public sealed class GameWorld : IGameWorld
 
     private void SpawnEnemies()
     {
-        EnemySpawner.StartEnemySpawner(screenWidth, screenHeight, GameObjectRepository, wave);
+        EnemySpawner.StartEnemySpawner(ScreenWidth, ScreenHeight, GameObjectRepository, Wave);
     }
     private void SpawnParticles()
     {
-        ParticleSpawner.StartParticleSpawner(screenWidth, screenHeight, GameObjectRepository);
+        ParticleSpawner.StartParticleSpawner(ScreenWidth, ScreenHeight, GameObjectRepository);
     }
 
     private void CheckIsGameOver(){
         if(!GameObjectRepository.Player.IsAlive){
-            gameState.CurrentGameState = GameStateEnum.GameOver;
+            //gameState.CurrentGameState = GameStateEnum.GameOver; 
         }
     }
 
-    public void DrawWorld()
+    public void Draw()
     {
         GameCamera.SetCamera();
         foreach (var entities in GameObjectRepository.Entities)
@@ -72,14 +70,21 @@ public sealed class GameWorld : IGameWorld
         GameObjectRepository.Player.Draw();
         Raylib.EndMode2D();
         GameObjectRepository.Player.DrawInfo();
-        Raylib.DrawText($"Wave {wave}", 20, 80, 20, Color.Gold);
+        Raylib.DrawText($"Wave {Wave}", 20, 80, 20, Color.Gold);
         /*foreach(var entities in GameObjectRepository.Entities){
             if(entities is Star)entities.Draw();
         }*/
     }
-    public void UpdateWorld()
+    public void Update(GameStateManager gameStateManager)
     {
-        CheckIsGameOver();
+       if(!GameObjectRepository.Player.IsAlive){
+            MenuFactory factory = new GameMenuCreator();
+            gameStateManager.State = factory.Create();
+        }
+        if(Raylib.IsKeyPressed(KeyboardKey.Escape)){
+            MenuFactory factory = new GameMenuCreator();
+            gameStateManager.State = factory.Create();
+        }
         SpawnEnemies();
         SpawnParticles();
         CollisionCheck();
@@ -114,9 +119,9 @@ public sealed class GameWorld : IGameWorld
 
     private void CheckWave()
     {
-        if (GameObjectRepository.Player.KillCount >= (10 * wave))
+        if (GameObjectRepository.Player.KillCount >= (10 * Wave))
         {
-            wave += 1;
+            Wave += 1;
         }
     }
     private void CollisionCheck()

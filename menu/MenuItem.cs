@@ -1,11 +1,19 @@
 using Raylib_cs;
 using GameStateBevahior;
 using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
 namespace GameMenuBevahior;
 
-public sealed class MenuItem(IGameState gameState,string title,int fontSize,Color color,int x,int y,int order,bool isSelected,GameStateEnum gameStateEnum) : IMenuItem {
-    public string Title=>title;
+public sealed class MenuItem(string title,int fontSize,Color color,int x,int y,int order,bool isSelected,IGameState gameState) : IMenuItem {
+    public string Title{
+      get{
+        var endtag = '>';
+        var begintag ='<';
+        if(IsSelected){
+            return begintag + " " + title + " " + endtag;
+        }
+        return title;
+      }
+    }
     public bool IsSelected { get=>isSelected; set=>isSelected=value; }
     public int FontSize {get{
       if(IsSelected)
@@ -19,13 +27,11 @@ public sealed class MenuItem(IGameState gameState,string title,int fontSize,Colo
     public int X =>x;
     public int Y =>y;
     public  int Order {get=>order;}
-    public GameStateEnum GameState=>gameStateEnum;
+    public IGameState GameState=>gameState;
     public void DrawMenuItem(){
             Raylib.DrawText(Title,X,Y,FontSize,Color);
     }
     public Vector2 Position {get=>new Vector2(x,y);}
-    public void SelectMenuItem(){
-      gameState.CurrentGameState = gameStateEnum;
-    }
+
 
 }

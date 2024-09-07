@@ -2,12 +2,12 @@ using GameStateBevahior;
 using Raylib_cs;
 
 namespace GameMenuBevahior;
-public  class BaseMenu (IGameState gameState ,List<IMenuItem>menuItems) : IMenu{
+public  class BaseMenu (List<IMenuItem>menuItems) : IGameState{
 
     public List<IMenuItem> MenuItems { get=>menuItems; set=>menuItems=value; }
     protected int currentMenuOrder=1;
 
-    public IGameState GameState { get; } = gameState;
+   
 
     private void checkMenuItemSelected(int currentIndex){
         menuItems.ForEach(p=>p.IsSelected=false);
@@ -22,21 +22,24 @@ public  class BaseMenu (IGameState gameState ,List<IMenuItem>menuItems) : IMenu{
         item.IsSelected=true;
        
     }
-    public virtual void UpdateMenu(){
-
+    public virtual void Update(GameStateManager gameStateManager){
+        GameWorldCreator gameWorldCreator =new GameWorldCreator(); 
 
         if(Raylib.IsKeyPressed(KeyboardKey.Up)){
-           checkMenuItemSelected(1);
+           checkMenuItemSelected(-1);
         }
         if(Raylib.IsKeyPressed(KeyboardKey.Down)){
-            checkMenuItemSelected(-1);
+            checkMenuItemSelected(+1);
         }
         if(Raylib.IsKeyPressed(KeyboardKey.Enter)){
-             menuItems.First(p=>p.Order==currentMenuOrder).SelectMenuItem();
+             var item = menuItems.First(p=>p.Order==currentMenuOrder);
+            gameStateManager.State = item.GameState;
+            
+             
         }
 
     }
-    public virtual void DrawStartMenu(){
+    public virtual void Draw(){
         foreach(var item in menuItems.OrderBy(p=>p.Order)){
               item.DrawMenuItem();
         }

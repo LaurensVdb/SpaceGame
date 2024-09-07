@@ -1,9 +1,10 @@
+using Raylib_cs;
 namespace GameStateBevahior;
 
 public class GameStateManager
 {
-    private State state;
-    public State State
+    private IGameState state;
+    public IGameState State
     {
         get { return state; }
         set
@@ -13,8 +14,9 @@ public class GameStateManager
         }
     }
 
-    public GameStateManager(State state)
+    public GameStateManager(IGameState state)
     {
+        Raylib.SetExitKey(KeyboardKey.Space);
         this.state = state;
 
     }
@@ -23,11 +25,21 @@ public class GameStateManager
     // object.
     public void Update()
     {
-        this.state.Update(this);
+        while (!Raylib.WindowShouldClose())
+        {
+            this.state.Update(this);
+            Raylib.BeginDrawing();
+            Raylib.ClearBackground(Color.Black);
+                this.state.Draw();
+            Raylib.EndDrawing();
+
+
+        }
+        //Raylib.CloseWindow();
+      
     }
-    public void Draw(){
-        this.state.Draw();
-    }
+
+
 
 
 

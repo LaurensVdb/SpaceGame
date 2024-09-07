@@ -7,8 +7,8 @@ using GameStateBevahior;
 
 public class GameWorldCreator : GameWorldFactory
 {
-    public override IGameWorld Create()
+    public override IGameState Create()
     {
-        return new GameWorld(new GameObjectRepository(),GameState.Instance,new GameCamera(),new EnemySpawner(), new ParticleSpawner(), 1920, 1080);
+        return new GameWorld(new GameObjectRepository(),new GameCamera(),new EnemySpawner(), new ParticleSpawner());
     }
 }

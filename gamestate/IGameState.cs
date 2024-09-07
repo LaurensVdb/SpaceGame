@@ -1,5 +1,9 @@
 namespace GameStateBevahior; 
 
-public interface IGameState{
-    GameStateEnum CurrentGameState { get; set; }
+public interface  IGameState{
+ 
+        void Update(GameStateManager gameStateManager);
+        void Draw();
+     
+
 }

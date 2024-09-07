@@ -6,5 +6,5 @@ using GameObjects.repositories;
 using GameStateBevahior;
 
 public abstract class GameWorldFactory{
-    public abstract IGameWorld Create();
+    public abstract IGameState Create();
 }
