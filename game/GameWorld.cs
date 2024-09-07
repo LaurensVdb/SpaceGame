@@ -10,7 +10,7 @@ namespace Game;
 
 public sealed class GameWorld :IGameState, IGameWorld
 {
-     public IGameObjectRepository GameObjectRepository { get; set; }
+    public IGameObjectRepository GameObjectRepository { get; set; }
     public IGameCamera GameCamera { get; set; }
     public IEnemySpawner EnemySpawner { get; set; }
 
@@ -78,7 +78,7 @@ public sealed class GameWorld :IGameState, IGameWorld
     public void Update(GameStateManager gameStateManager)
     {
        if(!GameObjectRepository.Player.IsAlive){
-            MenuFactory factory = new GameMenuCreator();
+            MenuFactory factory = new GameOverMenuCreator();
             gameStateManager.State = factory.Create();
         }
         if(Raylib.IsKeyPressed(KeyboardKey.Escape)){
@@ -96,7 +96,7 @@ public sealed class GameWorld :IGameState, IGameWorld
 
             if (entity is Enemy)
             {
-                entity.Move((int)GameObjectRepository.Player.X, (int)GameObjectRepository.Player.Y);
+                entity.Move((int)GameObjectRepository.Player.CollisionRectangle.X, (int)GameObjectRepository.Player.CollisionRectangle.Y);
                 if (entity.CanShoot)
                 {
                     entity.Shoot(GameObjectRepository);

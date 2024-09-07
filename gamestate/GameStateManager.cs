@@ -3,6 +3,8 @@ namespace GameStateBevahior;
 
 public class GameStateManager
 {
+
+    public bool IsExit=false;
     private IGameState state;
     public IGameState State
     {
@@ -25,7 +27,7 @@ public class GameStateManager
     // object.
     public void Update()
     {
-        while (!Raylib.WindowShouldClose())
+        while (!Raylib.WindowShouldClose() && !IsExit)
         {
             this.state.Update(this);
             Raylib.BeginDrawing();
@@ -35,7 +37,7 @@ public class GameStateManager
 
 
         }
-        //Raylib.CloseWindow();
+        Raylib.CloseWindow();
       
     }
 
