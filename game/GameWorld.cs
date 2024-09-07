@@ -1,24 +1,27 @@
-using System.Diagnostics;
-using System.Numerics;
-using System.Runtime.CompilerServices;
+using Bevahior;
 using Camera;
-using GameObjects;
+using GameObjects.repositories;
+using GameStateBevahior;
 using Raylib_cs;
+using GameObjects.objects;
+using GameObjects.factories;
+namespace Game;
 
-namespace Bevahior;
-
-public sealed class GameWorld
+public sealed class GameWorld : IGameWorld
 {
-    public IGameObjectRepository GameObjectRepository { get; set; }
-    public IGameCamera GameCamera { get; set; }
-    public IEnemySpawner EnemySpawner { get; set; }
+    private IGameObjectRepository GameObjectRepository { get; set; }
+    private IGameCamera GameCamera { get; set; }
+    private IEnemySpawner EnemySpawner { get; set; }
 
-    public IParticleSpawner ParticleSpawner { get; set; }
+    private IParticleSpawner ParticleSpawner { get; set; }
+    private IGameState gameState { get; set; }
+    private PlayerFactory playerFactory;
 
     private int screenWidth;
     private int screenHeight;
     private int wave = 1;
-    public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, IEnemySpawner enemySpawner, IParticleSpawner particleSpawner, int screenwidth, int screenheight)
+    public GameWorld(IGameObjectRepository gameObjectRepository,IGameState gameState, IGameCamera camera, IEnemySpawner enemySpawner, IParticleSpawner particleSpawner, 
+    int screenwidth, int screenheight)
     {
         this.GameObjectRepository = gameObjectRepository;
         this.EnemySpawner = enemySpawner;
@@ -26,12 +29,17 @@ public sealed class GameWorld
         this.screenHeight = screenheight;
         this.screenWidth = screenwidth;
         this.ParticleSpawner = particleSpawner;
-        CreateCameraForPlayer();
+        this.gameState = gameState;
+       
+        playerFactory =new PlayerFactory();
+         CreateCameraForPlayer();
 
     }
 
     private void CreateCameraForPlayer()
     {
+       
+        GameObjectRepository.SetPlayer(playerFactory.FactoryMethod());
         GameCamera.CreateCamera(GameObjectRepository.Player, screenWidth, screenHeight);
     }
     private void StickCameraToplayer()
@@ -47,10 +55,11 @@ public sealed class GameWorld
     {
         ParticleSpawner.StartParticleSpawner(screenWidth, screenHeight, GameObjectRepository);
     }
-    public void CreatePlayer(BaseGameEntity player)
-    {
-        GameObjectRepository.SetPlayer(player);
-        CreateCameraForPlayer();
+
+    private void CheckIsGameOver(){
+        if(!GameObjectRepository.Player.IsAlive){
+            gameState.CurrentGameState = GameStateEnum.GameOver;
+        }
     }
 
     public void DrawWorld()
@@ -70,6 +79,7 @@ public sealed class GameWorld
     }
     public void UpdateWorld()
     {
+        CheckIsGameOver();
         SpawnEnemies();
         SpawnParticles();
         CollisionCheck();

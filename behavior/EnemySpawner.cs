@@ -1,16 +1,19 @@
 using System.Diagnostics;
 using Contentmanagement;
-using GameObjects;
+using GameObjects.objects;
+using GameObjects.repositories;
 using Raylib_cs;
 
 namespace Bevahior;
 
 public class EnemySpawner:IEnemySpawner{
 
+    private EnemyBuilder enemyBuilder;
     private int maxElapsedMilliseconds=2000;
     private Stopwatch timer;
     public EnemySpawner()
     {
+        enemyBuilder = new EnemyBuilder();
         timer = new Stopwatch();
     }
 
@@ -36,32 +39,35 @@ public class EnemySpawner:IEnemySpawner{
                     break;
                 
                 }
-
-                Texture2D texture=new Texture2D();
-                float enemyspeed=0f;
-                int enemyhitpoints=1;
+                enemyBuilder.SetPosition(newx,newy);
+                enemyBuilder.IsAlive(true);
+                enemyBuilder.IsMovable(true);
                 var randomNumber = rnd.Next(1,wave+1);
-                bool canShoot = false;
+              
                 switch(randomNumber)
                 {
                     case 1:
-                        texture = Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),1)];
-                        enemyspeed=2f; 
-                        enemyhitpoints=1;  
+                        enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),1)]);
+                        enemyBuilder.SetSpeed(2f);
+                        enemyBuilder.SetHitpoints(1);  
                     break;
                     case 2:
-                        texture = Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),2)];
-                        enemyspeed=2.5f;
-                        enemyhitpoints=2;
-                        canShoot=true;
+                        enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),2)]);
+                        enemyBuilder.SetSpeed(2.5f);
+                        enemyBuilder.SetHitpoints(2);  
+                        enemyBuilder.CanShoot(true);
+                      
                     break;
                     case 3:
-                        texture = Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)];
-                        enemyspeed=2.5f;
-                        enemyhitpoints=2;
+                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)]);
+                        enemyBuilder.SetSpeed(2.5f);
+                        enemyBuilder.SetHitpoints(2);  
+                      
                     break;
                 }    
-                gameObjectRepository.Entities.Add( new Enemy(newx,newy,enemyspeed,enemyhitpoints,texture,canShoot));
+
+                //new Enemy(newx,newy,enemyspeed,enemyhitpoints,texture,canShoot)
+                gameObjectRepository.Entities.Add(enemyBuilder.GetItem());
                 timer.Start(); 
         }
     }

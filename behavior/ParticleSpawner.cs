@@ -1,5 +1,6 @@
 using System.Diagnostics;
-using GameObjects;
+using GameObjects.objects;
+using GameObjects.repositories;
 
 namespace Bevahior;
 

@@ -1,10 +1,12 @@
 using System.Numerics;
 using Raylib_cs;
-namespace GameObjects;
+using GameObjects.repositories;
+
+namespace GameObjects.objects;
 /* 
 Elk game object moet gebruik maken van de base game entity class
 */
-public abstract class BaseGameEntity{
+public abstract class BaseGameEntity : IGameEntity{
 
  public BaseGameEntity(float x, float y,float movementSpeed,int hitPoints,Texture2D texture2D,bool canShoot=false)
     {
@@ -35,12 +37,17 @@ public abstract class BaseGameEntity{
         IsAlive=true;
         hitpointsAtStart= hitPoints;
     }
+
+    public virtual void SetHitPoints(int hitPoints){
+        HitPoints = hitPoints;
+        hitpointsAtStart = hitPoints;
+    }
     public int HitPointsAtStart { get{return hitpointsAtStart;} }
     public Texture2D Texture { get; set; }
     public bool IsMoving { get; set; }
     //protected virtual Rectangle CollisionRectangle => new Rectangle(X,Y,Widht,Height);
 
-    protected virtual Rectangle CollisionRectangle {
+    public virtual Rectangle CollisionRectangle {
         get {
                 float angleInRadians = Rotation * (MathF.PI / 180);
                 float cosTheta = MathF.Cos(angleInRadians);
@@ -61,7 +68,7 @@ public abstract class BaseGameEntity{
     public bool IsAlive { get; set; }
     
     public int HitPoints { get; set; }
-    public int KillCount { get; internal set; }
+    public int KillCount { get; set; }
 
     public virtual void Move(){}
     public virtual void Move(int targetX,int targetY){}
@@ -70,8 +77,11 @@ public abstract class BaseGameEntity{
     
     public float Rotation { get; set; }
     public bool CanShoot { get; set; }
-    protected bool IsShooting  { get; set; }
-    public virtual bool IsCollision(BaseGameEntity entityCollisionCheck){
+    public bool IsShooting  { get; set; }
+
+
+
+    public virtual bool IsCollision(IGameEntity entityCollisionCheck){
 
         return Raylib.CheckCollisionRecs(CollisionRectangle,entityCollisionCheck.CollisionRectangle);
     } 
@@ -84,4 +94,6 @@ public abstract class BaseGameEntity{
             IsAlive=false;
         }
     }
+
+
 }

@@ -1,10 +1,9 @@
 
 using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using Raylib_cs;
+using GameObjects.repositories;
 
-namespace GameObjects;
+namespace GameObjects.objects;
 public class Player :BaseGameEntity{
 
 

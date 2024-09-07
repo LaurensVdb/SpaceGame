@@ -1,4 +1,4 @@
-using GameObjects;
+using GameObjects.objects;
 using Raylib_cs;
 
 namespace Contentmanagement;

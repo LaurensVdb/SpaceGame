@@ -1,10 +1,12 @@
-using GameObjects;
+using GameObjects.objects;
 
+
+namespace GameObjects.repositories;
 public interface IGameObjectRepository{
-    void AddEntity(BaseGameEntity entity);
-    void RemoveEntity(BaseGameEntity entity);
-    List<BaseGameEntity> Entities { get; set; }
-    BaseGameEntity Player{get;set;}
-    void SetPlayer(BaseGameEntity player);
+    void AddEntity(IGameEntity entity);
+    void RemoveEntity(IGameEntity entity);
+    List<IGameEntity> Entities { get; set; }
+    IGameEntity Player{get;set;}
+    void SetPlayer(IGameEntity player);
     
 }

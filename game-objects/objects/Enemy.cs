@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using System.Numerics;
 using Raylib_cs;
-namespace GameObjects;
+using GameObjects.repositories;
+
+namespace GameObjects.objects;
 
 
 
@@ -10,7 +12,7 @@ public class Enemy : BaseGameEntity
 
     private Stopwatch timer;
 
-    protected override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
+    public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
 
     public Enemy(float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false) : base(x, y, movementSpeed, hitPoints, texture2D, canShoot)
     {
@@ -72,7 +74,7 @@ public class Enemy : BaseGameEntity
 
     }
 
-    public override bool IsCollision(BaseGameEntity entityCollisionCheck)
+    public override bool IsCollision(IGameEntity entityCollisionCheck)
     {
         var isCollision = base.IsCollision(entityCollisionCheck);
         switch (entityCollisionCheck)

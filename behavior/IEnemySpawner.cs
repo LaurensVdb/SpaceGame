@@ -1,5 +1,5 @@
-using GameObjects;
-
+using GameObjects.objects;
+using GameObjects.repositories;
 namespace Bevahior;
 
 public interface IEnemySpawner {

@@ -1,10 +1,6 @@
-using System;
-using System.Numerics;
-using System.Text.RegularExpressions;
-using GameObjects;
 using Raylib_cs;
 
-namespace GameObjects;
+namespace GameObjects.objects;
 
 public class Bullet : BaseGameEntity
 {
@@ -17,7 +13,7 @@ public class Bullet : BaseGameEntity
         this.isEnemy=isEnemy;
     }
 
-    public override bool IsCollision(BaseGameEntity entityCollisionCheck)
+    public override bool IsCollision(IGameEntity entityCollisionCheck)
     {
         var isCollision =  base.IsCollision(entityCollisionCheck);
         if(entityCollisionCheck is Enemy){

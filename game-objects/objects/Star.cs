@@ -1,6 +1,6 @@
 using Raylib_cs;
 
-namespace GameObjects;
+namespace GameObjects.objects;
 
 public class Star : BaseGameEntity
 {

@@ -1,6 +1,6 @@
 
 using System.Numerics;
-using GameObjects;
+using GameObjects.objects;
 using Raylib_cs;
 
 namespace Camera; 
@@ -14,7 +14,7 @@ public class GameCamera:IGameCamera{
         Camera2D = new Camera2D();
     }
 
-    public void CreateCamera(BaseGameEntity gameObject,int screenWidth, int screenHeight){
+    public void CreateCamera(IGameEntity gameObject,int screenWidth, int screenHeight){
             Camera2D.Target = new Vector2(gameObject.X + gameObject.MovementSpeed, gameObject.Y + gameObject.MovementSpeed);
             Camera2D.Offset = new Vector2((screenWidth-122) / 2, (screenHeight-182) / 2);
             Camera2D.Rotation =Rotation;
@@ -22,7 +22,7 @@ public class GameCamera:IGameCamera{
             //Raylib.SetMouseOffset((int)Camera2D.Offset.X,(int)Camera2D.Offset.Y);
     }
 
-    public void TargetObject(BaseGameEntity gameObject){
+    public void TargetObject(IGameEntity gameObject){
           Camera2D.Target = new Vector2(gameObject.X, gameObject.Y );
     }
 
