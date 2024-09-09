@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Contentmanagement;
 using GameObjects.objects;
 using GameObjects.repositories;
 
@@ -16,8 +17,11 @@ public class ParticleSpawner:IParticleSpawner{
         if(timer.ElapsedMilliseconds>=200) {
                   timer.Reset(); 
                   Random rnd = new Random();
-                  gameObjectRepository.Entities.Add( new Star(rnd.Next((int)gameObjectRepository.Player.X - (screenWidth),(int)gameObjectRepository.Player.X + (screenWidth)),
-                  rnd.Next((int)gameObjectRepository.Player.Y - (screenHeight),(int)gameObjectRepository.Player.Y + (screenHeight)),5,5,0.02f,0));
+                  gameObjectRepository.Entities.Add( new Star(
+                    rnd.Next((int)gameObjectRepository.Player.X - (screenWidth),(int)gameObjectRepository.Player.X + (screenWidth)),
+                  rnd.Next((int)gameObjectRepository.Player.Y - (screenHeight),(int)gameObjectRepository.Player.Y + (screenHeight)),
+                  0.5f,0,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Star), rnd.Next(1,3))]
+            ));
                   timer.Start(); 
         }
     }

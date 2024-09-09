@@ -2,6 +2,7 @@
 using System.Numerics;
 using Raylib_cs;
 using GameObjects.repositories;
+using Contentmanagement;
 
 namespace GameObjects.objects;
 public class Player :BaseGameEntity{
@@ -42,7 +43,7 @@ public class Player :BaseGameEntity{
     public override void Shoot(IGameObjectRepository gameObjectRepository){
         if(IsShooting){
             var rotatepoint = RotatePoint(new Vector2(X +Widht/2 ,Y +Height/2 ),new Vector2(X,Y),Rotation);
-            gameObjectRepository.AddEntity(new Bullet(rotatepoint.X,rotatepoint.Y,5,5,10f,0,Rotation));
+            gameObjectRepository.AddEntity(new Bullet(rotatepoint.X,rotatepoint.Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)],10f,0,Rotation));
         }
      
     }

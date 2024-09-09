@@ -39,6 +39,7 @@ public class EnemySpawner:IEnemySpawner{
                     break;
                 
                 }
+           
                 enemyBuilder.SetPosition(newx,newy);
                 enemyBuilder.IsAlive(true);
                 enemyBuilder.IsMovable(true);
@@ -46,28 +47,38 @@ public class EnemySpawner:IEnemySpawner{
               
                 switch(randomNumber)
                 {
+                    
                     case 1:
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),1)]);
                         enemyBuilder.SetSpeed(2f);
                         enemyBuilder.SetHitpoints(1);  
+                         gameObjectRepository.Entities.Add(enemyBuilder.GetItem());
                     break;
                     case 2:
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),2)]);
                         enemyBuilder.SetSpeed(2.5f);
                         enemyBuilder.SetHitpoints(2);  
                         enemyBuilder.CanShoot(true);
+                         gameObjectRepository.Entities.Add(enemyBuilder.GetItem());
                       
                     break;
                     case 3:
-                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)]);
-                        enemyBuilder.SetSpeed(2.5f);
-                        enemyBuilder.SetHitpoints(2);  
+                        enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)]);
+                        enemyBuilder.SetSpeed(4f);
+                        enemyBuilder.SetHitpoints(2); 
+                        gameObjectRepository.Entities.Add(enemyBuilder.GetItem());
+                    break;
+                    case 4:
+                        enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)]);
+                        enemyBuilder.SetSpeed(4f);
+                        enemyBuilder.SetHitpoints(2); 
+                        enemyBuilder.CanShoot(true); 
                       
                     break;
                 }    
-
+                //var enemy = Enemy(x,y,movementSpeed,hitPoints,texture,canshoot);
                 //new Enemy(newx,newy,enemyspeed,enemyhitpoints,texture,canShoot)
-                gameObjectRepository.Entities.Add(enemyBuilder.GetItem());
+               
                 timer.Start(); 
         }
     }

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Numerics;
 using Raylib_cs;
 using GameObjects.repositories;
+using Contentmanagement;
 
 namespace GameObjects.objects;
 
@@ -68,7 +69,7 @@ public class Enemy : BaseGameEntity
         if (timer.ElapsedMilliseconds >= 2000)
         {
             timer.Reset();
-            gameObjectRepository.AddEntity(new Bullet(X, Y, 5, 5, 10f, 0, playerrotation, true));
+            gameObjectRepository.AddEntity(new Bullet(X, Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)] , 10f, 0, playerrotation, true));
             timer.Start();
         }
 

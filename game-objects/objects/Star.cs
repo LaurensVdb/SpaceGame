@@ -1,3 +1,4 @@
+using System.Numerics;
 using Raylib_cs;
 
 namespace GameObjects.objects;
@@ -6,7 +7,7 @@ public class Star : BaseGameEntity
 {
     
 
-    public Star(float x, float y, int widht, int height,float movementSpeed,int hitPoints) : base(x,y,widht,height,movementSpeed,hitPoints)
+    public Star(float x, float y, float movementSpeed,int hitPoints,Texture2D texture) : base(x,y,movementSpeed,hitPoints,texture)
     {
         
     }
@@ -17,7 +18,7 @@ public class Star : BaseGameEntity
     }
     public override void Draw()
     {
-       Raylib.DrawRectangle((int)X,(int)Y,Widht,Height,Color.White);
+        Raylib.DrawTextureEx(Texture,new Vector2(X,Y),0f,0.2f,Color.White);
     }
 
     public override void Move(int targetX, int targetY)

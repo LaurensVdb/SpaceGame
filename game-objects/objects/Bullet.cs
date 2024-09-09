@@ -1,3 +1,4 @@
+using Contentmanagement;
 using Raylib_cs;
 
 namespace GameObjects.objects;
@@ -7,7 +8,7 @@ public class Bullet : BaseGameEntity
     private float bulletRotation;
     private bool isEnemy;
     public  bool IsEnemy { get{ return isEnemy;}}
-    public Bullet(float x, float y,int widht,int height,float movementSpeed,int hitPoints,float bulletRotation,bool isEnemy=false) : base(x,y,widht,height,movementSpeed,hitPoints)
+    public Bullet(float x, float y,Texture2D texture, float movementSpeed,int hitPoints,float bulletRotation,bool isEnemy=false) : base(x,y,movementSpeed,hitPoints,texture)
     {
         this.bulletRotation = bulletRotation;
         this.isEnemy=isEnemy;
@@ -41,7 +42,7 @@ public class Bullet : BaseGameEntity
     {
           //Raylib.DrawCircleV(new Vector2(X,Y), 5, Color.White);
           if(IsAlive){
-             Raylib.DrawRectangle((int)CollisionRectangle.X,(int)CollisionRectangle.Y,(int)CollisionRectangle.Width*2,(int)CollisionRectangle.Height*2,Color.Gold);
+             Raylib.DrawTexture(Texture,(int)X,(int)Y,Color.White);
           }
          
     }
