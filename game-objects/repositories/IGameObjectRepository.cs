@@ -8,5 +8,7 @@ public interface IGameObjectRepository{
     List<IGameEntity> Entities { get; set; }
     IGameEntity Player{get;set;}
     void SetPlayer(IGameEntity player);
+
+    int CurrentWave{get;set;}
     
 }

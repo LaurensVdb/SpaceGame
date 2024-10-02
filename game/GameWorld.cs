@@ -6,31 +6,26 @@ using Raylib_cs;
 using GameObjects.objects;
 using GameObjects.factories;
 using GameMenuBevahior;
+using bevahior;
 namespace Game;
 
 public sealed class GameWorld :IGameState, IGameWorld
 {
     public IGameObjectRepository GameObjectRepository { get; set; }
     public IGameCamera GameCamera { get; set; }
-    public IEnemySpawner EnemySpawner { get; set; }
-
-    public IParticleSpawner ParticleSpawner { get; set; }
     private PlayerFactory playerFactory;
 
     public int ScreenWidth {get{return Raylib.GetScreenWidth();}}
     public int ScreenHeight {get{return Raylib.GetScreenHeight();}}
-    public int Wave {get;set;}
-    public GameWorld(IGameObjectRepository gameObjectRepository,IGameCamera camera, IEnemySpawner enemySpawner, IParticleSpawner particleSpawner)
+    public List<IGameEvent> GameEvents { get; set; }
+
+    public GameWorld(IGameObjectRepository gameObjectRepository,IGameCamera camera, List<IGameEvent> gameEvents)
     {
         this.GameObjectRepository = gameObjectRepository;
-        this.EnemySpawner = enemySpawner;
         this.GameCamera = camera;
-       
-        this.ParticleSpawner = particleSpawner;
- 
-       
+        this.GameEvents=gameEvents;       
         playerFactory =new PlayerFactory();
-         CreateCameraForPlayer();
+        CreateCameraForPlayer();
 
     }
 
@@ -43,15 +38,6 @@ public sealed class GameWorld :IGameState, IGameWorld
     private void StickCameraToplayer()
     {
         GameCamera.TargetObject(GameObjectRepository.Player);
-    }
-
-    private void SpawnEnemies()
-    {
-        EnemySpawner.StartEnemySpawner(ScreenWidth, ScreenHeight, GameObjectRepository, Wave);
-    }
-    private void SpawnParticles()
-    {
-        ParticleSpawner.StartParticleSpawner(ScreenWidth, ScreenHeight, GameObjectRepository);
     }
 
     private void CheckIsGameOver(){
@@ -70,7 +56,7 @@ public sealed class GameWorld :IGameState, IGameWorld
         GameObjectRepository.Player.Draw();
         Raylib.EndMode2D();
         GameObjectRepository.Player.DrawInfo();
-        Raylib.DrawText($"Wave {Wave}", 20, 80, 20, Color.Gold);
+        Raylib.DrawText($"Wave {GameObjectRepository.CurrentWave}", 20, 80, 20, Color.Gold);
         /*foreach(var entities in GameObjectRepository.Entities){
             if(entities is Star)entities.Draw();
         }*/
@@ -85,8 +71,11 @@ public sealed class GameWorld :IGameState, IGameWorld
             MenuFactory factory = new GameMenuCreator();
             gameStateManager.State = factory.Create();
         }
-        SpawnEnemies();
-        SpawnParticles();
+
+        foreach(var events in GameEvents){
+            events.StartEvent();
+        }
+
         CollisionCheck();
         CheckWave();
 
@@ -119,9 +108,9 @@ public sealed class GameWorld :IGameState, IGameWorld
 
     private void CheckWave()
     {
-        if (GameObjectRepository.Player.KillCount >= (10 * Wave))
+        if (GameObjectRepository.Player.KillCount >= (10 * GameObjectRepository.CurrentWave))
         {
-            Wave += 1;
+             GameObjectRepository.CurrentWave += 1;
         }
     }
     private void CollisionCheck()

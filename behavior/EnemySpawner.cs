@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using bevahior;
 using Contentmanagement;
 using GameObjects.objects;
 using GameObjects.repositories;
@@ -6,18 +7,34 @@ using Raylib_cs;
 
 namespace Bevahior;
 
-public class EnemySpawner:IEnemySpawner{
+public class EnemySpawner:GameEvent{
 
     private EnemyBuilder enemyBuilder;
     private int maxElapsedMilliseconds=2000;
-    private Stopwatch timer;
-    public EnemySpawner()
+
+
+    private IGameObjectRepository gameObjectRepository;
+    public EnemySpawner(IGameObjectRepository gameObjectRepository)
     {
         enemyBuilder = new EnemyBuilder();
-        timer = new Stopwatch();
+     
+        this.gameObjectRepository = gameObjectRepository;
     }
 
-    public void StartEnemySpawner(int screenWidth , int screenHeight,IGameObjectRepository gameObjectRepository ,int wave){
+    public override void EndEvent()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void PauseEvent()
+    {
+        throw new NotImplementedException();
+    }
+
+    public  override void StartEvent(){
+        var screenWidth = Raylib.GetScreenWidth(); 
+        var screenHeight = Raylib.GetScreenHeight(); 
+    
         timer.Start();
         if(timer.ElapsedMilliseconds>=maxElapsedMilliseconds) {
                 timer.Reset(); 
@@ -43,7 +60,7 @@ public class EnemySpawner:IEnemySpawner{
                 enemyBuilder.SetPosition(newx,newy);
                 enemyBuilder.IsAlive(true);
                 enemyBuilder.IsMovable(true);
-                var randomNumber = rnd.Next(1,wave+1);
+                var randomNumber = rnd.Next(1,gameObjectRepository.CurrentWave+1);
               
                 switch(randomNumber)
                 {
@@ -76,9 +93,7 @@ public class EnemySpawner:IEnemySpawner{
                       
                     break;
                 }    
-                //var enemy = Enemy(x,y,movementSpeed,hitPoints,texture,canshoot);
-                //new Enemy(newx,newy,enemyspeed,enemyhitpoints,texture,canShoot)
-               
+
                 timer.Start(); 
         }
     }

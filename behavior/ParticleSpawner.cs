@@ -1,18 +1,34 @@
 using System.Diagnostics;
+using bevahior;
 using Contentmanagement;
 using GameObjects.objects;
 using GameObjects.repositories;
+using Raylib_cs;
 
 namespace Bevahior;
 
-public class ParticleSpawner:IParticleSpawner{
-    private Stopwatch timer;
-    public ParticleSpawner()
+public class ParticleSpawner: GameEvent{
+  
+    private IGameObjectRepository gameObjectRepository;
+    public ParticleSpawner(IGameObjectRepository gameObjectRepository)
     {
-        timer = new Stopwatch();
+       this.gameObjectRepository=gameObjectRepository;
     }
 
-    public void StartParticleSpawner(int screenWidth , int screenHeight,IGameObjectRepository gameObjectRepository){
+    public override void EndEvent()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void PauseEvent()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void StartEvent()
+    {
+        var screenWidth = Raylib.GetScreenWidth(); 
+        var screenHeight = Raylib.GetScreenHeight(); 
         timer.Start();
         if(timer.ElapsedMilliseconds>=200) {
                   timer.Reset(); 

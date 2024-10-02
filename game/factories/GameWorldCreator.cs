@@ -1,3 +1,4 @@
+using bevahior;
 using Bevahior;
 using Camera;
 using Game;
@@ -9,6 +10,12 @@ public class GameWorldCreator : GameWorldFactory
 {
     public override IGameState Create()
     {
-        return new GameWorld(new GameObjectRepository(),new GameCamera(),new EnemySpawner(), new ParticleSpawner());
+        var repo=new GameObjectRepository();
+        var gameEvents = new List<IGameEvent>
+        {
+            new ParticleSpawner(repo),
+            new EnemySpawner(repo)
+        }; 
+        return new GameWorld(repo,new GameCamera(),gameEvents);
     }
 }
