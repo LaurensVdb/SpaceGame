@@ -10,7 +10,7 @@ namespace Bevahior;
 public class EnemySpawner:GameEvent{
 
     private EnemyBuilder enemyBuilder;
-    private int maxElapsedMilliseconds=2000;
+    private int maxElapsedMilliseconds=500;
 
 
     private IGameObjectRepository gameObjectRepository;

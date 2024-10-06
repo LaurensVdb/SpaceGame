@@ -3,12 +3,10 @@ using System.Numerics;
 using Raylib_cs;
 using GameObjects.repositories;
 using Contentmanagement;
+using System.Diagnostics;
 
 namespace GameObjects.objects;
 public class Player :BaseGameEntity{
-
-
-  
 
 
     public Player(float x, float y,float movementSpeed,int hitPoints,Texture2D texture2D) : base(x,y,movementSpeed,hitPoints,texture2D)
@@ -30,21 +28,22 @@ public class Player :BaseGameEntity{
         if (Raylib.IsKeyDown(KeyboardKey.Up)) Y -= MovementSpeed;
         if (Raylib.IsKeyDown(KeyboardKey.Down)) Y += MovementSpeed;
 
-        if (Raylib.IsMouseButtonPressed(MouseButton.Left)){
-            //schiet
-            IsShooting=true;
-           
-        }else{
-            IsShooting=false;
-        };
+      
     
     }
-
+    Stopwatch shootTimer = new Stopwatch();
     public override void Shoot(IGameObjectRepository gameObjectRepository){
-        if(IsShooting){
-            var rotatepoint = RotatePoint(new Vector2(X +Widht/2 ,Y +Height/2 ),new Vector2(X,Y),Rotation);
-            gameObjectRepository.AddEntity(new Bullet(rotatepoint.X,rotatepoint.Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)],10f,0,Rotation));
-        }
+        shootTimer.Start();
+    
+        if (Raylib.IsMouseButtonDown(MouseButton.Left)){
+            //schiet
+            if(shootTimer.ElapsedMilliseconds>50){
+                var rotatepoint = RotatePoint(new Vector2(X +Widht/2 ,Y +Height/2 ),new Vector2(X,Y),Rotation);
+                gameObjectRepository.AddEntity(new Bullet(rotatepoint.X,rotatepoint.Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)],10f,0,Rotation));
+                shootTimer.Reset();
+            }
+
+        } 
      
     }
 
