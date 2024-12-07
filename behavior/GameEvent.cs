@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace bevahior;
+namespace Bevahior;
 
 public abstract class GameEvent : IGameEvent
 {

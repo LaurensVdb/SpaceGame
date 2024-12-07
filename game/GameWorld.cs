@@ -6,7 +6,6 @@ using Raylib_cs;
 using GameObjects.objects;
 using GameObjects.factories;
 using GameMenuBevahior;
-using bevahior;
 namespace Game;
 
 public sealed class GameWorld :IGameState, IGameWorld
@@ -71,7 +70,7 @@ public sealed class GameWorld :IGameState, IGameWorld
         }
 
         CollisionCheck();
-        CheckWave();
+        //CheckWave();
 
         var gameEntities = GameObjectRepository.Entities.ToList();
         foreach (var entity in gameEntities)

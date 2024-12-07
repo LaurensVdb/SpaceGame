@@ -1,4 +1,4 @@
-namespace bevahior; 
+namespace Bevahior; 
 
 public interface IGameEvent{
     void StartEvent();

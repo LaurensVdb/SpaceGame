@@ -1,8 +1,6 @@
-using bevahior;
 using Bevahior;
 using Camera;
 using Game;
-using GameObjects.factories;
 using GameObjects.repositories;
 using GameStateBevahior;
 
@@ -14,7 +12,8 @@ public class GameWorldCreator : GameWorldFactory
         var gameEvents = new List<IGameEvent>
         {
             new ParticleSpawner(repo),
-            new EnemySpawner(repo)
+            new EnemySpawner(repo),
+            new WaveEvent(repo)
         }; 
         return new GameWorld(repo,new GameCamera(),gameEvents);
     }
