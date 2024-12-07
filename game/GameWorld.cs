@@ -40,12 +40,6 @@ public sealed class GameWorld :IGameState, IGameWorld
         GameCamera.TargetObject(GameObjectRepository.Player);
     }
 
-    private void CheckIsGameOver(){
-        if(!GameObjectRepository.Player.IsAlive){
-            //gameState.CurrentGameState = GameStateEnum.GameOver; 
-        }
-    }
-
     public void Draw()
     {
         GameCamera.SetCamera();

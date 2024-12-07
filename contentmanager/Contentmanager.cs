@@ -28,7 +28,7 @@ public  class Contentmanager {
         TexturesForTypes.Add(new Tuple<Type, int>(typeof(Enemy),3),Raylib.LoadTexture("sprites/enemy3.png"));
         TexturesForTypes.Add(new Tuple<Type, int>(typeof(Bullet),1),Raylib.LoadTexture("sprites/bullet2.png"));
         TexturesForTypes.Add(new Tuple<Type, int>(typeof(Star),1),Raylib.LoadTexture("sprites/star.png"));
-          TexturesForTypes.Add(new Tuple<Type, int>(typeof(Star),2),Raylib.LoadTexture("sprites/star2.png"));
+        TexturesForTypes.Add(new Tuple<Type, int>(typeof(Star),2),Raylib.LoadTexture("sprites/star2.png"));
     
     }
 }
