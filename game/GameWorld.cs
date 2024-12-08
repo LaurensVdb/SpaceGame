@@ -49,7 +49,12 @@ public sealed class GameWorld :IGameState, IGameWorld
         GameObjectRepository.Player.Draw();
         Raylib.EndMode2D();
         GameObjectRepository.Player.DrawInfo();
-        Raylib.DrawText($"Wave {GameObjectRepository.CurrentWave}", 20, 80, 20, Color.Gold);
+
+        foreach(var gameEvents in GameEvents)
+        {
+            gameEvents.Draw();
+        }
+  
         /*foreach(var entities in GameObjectRepository.Entities){
             if(entities is Star)entities.Draw();
         }*/
@@ -70,7 +75,7 @@ public sealed class GameWorld :IGameState, IGameWorld
         }
 
         CollisionCheck();
-        //CheckWave();
+  
 
         var gameEntities = GameObjectRepository.Entities.ToList();
         foreach (var entity in gameEntities)
@@ -98,14 +103,6 @@ public sealed class GameWorld :IGameState, IGameWorld
         StickCameraToplayer();
     }
 
-
-    private void CheckWave()
-    {
-        if (GameObjectRepository.Player.KillCount >= (10 * GameObjectRepository.CurrentWave))
-        {
-             GameObjectRepository.CurrentWave += 1;
-        }
-    }
     private void CollisionCheck()
     {
 

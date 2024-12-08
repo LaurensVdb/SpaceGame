@@ -15,4 +15,6 @@ public abstract class GameEvent : IGameEvent
     public abstract void PauseEvent();
 
     public abstract void StartEvent();
+
+    public virtual void Draw() { }
 }

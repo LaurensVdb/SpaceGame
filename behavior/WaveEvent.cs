@@ -1,4 +1,5 @@
 ﻿using GameObjects.repositories;
+using Raylib_cs;
 
 namespace Bevahior
 {
@@ -31,6 +32,15 @@ namespace Bevahior
                 timer.Reset();
               
                 timer.Start();
+            }
+        }
+
+        public override void Draw()
+        {
+            if (timer.IsRunning)
+            {
+                var elapsedTime = (standardWaveLength - timer.ElapsedMilliseconds)/1000;
+                Raylib.DrawText($"Current wave: {gameObjectRepository.CurrentWave} duration:{elapsedTime}", 20, 80, 20, Color.Gold);
             }
         }
     }
