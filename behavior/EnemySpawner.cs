@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using bevahior;
 using Contentmanagement;
 using GameObjects.objects;
 using GameObjects.repositories;
@@ -19,16 +17,6 @@ public class EnemySpawner:GameEvent{
         enemyBuilder = new EnemyBuilder();
      
         this.gameObjectRepository = gameObjectRepository;
-    }
-
-    public override void EndEvent()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void PauseEvent()
-    {
-        throw new NotImplementedException();
     }
 
     public  override void StartEvent(){
@@ -69,28 +57,28 @@ public class EnemySpawner:GameEvent{
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),1)]);
                         enemyBuilder.SetSpeed(2f);
                         enemyBuilder.SetHitpoints(1);  
-                         gameObjectRepository.Entities.Add(enemyBuilder.GetItem());
+                         gameObjectRepository.AddEntity(enemyBuilder.GetItem());
                     break;
                     case 2:
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),2)]);
                         enemyBuilder.SetSpeed(2.5f);
                         enemyBuilder.SetHitpoints(2);  
                         enemyBuilder.CanShoot(true);
-                         gameObjectRepository.Entities.Add(enemyBuilder.GetItem());
+                         gameObjectRepository.AddEntity(enemyBuilder.GetItem());
                       
                     break;
                     case 3:
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)]);
                         enemyBuilder.SetSpeed(4f);
                         enemyBuilder.SetHitpoints(2); 
-                        gameObjectRepository.Entities.Add(enemyBuilder.GetItem());
+                        gameObjectRepository.AddEntity(enemyBuilder.GetItem());
                     break;
                     case 4:
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)]);
                         enemyBuilder.SetSpeed(4f);
                         enemyBuilder.SetHitpoints(2); 
-                        enemyBuilder.CanShoot(true); 
-                      
+                        enemyBuilder.CanShoot(true);
+                        gameObjectRepository.AddEntity(enemyBuilder.GetItem());
                     break;
                 }    
 

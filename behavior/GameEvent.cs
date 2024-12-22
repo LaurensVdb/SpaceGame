@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace bevahior;
+namespace Bevahior;
 
 public abstract class GameEvent : IGameEvent
 {
@@ -10,9 +10,8 @@ public abstract class GameEvent : IGameEvent
         timer = new Stopwatch();
     }
 
-    public abstract void EndEvent();
-
-    public abstract void PauseEvent();
 
     public abstract void StartEvent();
+
+    public virtual void Draw() { }
 }

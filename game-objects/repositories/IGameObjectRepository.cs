@@ -9,6 +9,7 @@ public interface IGameObjectRepository{
     IGameEntity Player{get;set;}
     void SetPlayer(IGameEntity player);
 
-    int CurrentWave{get;set;}
-    
+    int TotalEnemiesSpawned { get; set; }
+    int CurrentWave { get; set; }
+
 }

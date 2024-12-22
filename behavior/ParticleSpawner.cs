@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using bevahior;
 using Contentmanagement;
 using GameObjects.objects;
 using GameObjects.repositories;
@@ -13,16 +11,6 @@ public class ParticleSpawner: GameEvent{
     public ParticleSpawner(IGameObjectRepository gameObjectRepository)
     {
        this.gameObjectRepository=gameObjectRepository;
-    }
-
-    public override void EndEvent()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void PauseEvent()
-    {
-        throw new NotImplementedException();
     }
 
     public override void StartEvent()

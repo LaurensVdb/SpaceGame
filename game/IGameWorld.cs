@@ -1,7 +1,5 @@
-using bevahior;
 using Bevahior;
 using Camera;
-using GameObjects.factories;
 using GameObjects.repositories;
 
 namespace Game;

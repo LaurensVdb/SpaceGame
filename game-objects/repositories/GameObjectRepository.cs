@@ -2,8 +2,9 @@ using GameObjects.objects;
 
 namespace GameObjects.repositories;
 public sealed class GameObjectRepository:IGameObjectRepository{
- 
 
+
+    public int TotalEnemiesSpawned { get; set; }
     public List<IGameEntity> Entities { get; set; } = new();
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public IGameEntity Player { get; set; }
@@ -17,6 +18,11 @@ public sealed class GameObjectRepository:IGameObjectRepository{
     }
     public void AddEntity(IGameEntity entity){
         Entities.Add(entity);
+        if (entity.GetType() == typeof(Enemy))
+        {
+            TotalEnemiesSpawned++;
+        }
+     
     }
 
     public void RemoveEntity(IGameEntity entity){
