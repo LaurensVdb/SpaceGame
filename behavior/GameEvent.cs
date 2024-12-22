@@ -10,9 +10,6 @@ public abstract class GameEvent : IGameEvent
         timer = new Stopwatch();
     }
 
-    public abstract void EndEvent();
-
-    public abstract void PauseEvent();
 
     public abstract void StartEvent();
 

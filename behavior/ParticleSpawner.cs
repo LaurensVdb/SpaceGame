@@ -13,16 +13,6 @@ public class ParticleSpawner: GameEvent{
        this.gameObjectRepository=gameObjectRepository;
     }
 
-    public override void EndEvent()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void PauseEvent()
-    {
-        throw new NotImplementedException();
-    }
-
     public override void StartEvent()
     {
         var screenWidth = Raylib.GetScreenWidth(); 
