@@ -11,9 +11,10 @@ public class Player :BaseGameEntity{
 
     public Player(float x, float y,float movementSpeed,int hitPoints,Texture2D texture2D) : base(x,y,movementSpeed,hitPoints,texture2D)
     {
-     
+        ProtectectionLevel = 0;
     }
 
+    public override Rectangle CollisionRectangle => new Rectangle(X -(Widht/2), Y-(Height/2), Widht, Height);
     public override void Move(int targetX,int targetY){
 
         var mousePosition = Raylib.GetMousePosition();
@@ -38,7 +39,7 @@ public class Player :BaseGameEntity{
         if (Raylib.IsMouseButtonDown(MouseButton.Left)){
             //schiet
             if(shootTimer.ElapsedMilliseconds>50){
-                var rotatepoint = RotatePoint(new Vector2(X +Widht/2 ,Y +Height/2 ),new Vector2(X,Y),Rotation);
+                var rotatepoint = RotatePoint(new Vector2(X ,Y ), new Vector2(X, Y), Rotation);
                 gameObjectRepository.AddEntity(new Bullet(rotatepoint.X,rotatepoint.Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)],10f,0,Rotation));
                 shootTimer.Reset();
             }
@@ -60,9 +61,15 @@ public class Player :BaseGameEntity{
     }
 
     public override void Draw(){
-        
-        Raylib.DrawTextureEx(Texture,new Vector2(X,Y),Rotation,1f,Color.White);
 
+        //Raylib.DrawTextureEx(Texture,new Vector2(X,Y),Rotation,1f,Color.White);
+        if (ProtectectionLevel > 0)
+        {
+            Raylib.DrawCircleLines((int)X, (int)Y, 50, Color.Yellow);
+        }
+      
+
+        Raylib.DrawTexturePro(Texture, new Rectangle(0,0,Widht,Height),new Rectangle(X,Y,Widht,Height), new Vector2(Widht / 2, Height / 2),Rotation,Color.White);
         //var pos =RotatePoint(new Vector2(X +Widht/2 ,Y +Height/2 ),new Vector2(X,Y),Rotation);
         /* var pos = new Vector2
         {
@@ -79,12 +86,13 @@ public class Player :BaseGameEntity{
 
     public override void DrawInfo(){
         
-          Raylib.DrawText("Hitpoints",20, 20, 20, Color.Gold);
-          for(var hp=0;hp<HitPoints;hp++){
-            Raylib.DrawRectangle(120+(hp*20),20,10,20,Color.Gold);
-          }
-           Raylib.DrawText($"Kill count {KillCount}",20, 120, 20, Color.Gold);
-           Raylib.DrawText(Raylib.GetFPS().ToString(), 500,30,10,Color.Gold);
+        Raylib.DrawText($"Life energy: {HitPoints}", 20, 20, 20, Color.Gold);
+       
+        Raylib.DrawText($"Shield energy: {ProtectectionLevel}", 20, 40, 20, Color.Gold);
+
+
+        Raylib.DrawText($"Enemies killed {KillCount}",20, 60, 20, Color.Gold);
+      
     }
 
 

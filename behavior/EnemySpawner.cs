@@ -8,11 +8,11 @@ namespace Bevahior;
 public class EnemySpawner:GameEvent{
 
     private EnemyBuilder enemyBuilder;
-    private int maxElapsedMilliseconds=500;
+ 
 
 
     private IGameObjectRepository gameObjectRepository;
-    public EnemySpawner(IGameObjectRepository gameObjectRepository)
+    public EnemySpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
     {
         enemyBuilder = new EnemyBuilder();
      
@@ -24,7 +24,7 @@ public class EnemySpawner:GameEvent{
         var screenHeight = Raylib.GetScreenHeight(); 
     
         timer.Start();
-        if(timer.ElapsedMilliseconds>=maxElapsedMilliseconds) {
+        if(timer.ElapsedMilliseconds>=MaxElapsedMilliseconds) {
                 timer.Reset(); 
                 Random rnd = new Random();
              

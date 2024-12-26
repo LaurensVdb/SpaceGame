@@ -6,6 +6,8 @@ using Raylib_cs;
 using GameObjects.objects;
 using GameObjects.factories;
 using GameMenuBevahior;
+using Asteroid_game.game_objects.objects;
+using System;
 namespace Game;
 
 public sealed class GameWorld :IGameState, IGameWorld
@@ -108,6 +110,8 @@ public sealed class GameWorld :IGameState, IGameWorld
 
         var bullets = GameObjectRepository.Entities.Where(p => p is Bullet).ToList();
         var enemies = GameObjectRepository.Entities.Where(p => p is Enemy).ToList();
+        var gameItems = GameObjectRepository.Entities.Where(p => p is IGameItem).ToList();
+
 
         foreach (Bullet bullet in bullets)
         {
@@ -119,10 +123,10 @@ public sealed class GameWorld :IGameState, IGameWorld
                     var iscollsion = bullet.IsCollision(enemy);
                     if (iscollsion)
                     {
-                        GameObjectRepository.Entities.Remove(bullet);
+                        GameObjectRepository.RemoveEntity(bullet);
                         if (!enemy.IsAlive)
                         {
-                            GameObjectRepository.Entities.Remove(enemy);
+                            GameObjectRepository.RemoveEntity(enemy);
                             //increase killcount. this affects the wave system!
                             GameObjectRepository.Player.KillCount += 1;
 
@@ -135,13 +139,13 @@ public sealed class GameWorld :IGameState, IGameWorld
                     var iscollsion = bullet.IsCollision(GameObjectRepository.Player);
                     if (iscollsion)
                     {
-                        GameObjectRepository.Entities.Remove(bullet);
+                        GameObjectRepository.RemoveEntity(bullet);
                         if (!enemy.IsAlive)
                         {
-                            GameObjectRepository.Entities.Remove(enemy);
+                            GameObjectRepository.RemoveEntity(enemy);
                             if (!enemy.IsAlive)
                             {
-                                GameObjectRepository.Entities.Remove(enemy);
+                                GameObjectRepository.RemoveEntity(enemy);
                                 //increase killcount. this affects the wave system!
                                 GameObjectRepository.Player.KillCount += 1;
 
@@ -167,8 +171,18 @@ public sealed class GameWorld :IGameState, IGameWorld
                 entity.IsCollision(checkEntity);
             }
 
-            entity.IsCollision(GameObjectRepository.Player);
+            var iscollision = entity.IsCollision(GameObjectRepository.Player);
+            if (iscollision)
+            {
+                GameObjectRepository.RemoveEntity(entity);
+            }
+    
 
+        }
+
+        foreach(IGameItem item in gameItems)
+        {
+            item.InteractWithPlayer(GameObjectRepository.Player);        
         }
     }
 

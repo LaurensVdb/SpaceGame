@@ -32,4 +32,5 @@ public interface IGameEntity{
     void Shoot(IGameObjectRepository gameObjectRepository);
 
     void TakeDamage(int damagePoints);
+    int ProtectectionLevel { get; set; }
 }

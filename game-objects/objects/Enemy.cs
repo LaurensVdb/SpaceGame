@@ -13,7 +13,7 @@ public class Enemy : BaseGameEntity
 
     private Stopwatch timer;
 
-    public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
+    //public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
 
     public Enemy(float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false) : base(x, y, movementSpeed, hitPoints, texture2D, canShoot)
     {
@@ -111,8 +111,10 @@ public class Enemy : BaseGameEntity
                 }
             case Player i:
                 {
-                    if (isCollision && IsAlive)
+                    if (isCollision && IsAlive )
                     {
+                        
+                        i.KillCount++;
                         i.TakeDamage(1);
                         IsAlive = false;
                     }
