@@ -22,9 +22,10 @@ public class EnemyBuilder : IGameObjectBuilder
     public void Reset(){ 
         this.enemy =new Enemy(x,y,movementSpeed,hitPoints,texture,canshoot);
     }
-    public void CanShoot(bool canshoot)
+    public void CanShoot(int shootingTime)
     {
-       enemy.CanShoot = canshoot;
+       enemy.CanShoot = true;
+       enemy.MaxElapsedMillisecondsShootingTime = shootingTime;
     }
 
     public void SetHitpoints(int hitPoints)

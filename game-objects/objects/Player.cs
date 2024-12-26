@@ -12,6 +12,7 @@ public class Player :BaseGameEntity{
     public Player(float x, float y,float movementSpeed,int hitPoints,Texture2D texture2D) : base(x,y,movementSpeed,hitPoints,texture2D)
     {
         ProtectectionLevel = 0;
+        MaxElapsedMillisecondsShootingTime = 100;
     }
 
     public override Rectangle CollisionRectangle => new Rectangle(X -(Widht/2), Y-(Height/2), Widht, Height);
@@ -38,7 +39,8 @@ public class Player :BaseGameEntity{
     
         if (Raylib.IsMouseButtonDown(MouseButton.Left)){
             //schiet
-            if(shootTimer.ElapsedMilliseconds>50){
+            if(shootTimer.ElapsedMilliseconds> MaxElapsedMillisecondsShootingTime)
+            {
                 var rotatepoint = RotatePoint(new Vector2(X ,Y ), new Vector2(X, Y), Rotation);
                 gameObjectRepository.AddEntity(new Bullet(rotatepoint.X,rotatepoint.Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)],10f,0,Rotation));
                 shootTimer.Reset();

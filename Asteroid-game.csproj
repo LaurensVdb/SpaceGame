@@ -16,6 +16,9 @@
     <None Update="sprites\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="sprites\bullet-item.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="sprites\bullet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

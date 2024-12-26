@@ -20,6 +20,8 @@ public class Enemy : BaseGameEntity
 
         timer = new Stopwatch();
         timer.Start();
+        if (canShoot)
+            MaxElapsedMillisecondsShootingTime = 2000;
     }
     public override void Draw()
     {
@@ -66,7 +68,7 @@ public class Enemy : BaseGameEntity
         var deltaX = gameObjectRepository.Player.X - X;
         var deltaY = gameObjectRepository.Player.Y - Y;
         var playerrotation = MathF.Atan2(deltaY, deltaX) * (180f / MathF.PI) + 90;
-        if (timer.ElapsedMilliseconds >= 2000)
+        if (timer.ElapsedMilliseconds >= MaxElapsedMillisecondsShootingTime)
         {
             timer.Reset();
             gameObjectRepository.AddEntity(new Bullet(X, Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)] , 10f, 0, playerrotation, true));

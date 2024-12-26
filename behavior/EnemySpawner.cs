@@ -63,7 +63,7 @@ public class EnemySpawner:GameEvent{
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),2)]);
                         enemyBuilder.SetSpeed(2.5f);
                         enemyBuilder.SetHitpoints(2);  
-                        enemyBuilder.CanShoot(true);
+                        enemyBuilder.CanShoot(2000);
                          gameObjectRepository.AddEntity(enemyBuilder.GetItem());
                       
                     break;
@@ -77,7 +77,7 @@ public class EnemySpawner:GameEvent{
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)]);
                         enemyBuilder.SetSpeed(4f);
                         enemyBuilder.SetHitpoints(2); 
-                        enemyBuilder.CanShoot(true);
+                        enemyBuilder.CanShoot(2000);
                         gameObjectRepository.AddEntity(enemyBuilder.GetItem());
                     break;
                 }    

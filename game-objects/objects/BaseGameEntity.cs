@@ -81,6 +81,10 @@ public abstract class BaseGameEntity : IGameEntity{
 
     public int ProtectectionLevel { get; set; }
 
+    public int ShootingTime { get; set; }
+    public int MaxElapsedMillisecondsShootingTime { get; set; }
+
+
     public virtual bool IsCollision(IGameEntity entityCollisionCheck){
 
         return Raylib.CheckCollisionRecs(CollisionRectangle,entityCollisionCheck.CollisionRectangle);
