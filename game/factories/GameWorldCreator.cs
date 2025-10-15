@@ -1,3 +1,4 @@
+using Asteroid_game.behavior;
 using Bevahior;
 using Camera;
 using Game;
@@ -11,9 +12,11 @@ public class GameWorldCreator : GameWorldFactory
         var repo=new GameObjectRepository();
         var gameEvents = new List<IGameEvent>
         {
-            new ParticleSpawner(repo),
-            //new EnemySpawner(repo),
-            new WaveEvent(repo)
+            new ParticleSpawner(repo,200),
+            new PlayerItemSpawner(repo,10000),
+            new WaveEvent(repo,10000), 
+            new ShieldItemSpawner(repo,20000),
+            new BulletSpeedItemSpawner(repo,21000)
         }; 
         return new GameWorld(repo,new GameCamera(),gameEvents);
     }

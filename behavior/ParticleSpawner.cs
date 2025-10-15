@@ -8,7 +8,7 @@ namespace Bevahior;
 public class ParticleSpawner: GameEvent{
   
     private IGameObjectRepository gameObjectRepository;
-    public ParticleSpawner(IGameObjectRepository gameObjectRepository)
+    public ParticleSpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
     {
        this.gameObjectRepository=gameObjectRepository;
     }
@@ -18,7 +18,7 @@ public class ParticleSpawner: GameEvent{
         var screenWidth = Raylib.GetScreenWidth(); 
         var screenHeight = Raylib.GetScreenHeight(); 
         timer.Start();
-        if(timer.ElapsedMilliseconds>=200) {
+        if(timer.ElapsedMilliseconds>=MaxElapsedMilliseconds) {
                   timer.Reset(); 
                   Random rnd = new Random();
                   gameObjectRepository.Entities.Add( new Star(

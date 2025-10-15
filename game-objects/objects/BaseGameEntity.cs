@@ -45,21 +45,21 @@ public abstract class BaseGameEntity : IGameEntity{
     public int HitPointsAtStart { get{return hitpointsAtStart;} }
     public Texture2D Texture { get; set; }
     public bool IsMoving { get; set; }
-    //protected virtual Rectangle CollisionRectangle => new Rectangle(X,Y,Widht,Height);
+    public virtual Rectangle CollisionRectangle => new Rectangle(X,Y,Widht,Height);
 
-    public virtual Rectangle CollisionRectangle {
-        get {
-                float angleInRadians = Rotation * (MathF.PI / 180);
-                float cosTheta = MathF.Cos(angleInRadians);
-                float sinTheta = MathF.Sin(angleInRadians);
-                var pos = new Vector2
-                {
-                    X = (X+(Widht/2) - X) * cosTheta -  (Y+(Height/2) - Y) * sinTheta +(X - (Widht/2)),
-                    Y = (Y+(Height/2) - Y) * sinTheta +(X+(Widht/2) - X) * cosTheta +(Y -(Height/2))
-                }; 
-            return new Rectangle(pos.X,pos.Y,Widht,Height);
-        }
-    }
+    //public virtual Rectangle CollisionRectangle {
+    //    get {
+    //            float angleInRadians = Rotation * (MathF.PI / 180);
+    //            float cosTheta = MathF.Cos(angleInRadians);
+    //            float sinTheta = MathF.Sin(angleInRadians);
+    //            var pos = new Vector2
+    //            {
+    //                X = (X+(Widht/2) - X) * cosTheta -  (Y+(Height/2) - Y) * sinTheta +(X - (Widht/2)),
+    //                Y = (Y+(Height/2) - Y) * sinTheta +(X+(Widht/2) - X) * cosTheta +(Y -(Height/2))
+    //            }; 
+    //        return new Rectangle(pos.X,pos.Y,Widht,Height);
+    //    }
+    //}
     public float MovementSpeed { get; set; }
     public int Widht { get; set; }
     public int Height { get; set; }
@@ -79,6 +79,10 @@ public abstract class BaseGameEntity : IGameEntity{
     public bool CanShoot { get; set; }
     public bool IsShooting  { get; set; }
 
+    public int ProtectectionLevel { get; set; }
+
+    public int ShootingTime { get; set; }
+    public int MaxElapsedMillisecondsShootingTime { get; set; }
 
 
     public virtual bool IsCollision(IGameEntity entityCollisionCheck){
@@ -89,7 +93,16 @@ public abstract class BaseGameEntity : IGameEntity{
     public virtual void Shoot(IGameObjectRepository gameObjectRepository){}
 
     public virtual void TakeDamage(int damagePoints){
-        HitPoints-=damagePoints; 
+
+        if(ProtectectionLevel<=0)
+        {
+            HitPoints -= damagePoints;
+        }
+        else
+        {
+            ProtectectionLevel--;
+        }
+      
         if(HitPoints<=0){
             IsAlive=false;
         }

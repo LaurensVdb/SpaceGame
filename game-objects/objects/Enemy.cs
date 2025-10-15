@@ -13,13 +13,15 @@ public class Enemy : BaseGameEntity
 
     private Stopwatch timer;
 
-    public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
+    //public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
 
     public Enemy(float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false) : base(x, y, movementSpeed, hitPoints, texture2D, canShoot)
     {
 
         timer = new Stopwatch();
         timer.Start();
+        if (canShoot)
+            MaxElapsedMillisecondsShootingTime = 2000;
     }
     public override void Draw()
     {
@@ -66,7 +68,7 @@ public class Enemy : BaseGameEntity
         var deltaX = gameObjectRepository.Player.X - X;
         var deltaY = gameObjectRepository.Player.Y - Y;
         var playerrotation = MathF.Atan2(deltaY, deltaX) * (180f / MathF.PI) + 90;
-        if (timer.ElapsedMilliseconds >= 2000)
+        if (timer.ElapsedMilliseconds >= MaxElapsedMillisecondsShootingTime)
         {
             timer.Reset();
             gameObjectRepository.AddEntity(new Bullet(X, Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)] , 10f, 0, playerrotation, true));
@@ -111,8 +113,10 @@ public class Enemy : BaseGameEntity
                 }
             case Player i:
                 {
-                    if (isCollision && IsAlive)
+                    if (isCollision && IsAlive )
                     {
+                        
+                        i.KillCount++;
                         i.TakeDamage(1);
                         IsAlive = false;
                     }

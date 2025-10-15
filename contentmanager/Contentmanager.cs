@@ -1,3 +1,4 @@
+using Asteroid_game.game_objects.objects;
 using GameObjects.objects;
 using Raylib_cs;
 
@@ -29,6 +30,9 @@ public  class Contentmanager {
         TexturesForTypes.Add(new Tuple<Type, int>(typeof(Bullet),1),Raylib.LoadTexture("sprites/bullet2.png"));
         TexturesForTypes.Add(new Tuple<Type, int>(typeof(Star),1),Raylib.LoadTexture("sprites/star.png"));
         TexturesForTypes.Add(new Tuple<Type, int>(typeof(Star),2),Raylib.LoadTexture("sprites/star2.png"));
-    
+        TexturesForTypes.Add(new Tuple<Type, int>(typeof(HealthItem), 1), Raylib.LoadTexture("sprites/heart.png"));
+        TexturesForTypes.Add(new Tuple<Type, int>(typeof(ShieldItem), 1), Raylib.LoadTexture("sprites/shield.png"));
+        TexturesForTypes.Add(new Tuple<Type, int>(typeof(BulletSpeedItem), 1), Raylib.LoadTexture("sprites/bullet-item.png"));
+
     }
 }

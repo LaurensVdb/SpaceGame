@@ -5,7 +5,7 @@ namespace Bevahior
 {
     public class WaveEvent : GameEvent
     {
-        private int maxElapsedMillisecondsPause = 15000;
+  
         private IGameObjectRepository gameObjectRepository;
      
         EnemySpawner spawner;
@@ -15,10 +15,10 @@ namespace Bevahior
         private bool currentWaveIsActive = true;
 
         bool isRunning => maxEnemies > gameObjectRepository.TotalEnemiesSpawned;
-        public WaveEvent(IGameObjectRepository gameObjectRepository)
+        public WaveEvent(IGameObjectRepository gameObjectRepository, int maxElapsedMillisecondsPause) : base(maxElapsedMillisecondsPause)
         {
             this.gameObjectRepository = gameObjectRepository;
-            spawner = new EnemySpawner(gameObjectRepository);
+            spawner = new EnemySpawner(gameObjectRepository,500);
             currentWaveIsActive = true;
             gameObjectRepository.CurrentWave = 1;
         }
@@ -44,7 +44,7 @@ namespace Bevahior
             {
                 timer.Start();
 
-                if(timer.ElapsedMilliseconds >= maxElapsedMillisecondsPause)
+                if(timer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
                 {
                     currentWaveIsActive = true;
                     gameObjectRepository.CurrentWave++;
@@ -63,13 +63,13 @@ namespace Bevahior
         {
             if (currentWaveIsActive)
             {
-                Raylib.DrawText($"Current wave: {gameObjectRepository.CurrentWave}", 20, 80, 20, Color.Gold);
+                Raylib.DrawText($"Current wave: {gameObjectRepository.CurrentWave}", 20, 100, 20, Color.Gold);
 
             }
             else
             {
-                var elapsedTime = (maxElapsedMillisecondsPause - timer.ElapsedMilliseconds) / 1000;
-                Raylib.DrawText($"pause: {elapsedTime}", 20, 80, 20, Color.Gold);
+                var elapsedTime = (MaxElapsedMilliseconds - timer.ElapsedMilliseconds) / 1000;
+                Raylib.DrawText($"pause: {elapsedTime}", 20, 100, 20, Color.Gold);
             }
          
              

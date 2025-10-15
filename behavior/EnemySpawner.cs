@@ -8,11 +8,11 @@ namespace Bevahior;
 public class EnemySpawner:GameEvent{
 
     private EnemyBuilder enemyBuilder;
-    private int maxElapsedMilliseconds=500;
+ 
 
 
     private IGameObjectRepository gameObjectRepository;
-    public EnemySpawner(IGameObjectRepository gameObjectRepository)
+    public EnemySpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
     {
         enemyBuilder = new EnemyBuilder();
      
@@ -24,7 +24,7 @@ public class EnemySpawner:GameEvent{
         var screenHeight = Raylib.GetScreenHeight(); 
     
         timer.Start();
-        if(timer.ElapsedMilliseconds>=maxElapsedMilliseconds) {
+        if(timer.ElapsedMilliseconds>=MaxElapsedMilliseconds) {
                 timer.Reset(); 
                 Random rnd = new Random();
              
@@ -63,7 +63,7 @@ public class EnemySpawner:GameEvent{
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),2)]);
                         enemyBuilder.SetSpeed(2.5f);
                         enemyBuilder.SetHitpoints(2);  
-                        enemyBuilder.CanShoot(true);
+                        enemyBuilder.CanShoot(2000);
                          gameObjectRepository.AddEntity(enemyBuilder.GetItem());
                       
                     break;
@@ -77,7 +77,7 @@ public class EnemySpawner:GameEvent{
                         enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy),3)]);
                         enemyBuilder.SetSpeed(4f);
                         enemyBuilder.SetHitpoints(2); 
-                        enemyBuilder.CanShoot(true);
+                        enemyBuilder.CanShoot(2000);
                         gameObjectRepository.AddEntity(enemyBuilder.GetItem());
                     break;
                 }    

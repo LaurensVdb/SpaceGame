@@ -5,7 +5,7 @@ namespace GameObjects.repositories;
 public interface IGameObjectRepository{
     void AddEntity(IGameEntity entity);
     void RemoveEntity(IGameEntity entity);
-    List<IGameEntity> Entities { get; set; }
+    List<IGameEntity> Entities { get; }
     IGameEntity Player{get;set;}
     void SetPlayer(IGameEntity player);
 

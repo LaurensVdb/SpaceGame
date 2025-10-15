@@ -5,13 +5,18 @@ public sealed class GameObjectRepository:IGameObjectRepository{
 
 
     public int TotalEnemiesSpawned { get; set; }
-    public List<IGameEntity> Entities { get; set; } = new();
+
+    private List<IGameEntity> gameEntities;
+    public List<IGameEntity> Entities => gameEntities;
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public IGameEntity Player { get; set; }
     public int CurrentWave { get ; set ; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
-
+    public GameObjectRepository()
+    {
+        gameEntities = new List<IGameEntity>();
+    }
 
     public void SetPlayer(IGameEntity player){
         Player = player;

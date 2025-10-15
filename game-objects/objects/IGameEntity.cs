@@ -27,9 +27,12 @@ public interface IGameEntity{
     float Rotation { get; set; }
     bool CanShoot { get; set; }
     bool IsShooting  { get; set; }
+
+    int MaxElapsedMillisecondsShootingTime { get; set; }
     bool IsCollision(IGameEntity entityCollisionCheck); 
     
     void Shoot(IGameObjectRepository gameObjectRepository);
 
     void TakeDamage(int damagePoints);
+    int ProtectectionLevel { get; set; }
 }
