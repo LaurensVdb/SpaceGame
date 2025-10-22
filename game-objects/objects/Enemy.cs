@@ -1,8 +1,8 @@
+using Contentmanagement;
+using GameObjects.repositories;
+using Raylib_cs;
 using System.Diagnostics;
 using System.Numerics;
-using Raylib_cs;
-using GameObjects.repositories;
-using Contentmanagement;
 
 namespace GameObjects.objects;
 
@@ -71,62 +71,10 @@ public class Enemy : BaseGameEntity
         if (timer.ElapsedMilliseconds >= MaxElapsedMillisecondsShootingTime)
         {
             timer.Reset();
-            gameObjectRepository.AddEntity(new Bullet(X, Y,Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)] , 10f, 0, playerrotation, true));
+            gameObjectRepository.AddEntity(new Bullet(X, Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)], 10f, 0, playerrotation, true));
             timer.Start();
         }
 
     }
-
-    public override bool IsCollision(IGameEntity entityCollisionCheck)
-    {
-        var isCollision = base.IsCollision(entityCollisionCheck);
-        switch (entityCollisionCheck)
-        {
-
-
-            case Enemy i:
-                {
-                    if (isCollision)
-                    {
-                        if (X <= entityCollisionCheck.X)
-                        {
-                            X -= MovementSpeed;
-                            entityCollisionCheck.X += MovementSpeed;
-                        }
-                        if (X >= entityCollisionCheck.X)
-                        {
-                            X += MovementSpeed;
-                            entityCollisionCheck.X -= MovementSpeed;
-                        }
-                        if (Y <= entityCollisionCheck.Y)
-                        {
-                            Y -= MovementSpeed;
-                            entityCollisionCheck.Y += MovementSpeed;
-                        }
-                        if (Y >= entityCollisionCheck.Y)
-                        {
-                            Y += MovementSpeed;
-                            entityCollisionCheck.Y -= MovementSpeed;
-                        }
-                    }
-                    break;
-                }
-            case Player i:
-                {
-                    if (isCollision && IsAlive )
-                    {
-                        
-                        i.KillCount++;
-                        i.TakeDamage(1);
-                        IsAlive = false;
-                    }
-                    break;
-                }
-        }
-
-        return isCollision;
-    }
-
-
 
 }

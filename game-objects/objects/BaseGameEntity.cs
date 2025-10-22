@@ -1,51 +1,52 @@
-using System.Numerics;
-using Raylib_cs;
 using GameObjects.repositories;
+using Raylib_cs;
 
 namespace GameObjects.objects;
 /* 
 Elk game object moet gebruik maken van de base game entity class
 */
-public abstract class BaseGameEntity : IGameEntity{
+public abstract class BaseGameEntity : IGameEntity
+{
 
- public BaseGameEntity(float x, float y,float movementSpeed,int hitPoints,Texture2D texture2D,bool canShoot=false)
+    public BaseGameEntity(float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false)
     {
-      
-        X=x;
-        Y=y;
-        MovementSpeed=movementSpeed;
-        HitPoints=hitPoints;
-        IsMoving=true;
+
+        X = x;
+        Y = y;
+        MovementSpeed = movementSpeed;
+        HitPoints = hitPoints;
+        IsMoving = true;
         Texture = texture2D;
         Widht = texture2D.Width;
-        Height =texture2D.Height;
-        IsAlive=true;
-        hitpointsAtStart= hitPoints;
+        Height = texture2D.Height;
+        IsAlive = true;
+        hitpointsAtStart = hitPoints;
         CanShoot = canShoot;
     }
 
     private int hitpointsAtStart;
-    public BaseGameEntity(float x, float y, int widht, int height,float movementSpeed,int hitPoints)
+    public BaseGameEntity(float x, float y, int widht, int height, float movementSpeed, int hitPoints)
     {
-        Widht = widht ; 
-        Height = height; 
-        X=x;
-        Y=y;
-        MovementSpeed=movementSpeed;
-        HitPoints=hitPoints;
-        IsMoving=true;
-        IsAlive=true;
-        hitpointsAtStart= hitPoints;
+        Widht = widht;
+        Height = height;
+        X = x;
+        Y = y;
+        MovementSpeed = movementSpeed;
+        HitPoints = hitPoints;
+        IsMoving = true;
+        IsAlive = true;
+        hitpointsAtStart = hitPoints;
     }
 
-    public virtual void SetHitPoints(int hitPoints){
+    public virtual void SetHitPoints(int hitPoints)
+    {
         HitPoints = hitPoints;
         hitpointsAtStart = hitPoints;
     }
-    public int HitPointsAtStart { get{return hitpointsAtStart;} }
+    public int HitPointsAtStart { get { return hitpointsAtStart; } }
     public Texture2D Texture { get; set; }
     public bool IsMoving { get; set; }
-    public virtual Rectangle CollisionRectangle => new Rectangle(X,Y,Widht,Height);
+    public virtual Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
 
     //public virtual Rectangle CollisionRectangle {
     //    get {
@@ -66,35 +67,30 @@ public abstract class BaseGameEntity : IGameEntity{
     public float X { get; set; }
     public float Y { get; set; }
     public bool IsAlive { get; set; }
-    
+
     public int HitPoints { get; set; }
     public int KillCount { get; set; }
 
-    public virtual void Move(){}
-    public virtual void Move(int targetX,int targetY){}
-    public abstract void Draw(); 
-    public virtual void DrawInfo(){}
-    
+    public virtual void Move() { }
+    public virtual void Move(int targetX, int targetY) { }
+    public abstract void Draw();
+    public virtual void DrawInfo() { }
+
     public float Rotation { get; set; }
     public bool CanShoot { get; set; }
-    public bool IsShooting  { get; set; }
+    public bool IsShooting { get; set; }
 
     public int ProtectectionLevel { get; set; }
 
     public int ShootingTime { get; set; }
     public int MaxElapsedMillisecondsShootingTime { get; set; }
 
+    public virtual void Shoot(IGameObjectRepository gameObjectRepository) { }
 
-    public virtual bool IsCollision(IGameEntity entityCollisionCheck){
+    public virtual void TakeDamage(int damagePoints)
+    {
 
-        return Raylib.CheckCollisionRecs(CollisionRectangle,entityCollisionCheck.CollisionRectangle);
-    } 
-    
-    public virtual void Shoot(IGameObjectRepository gameObjectRepository){}
-
-    public virtual void TakeDamage(int damagePoints){
-
-        if(ProtectectionLevel<=0)
+        if (ProtectectionLevel <= 0)
         {
             HitPoints -= damagePoints;
         }
@@ -102,9 +98,10 @@ public abstract class BaseGameEntity : IGameEntity{
         {
             ProtectectionLevel--;
         }
-      
-        if(HitPoints<=0){
-            IsAlive=false;
+
+        if (HitPoints <= 0)
+        {
+            IsAlive = false;
         }
     }
 

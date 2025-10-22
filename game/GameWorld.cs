@@ -1,38 +1,40 @@
+using Asteroid_game.behavior.collision;
 using Bevahior;
 using Camera;
+using GameMenuBevahior;
+using GameObjects.factories;
+using GameObjects.objects;
 using GameObjects.repositories;
 using GameStateBevahior;
 using Raylib_cs;
-using GameObjects.objects;
-using GameObjects.factories;
-using GameMenuBevahior;
-using Asteroid_game.game_objects.objects;
-using System;
 namespace Game;
 
-public sealed class GameWorld :IGameState, IGameWorld
+public sealed class GameWorld : IGameState, IGameWorld
 {
     public IGameObjectRepository GameObjectRepository { get; set; }
     public IGameCamera GameCamera { get; set; }
     private PlayerFactory playerFactory;
 
-    public int ScreenWidth {get{return Raylib.GetScreenWidth();}}
-    public int ScreenHeight {get{return Raylib.GetScreenHeight();}}
+    public int ScreenWidth { get { return Raylib.GetScreenWidth(); } }
+    public int ScreenHeight { get { return Raylib.GetScreenHeight(); } }
     public List<IGameEvent> GameEvents { get; set; }
 
-    public GameWorld(IGameObjectRepository gameObjectRepository,IGameCamera camera, List<IGameEvent> gameEvents)
+    private ICollisionDetectionService collisionDetectionService;
+
+    public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, List<IGameEvent> gameEvents)
     {
         this.GameObjectRepository = gameObjectRepository;
         this.GameCamera = camera;
-        this.GameEvents=gameEvents;       
-        playerFactory =new PlayerFactory();
+        this.GameEvents = gameEvents;
+        playerFactory = new PlayerFactory();
+        this.collisionDetectionService = collisionDetectionService;
         CreateCameraForPlayer();
 
     }
 
     private void CreateCameraForPlayer()
     {
-       
+
         GameObjectRepository.SetPlayer(playerFactory.FactoryMethod());
         GameCamera.CreateCamera(GameObjectRepository.Player, ScreenWidth, ScreenHeight);
     }
@@ -52,32 +54,31 @@ public sealed class GameWorld :IGameState, IGameWorld
         Raylib.EndMode2D();
         GameObjectRepository.Player.DrawInfo();
 
-        foreach(var gameEvents in GameEvents)
+        foreach (var gameEvents in GameEvents)
         {
             gameEvents.Draw();
         }
-  
-        /*foreach(var entities in GameObjectRepository.Entities){
-            if(entities is Star)entities.Draw();
-        }*/
     }
     public void Update(GameStateManager gameStateManager)
     {
-       if(!GameObjectRepository.Player.IsAlive){
+        if (!GameObjectRepository.Player.IsAlive)
+        {
             MenuFactory factory = new GameOverMenuCreator();
             gameStateManager.State = factory.Create();
         }
-        if(Raylib.IsKeyPressed(KeyboardKey.Escape)){
+        if (Raylib.IsKeyPressed(KeyboardKey.Escape))
+        {
             MenuFactory factory = new GameMenuCreator();
             gameStateManager.State = factory.Create();
         }
 
-        foreach(var events in GameEvents){
+        foreach (var events in GameEvents)
+        {
             events.StartEvent();
         }
 
-        CollisionCheck();
-  
+        collisionDetectionService.CollisionDetection();
+
 
         var gameEntities = GameObjectRepository.Entities.ToList();
         foreach (var entity in gameEntities)
@@ -103,87 +104,8 @@ public sealed class GameWorld :IGameState, IGameWorld
         GameObjectRepository.Player.Move((int)GameCamera.GetCamera2D().Offset.X, (int)GameCamera.GetCamera2D().Offset.Y);
         GameObjectRepository.Player.Shoot(GameObjectRepository);
         StickCameraToplayer();
-    }
 
-    private void CollisionCheck()
-    {
-
-        var bullets = GameObjectRepository.Entities.Where(p => p is Bullet).ToList();
-        var enemies = GameObjectRepository.Entities.Where(p => p is Enemy).ToList();
-        var gameItems = GameObjectRepository.Entities.Where(p => p is IGameItem).ToList();
-
-
-        foreach (Bullet bullet in bullets)
-        {
-            foreach (Enemy enemy in enemies)
-            {
-                //check if player bullet hits enemy    
-                if (!bullet.IsEnemy)
-                {
-                    var iscollsion = bullet.IsCollision(enemy);
-                    if (iscollsion)
-                    {
-                        GameObjectRepository.RemoveEntity(bullet);
-                        if (!enemy.IsAlive)
-                        {
-                            GameObjectRepository.RemoveEntity(enemy);
-                            //increase killcount. this affects the wave system!
-                            GameObjectRepository.Player.KillCount += 1;
-
-                        }
-                    }
-                }
-                else
-                {
-                    //enemy bullet hits player
-                    var iscollsion = bullet.IsCollision(GameObjectRepository.Player);
-                    if (iscollsion)
-                    {
-                        GameObjectRepository.RemoveEntity(bullet);
-                        if (!enemy.IsAlive)
-                        {
-                            GameObjectRepository.RemoveEntity(enemy);
-                            if (!enemy.IsAlive)
-                            {
-                                GameObjectRepository.RemoveEntity(enemy);
-                                //increase killcount. this affects the wave system!
-                                GameObjectRepository.Player.KillCount += 1;
-
-                            }
-
-                        }
-                    }
-                }
-            }
-           
-
-        }
-
-        foreach (var entity in enemies)
-        {
-            var checkObjects = enemies.Where(p => p is Enemy).ToList();
-            //we don't exclude the enemy.
-            checkObjects.Remove(entity);
-
-            //check if enemy is hitting an other an enemy
-            foreach (var checkEntity in checkObjects)
-            {
-                entity.IsCollision(checkEntity);
-            }
-
-            var iscollision = entity.IsCollision(GameObjectRepository.Player);
-            if (iscollision)
-            {
-                GameObjectRepository.RemoveEntity(entity);
-            }
-    
-
-        }
-
-        foreach(IGameItem item in gameItems)
-        {
-            item.InteractWithPlayer(GameObjectRepository.Player);        
-        }
+        GameObjectRepository.RemoveDeadEntities();
     }
 
 }

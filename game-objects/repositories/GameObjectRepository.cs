@@ -1,7 +1,8 @@
 using GameObjects.objects;
 
 namespace GameObjects.repositories;
-public sealed class GameObjectRepository:IGameObjectRepository{
+public sealed class GameObjectRepository : IGameObjectRepository
+{
 
 
     public int TotalEnemiesSpawned { get; set; }
@@ -10,7 +11,7 @@ public sealed class GameObjectRepository:IGameObjectRepository{
     public List<IGameEntity> Entities => gameEntities;
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public IGameEntity Player { get; set; }
-    public int CurrentWave { get ; set ; }
+    public int CurrentWave { get; set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     public GameObjectRepository()
@@ -18,22 +19,31 @@ public sealed class GameObjectRepository:IGameObjectRepository{
         gameEntities = new List<IGameEntity>();
     }
 
-    public void SetPlayer(IGameEntity player){
+    public void SetPlayer(IGameEntity player)
+    {
         Player = player;
     }
-    public void AddEntity(IGameEntity entity){
+    public void AddEntity(IGameEntity entity)
+    {
         Entities.Add(entity);
         if (entity.GetType() == typeof(Enemy))
         {
             TotalEnemiesSpawned++;
         }
-     
+
     }
 
-    public void RemoveEntity(IGameEntity entity){
+    public void RemoveEntity(IGameEntity entity)
+    {
         Entities.Remove(entity);
     }
 
-  
+    public void RemoveDeadEntities()
+    {
+        Player.KillCount += Entities.OfType<Enemy>().Count(e => !e.IsAlive);
+        Entities.RemoveAll(e => !e.IsAlive);
+    }
+
+
 
 }
