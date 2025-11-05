@@ -8,7 +8,7 @@ public interface IGameObjectRepository
     void RemoveEntity(IGameEntity entity);
     List<IGameEntity> Entities { get; }
     IGameEntity Player { get; set; }
-    void SetPlayer(IGameEntity player);
+    void CreatePlayer();
     void RemoveDeadEntities();
 
     int TotalEnemiesSpawned { get; set; }

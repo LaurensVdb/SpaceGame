@@ -1,3 +1,4 @@
+using GameObjects.factories;
 using GameObjects.objects;
 
 namespace GameObjects.repositories;
@@ -19,9 +20,10 @@ public sealed class GameObjectRepository : IGameObjectRepository
         gameEntities = new List<IGameEntity>();
     }
 
-    public void SetPlayer(IGameEntity player)
+    public void CreatePlayer()
     {
-        Player = player;
+        PlayerFactory playerFactory = new PlayerFactory();
+        Player = playerFactory.FactoryMethod();
     }
     public void AddEntity(IGameEntity entity)
     {

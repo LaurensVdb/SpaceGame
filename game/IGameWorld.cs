@@ -1,14 +1,7 @@
-using Bevahior;
-using Camera;
-using GameObjects.repositories;
-
 namespace Game;
 
-public interface IGameWorld{
-    IGameObjectRepository GameObjectRepository { get; set; }
-    IGameCamera GameCamera { get; set; }
-    List<IGameEvent> GameEvents{get;set;}
+public interface IGameWorld
+{
 
-    int ScreenWidth{get;}
-    int ScreenHeight{get;}
+
 }

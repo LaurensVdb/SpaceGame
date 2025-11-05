@@ -1,11 +1,12 @@
 using GameObjects.objects;
 using Raylib_cs;
-namespace Camera; 
+namespace Camera;
 
-public interface IGameCamera{
+public interface IGameCamera
+{
     float Zoom { get; set; }
-    float Rotation {get;set;}
-    void CreateCamera(IGameEntity gameObject,int screenWidth, int screenHeight);
+    float Rotation { get; set; }
+    void CreateCamera(IGameEntity gameObject);
     void TargetObject(IGameEntity gameObject);
     void SetCamera();
 

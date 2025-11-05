@@ -3,7 +3,6 @@ using Asteroid_game.behavior.movement;
 using Bevahior;
 using Camera;
 using GameMenuBevahior;
-using GameObjects.factories;
 using GameObjects.repositories;
 using GameStateBevahior;
 using Raylib_cs;
@@ -12,41 +11,31 @@ namespace Game;
 public sealed class GameWorld : IGameState, IGameWorld
 {
     public IGameObjectRepository GameObjectRepository { get; set; }
-    public IGameCamera GameCamera { get; set; }
-    private PlayerFactory playerFactory;
 
-    public int ScreenWidth { get { return Raylib.GetScreenWidth(); } }
-    public int ScreenHeight { get { return Raylib.GetScreenHeight(); } }
-    public List<IGameEvent> GameEvents { get; set; }
+
+    private readonly List<IGameEvent> _gameEvents;
 
     private readonly ICollisionDetectionService _collisionDetectionService;
     private readonly IMovementService _movementService;
+    private readonly IGameCamera _gameCamera;
     public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, IMovementService movementService, List<IGameEvent> gameEvents)
     {
         this.GameObjectRepository = gameObjectRepository;
-        this.GameCamera = camera;
-        this.GameEvents = gameEvents;
-        playerFactory = new PlayerFactory();
+
+        _gameEvents = gameEvents;
+
         _collisionDetectionService = collisionDetectionService;
         _movementService = movementService;
-        CreateCameraForPlayer();
+        _gameCamera = camera;
 
+        GameObjectRepository.CreatePlayer();
+        _gameCamera.CreateCamera(GameObjectRepository.Player);
     }
 
-    private void CreateCameraForPlayer()
-    {
-
-        GameObjectRepository.SetPlayer(playerFactory.FactoryMethod());
-        GameCamera.CreateCamera(GameObjectRepository.Player, ScreenWidth, ScreenHeight);
-    }
-    private void StickCameraToplayer()
-    {
-        GameCamera.TargetObject(GameObjectRepository.Player);
-    }
 
     public void Draw()
     {
-        GameCamera.SetCamera();
+        _gameCamera.SetCamera();
         foreach (var entities in GameObjectRepository.Entities)
         {
             entities.Draw();
@@ -55,7 +44,7 @@ public sealed class GameWorld : IGameState, IGameWorld
         Raylib.EndMode2D();
         GameObjectRepository.Player.DrawInfo();
 
-        foreach (var gameEvents in GameEvents)
+        foreach (var gameEvents in _gameEvents)
         {
             gameEvents.Draw();
         }
@@ -73,7 +62,7 @@ public sealed class GameWorld : IGameState, IGameWorld
             gameStateManager.State = factory.Create();
         }
 
-        foreach (var events in GameEvents)
+        foreach (var events in _gameEvents)
         {
             events.StartEvent();
         }
@@ -81,7 +70,7 @@ public sealed class GameWorld : IGameState, IGameWorld
         _collisionDetectionService.CollisionDetection();
         _movementService.MoveObjects();
 
-        StickCameraToplayer();
+        _gameCamera.TargetObject(GameObjectRepository.Player);
         GameObjectRepository.RemoveDeadEntities();
     }
 
