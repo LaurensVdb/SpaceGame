@@ -1,13 +1,9 @@
-﻿using Asteroid_game.game_objects.objects;
+﻿using Asteroid_game.behavior.movement;
+using Asteroid_game.game_objects.objects;
 using Bevahior;
 using Contentmanagement;
 using GameObjects.repositories;
 using Raylib_cs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Asteroid_game.behavior
 {
@@ -31,7 +27,7 @@ namespace Asteroid_game.behavior
             {
                 timer.Reset();
                 Random rnd = new Random();
-                gameObjectRepository.AddEntity(new BulletSpeedItem(
+                gameObjectRepository.AddEntity(new BulletSpeedItem(new NoMovement(),
                   rnd.Next((int)gameObjectRepository.Player.X - (screenWidth / 2), (int)gameObjectRepository.Player.X + (screenWidth / 2)),
                 rnd.Next((int)gameObjectRepository.Player.Y - (screenHeight / 2), (int)gameObjectRepository.Player.Y + (screenHeight / 2)),
                 0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(BulletSpeedItem), 1)]

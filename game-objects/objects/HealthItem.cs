@@ -1,4 +1,5 @@
 ﻿using GameObjects.objects;
+using MovmementService;
 using Raylib_cs;
 using System.Numerics;
 
@@ -6,7 +7,8 @@ namespace Asteroid_game.game_objects.objects
 {
     public class HealthItem : BaseGameEntity, IGameItem
     {
-        public HealthItem(float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false) : base(x, y, movementSpeed, hitPoints, texture2D, canShoot)
+        public HealthItem(IMovement movementservice, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false)
+            : base(movementservice, x, y, movementSpeed, hitPoints, texture2D, canShoot)
         {
         }
 

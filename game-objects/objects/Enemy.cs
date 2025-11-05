@@ -1,5 +1,6 @@
 using Contentmanagement;
 using GameObjects.repositories;
+using MovmementService;
 using Raylib_cs;
 using System.Diagnostics;
 using System.Numerics;
@@ -15,7 +16,7 @@ public class Enemy : BaseGameEntity
 
     //public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
 
-    public Enemy(float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false) : base(x, y, movementSpeed, hitPoints, texture2D, canShoot)
+    public Enemy(IMovement movementservice, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false) : base(movementservice, x, y, movementSpeed, hitPoints, texture2D, canShoot)
     {
 
         timer = new Stopwatch();
@@ -38,31 +39,6 @@ public class Enemy : BaseGameEntity
         //Raylib.DrawRectangle((int)CollisionRectangle.X-Widht,(int)CollisionRectangle.Y-Widht,(int)CollisionRectangle.Width*2,(int)CollisionRectangle.Height*2,Color.Red);
     }
 
-
-    public override void Move(int targetX, int targetY)
-    {
-        if (IsMoving)
-        {
-            if (X <= targetX)
-            {
-                X += MovementSpeed;
-            }
-            if (X >= targetX)
-            {
-                X -= MovementSpeed;
-            }
-            if (Y <= targetY)
-            {
-                Y += MovementSpeed;
-            }
-            if (Y >= targetY)
-            {
-                Y -= MovementSpeed;
-            }
-        }
-    }
-
-
     public override void Shoot(IGameObjectRepository gameObjectRepository)
     {
         var deltaX = gameObjectRepository.Player.X - X;
@@ -71,7 +47,7 @@ public class Enemy : BaseGameEntity
         if (timer.ElapsedMilliseconds >= MaxElapsedMillisecondsShootingTime)
         {
             timer.Reset();
-            gameObjectRepository.AddEntity(new Bullet(X, Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)], 10f, 0, playerrotation, true));
+            gameObjectRepository.AddEntity(new Bullet(new BulletMovement(), X, Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)], 10f, 0, playerrotation, true));
             timer.Start();
         }
 

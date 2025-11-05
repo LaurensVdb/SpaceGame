@@ -1,4 +1,5 @@
 using GameObjects.repositories;
+using MovmementService;
 using Raylib_cs;
 
 namespace GameObjects.objects;
@@ -8,9 +9,11 @@ Elk game object moet gebruik maken van de base game entity class
 public abstract class BaseGameEntity : IGameEntity
 {
 
-    public BaseGameEntity(float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false)
+    protected IMovement MovementService;
+    private int hitpointsAtStart;
+    public BaseGameEntity(IMovement movementService, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false)
     {
-
+        MovementService = movementService;
         X = x;
         Y = y;
         MovementSpeed = movementSpeed;
@@ -24,9 +27,10 @@ public abstract class BaseGameEntity : IGameEntity
         CanShoot = canShoot;
     }
 
-    private int hitpointsAtStart;
-    public BaseGameEntity(float x, float y, int widht, int height, float movementSpeed, int hitPoints)
+
+    public BaseGameEntity(IMovement movementService, float x, float y, int widht, int height, float movementSpeed, int hitPoints)
     {
+        MovementService = movementService;
         Widht = widht;
         Height = height;
         X = x;
@@ -71,8 +75,10 @@ public abstract class BaseGameEntity : IGameEntity
     public int HitPoints { get; set; }
     public int KillCount { get; set; }
 
-    public virtual void Move() { }
-    public virtual void Move(int targetX, int targetY) { }
+    public void Move()
+    {
+        MovementService.Move(this);
+    }
     public abstract void Draw();
     public virtual void DrawInfo() { }
 

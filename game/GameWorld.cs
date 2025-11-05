@@ -1,9 +1,9 @@
 using Asteroid_game.behavior.collision;
+using Asteroid_game.behavior.movement;
 using Bevahior;
 using Camera;
 using GameMenuBevahior;
 using GameObjects.factories;
-using GameObjects.objects;
 using GameObjects.repositories;
 using GameStateBevahior;
 using Raylib_cs;
@@ -19,15 +19,16 @@ public sealed class GameWorld : IGameState, IGameWorld
     public int ScreenHeight { get { return Raylib.GetScreenHeight(); } }
     public List<IGameEvent> GameEvents { get; set; }
 
-    private ICollisionDetectionService collisionDetectionService;
-
-    public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, List<IGameEvent> gameEvents)
+    private readonly ICollisionDetectionService _collisionDetectionService;
+    private readonly IMovementService _movementService;
+    public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, IMovementService movementService, List<IGameEvent> gameEvents)
     {
         this.GameObjectRepository = gameObjectRepository;
         this.GameCamera = camera;
         this.GameEvents = gameEvents;
         playerFactory = new PlayerFactory();
-        this.collisionDetectionService = collisionDetectionService;
+        _collisionDetectionService = collisionDetectionService;
+        _movementService = movementService;
         CreateCameraForPlayer();
 
     }
@@ -77,34 +78,10 @@ public sealed class GameWorld : IGameState, IGameWorld
             events.StartEvent();
         }
 
-        collisionDetectionService.CollisionDetection();
+        _collisionDetectionService.CollisionDetection();
+        _movementService.MoveObjects();
 
-
-        var gameEntities = GameObjectRepository.Entities.ToList();
-        foreach (var entity in gameEntities)
-        {
-
-            if (entity is Enemy)
-            {
-                entity.Move((int)GameObjectRepository.Player.CollisionRectangle.X, (int)GameObjectRepository.Player.CollisionRectangle.Y);
-                if (entity.CanShoot)
-                {
-                    entity.Shoot(GameObjectRepository);
-                }
-
-            }
-            else
-            {
-                entity.Move();
-            }
-
-        }
-
-        //var newpos = Raylib.GetWorldToScreen2D(new Vector2(GameObjectRepository.Player.X,GameObjectRepository.Player.Y),GameCamera.GetCamera2D()));
-        GameObjectRepository.Player.Move((int)GameCamera.GetCamera2D().Offset.X, (int)GameCamera.GetCamera2D().Offset.Y);
-        GameObjectRepository.Player.Shoot(GameObjectRepository);
         StickCameraToplayer();
-
         GameObjectRepository.RemoveDeadEntities();
     }
 

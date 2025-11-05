@@ -20,8 +20,7 @@ public interface IGameEntity
     int HitPoints { get; set; }
     int KillCount { get; set; }
 
-    virtual void Move() { }
-    virtual void Move(int targetX, int targetY) { }
+    void Move() { }
     abstract void Draw();
     virtual void DrawInfo() { }
 
