@@ -1,13 +1,12 @@
 ﻿using GameObjects.repositories;
-using Raylib_cs;
 
 namespace Bevahior
 {
     public class WaveEvent : GameEvent
     {
-  
+
         private IGameObjectRepository gameObjectRepository;
-     
+
         EnemySpawner spawner;
 
 
@@ -18,10 +17,15 @@ namespace Bevahior
         public WaveEvent(IGameObjectRepository gameObjectRepository, int maxElapsedMillisecondsPause) : base(maxElapsedMillisecondsPause)
         {
             this.gameObjectRepository = gameObjectRepository;
-            spawner = new EnemySpawner(gameObjectRepository,500);
+            spawner = new EnemySpawner(gameObjectRepository, 500);
             currentWaveIsActive = true;
             gameObjectRepository.CurrentWave = 1;
         }
+
+        public bool CurrentWaveIsActive => currentWaveIsActive;
+        public IGameObjectRepository Repository => gameObjectRepository;
+        public int MaxPauseMilliseconds => MaxElapsedMilliseconds;
+        public long TimerElapsedMilliseconds => timer.ElapsedMilliseconds;
 
 
         public override void StartEvent()
@@ -44,36 +48,19 @@ namespace Bevahior
             {
                 timer.Start();
 
-                if(timer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
+                if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
                 {
                     currentWaveIsActive = true;
                     gameObjectRepository.CurrentWave++;
                     maxEnemies = maxEnemies * gameObjectRepository.CurrentWave;
                     gameObjectRepository.Player.KillCount = 0;
-                    gameObjectRepository.TotalEnemiesSpawned = 0; 
-                 
+                    gameObjectRepository.TotalEnemiesSpawned = 0;
+
                     timer.Reset();
 
                 }
             }
-          
-        }
 
-        public override void Draw()
-        {
-            if (currentWaveIsActive)
-            {
-                Raylib.DrawText($"Current wave: {gameObjectRepository.CurrentWave}", 20, 100, 20, Color.Gold);
-
-            }
-            else
-            {
-                var elapsedTime = (MaxElapsedMilliseconds - timer.ElapsedMilliseconds) / 1000;
-                Raylib.DrawText($"pause: {elapsedTime}", 20, 100, 20, Color.Gold);
-            }
-         
-             
-            
         }
     }
 }

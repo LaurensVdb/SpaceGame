@@ -1,3 +1,5 @@
+using Asteroid_game.camera;
+using Asteroid_game.drawing;
 using GameObjects.repositories;
 using MovmementService;
 using Raylib_cs;
@@ -10,8 +12,9 @@ public abstract class BaseGameEntity : IGameEntity
 {
 
     protected IMovement MovementService;
+    protected IDrawing Drawing;
     private int hitpointsAtStart;
-    public BaseGameEntity(IMovement movementService, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false)
+    public BaseGameEntity(IMovement movementService, IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false)
     {
         MovementService = movementService;
         X = x;
@@ -25,10 +28,11 @@ public abstract class BaseGameEntity : IGameEntity
         IsAlive = true;
         hitpointsAtStart = hitPoints;
         CanShoot = canShoot;
+        Drawing = drawing;
     }
 
 
-    public BaseGameEntity(IMovement movementService, float x, float y, int widht, int height, float movementSpeed, int hitPoints)
+    public BaseGameEntity(IMovement movementService, IDrawing drawing, float x, float y, int widht, int height, float movementSpeed, int hitPoints)
     {
         MovementService = movementService;
         Widht = widht;
@@ -40,6 +44,7 @@ public abstract class BaseGameEntity : IGameEntity
         IsMoving = true;
         IsAlive = true;
         hitpointsAtStart = hitPoints;
+        Drawing = drawing;
     }
 
     public virtual void SetHitPoints(int hitPoints)
@@ -79,8 +84,12 @@ public abstract class BaseGameEntity : IGameEntity
     {
         MovementService.Move(this);
     }
-    public abstract void Draw();
-    public virtual void DrawInfo() { }
+
+
+    public virtual void Draw(ICameraController cameraController)
+    {
+        Drawing.Drawing(this, cameraController);
+    }
 
     public float Rotation { get; set; }
     public bool CanShoot { get; set; }

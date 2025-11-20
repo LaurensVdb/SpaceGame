@@ -1,3 +1,4 @@
+using Asteroid_game.camera;
 using GameObjects.repositories;
 using Raylib_cs;
 
@@ -21,7 +22,6 @@ public interface IGameEntity
     int KillCount { get; set; }
 
     void Move() { }
-    abstract void Draw();
     virtual void DrawInfo() { }
 
     float Rotation { get; set; }
@@ -33,5 +33,7 @@ public interface IGameEntity
     void Shoot(IGameObjectRepository gameObjectRepository);
 
     void TakeDamage(int damagePoints);
+    void Draw(ICameraController cameraController);
+
     int ProtectectionLevel { get; set; }
 }

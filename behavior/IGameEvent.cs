@@ -1,7 +1,6 @@
-namespace Bevahior; 
+namespace Bevahior;
 
-public interface IGameEvent{
+public interface IGameEvent
+{
     void StartEvent();
-    
-    void Draw();
 }

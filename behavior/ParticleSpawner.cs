@@ -1,3 +1,4 @@
+using Asteroid_game.drawing;
 using Contentmanagement;
 using GameObjects.objects;
 using GameObjects.repositories;
@@ -24,7 +25,7 @@ public class ParticleSpawner : GameEvent
         {
             timer.Reset();
             Random rnd = new Random();
-            gameObjectRepository.Entities.Add(new Star(new StarMovement(),
+            gameObjectRepository.Entities.Add(new Star(new StarMovement(), new StarDrawing(),
               rnd.Next((int)gameObjectRepository.Player.X - (screenWidth), (int)gameObjectRepository.Player.X + (screenWidth)),
             rnd.Next((int)gameObjectRepository.Player.Y - (screenHeight), (int)gameObjectRepository.Player.Y + (screenHeight)),
             0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Star), rnd.Next(1, 3))]

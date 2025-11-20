@@ -1,3 +1,4 @@
+using Asteroid_game.drawing;
 using GameObjects.objects;
 using GameObjects.repositories;
 using MovmementService;
@@ -24,7 +25,7 @@ public class EnemyBuilder : IGameObjectBuilder
 
     public void Reset()
     {
-        this.enemy = new Enemy(new EnemyMovement(_repository), x, y, movementSpeed, hitPoints, texture, canshoot);
+        this.enemy = new Enemy(new EnemyMovement(_repository), new EnemyDrawing(), x, y, movementSpeed, hitPoints, texture, canshoot);
     }
     public void CanShoot(int shootingTime)
     {

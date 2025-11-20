@@ -1,11 +1,12 @@
 
+using Asteroid_game.camera;
 using GameObjects.objects;
 using Raylib_cs;
 using System.Numerics;
 
 namespace Camera;
 
-public class GameCamera : IGameCamera
+public class GameCamera : IGameCamera, ICameraController
 {
     private Camera2D Camera2D;
     public float Zoom { get; set; } = 1.0f;
@@ -39,5 +40,15 @@ public class GameCamera : IGameCamera
     public Camera2D GetCamera2D()
     {
         return Camera2D;
+    }
+
+    public Vector2 ScreenToWorld(Vector2 screenPos)
+    {
+        return Raylib.GetScreenToWorld2D(screenPos, Camera2D);
+    }
+
+    public Vector2 WorldToScreen(Vector2 worldPos)
+    {
+        return Raylib.GetWorldToScreen2D(worldPos, Camera2D);
     }
 }

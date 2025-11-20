@@ -1,5 +1,6 @@
 using Asteroid_game.behavior.collision;
 using Asteroid_game.behavior.movement;
+using Asteroid_game.camera;
 using Bevahior;
 using Camera;
 using GameMenuBevahior;
@@ -18,6 +19,8 @@ public sealed class GameWorld : IGameState, IGameWorld
     private readonly ICollisionDetectionService _collisionDetectionService;
     private readonly IMovementService _movementService;
     private readonly IGameCamera _gameCamera;
+    private readonly EventRendererRegistry _eventRendererRegistry = new EventRendererRegistry();
+
     public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, IMovementService movementService, List<IGameEvent> gameEvents)
     {
         this.GameObjectRepository = gameObjectRepository;
@@ -27,6 +30,9 @@ public sealed class GameWorld : IGameState, IGameWorld
         _collisionDetectionService = collisionDetectionService;
         _movementService = movementService;
         _gameCamera = camera;
+
+        // register default renderers
+        _eventRendererRegistry.Register(new WaveEventRenderer());
 
         GameObjectRepository.CreatePlayer();
         _gameCamera.CreateCamera(GameObjectRepository.Player);
@@ -38,15 +44,14 @@ public sealed class GameWorld : IGameState, IGameWorld
         _gameCamera.SetCamera();
         foreach (var entities in GameObjectRepository.Entities)
         {
-            entities.Draw();
+            entities.Draw((ICameraController)_gameCamera);
         }
-        GameObjectRepository.Player.Draw();
-        Raylib.EndMode2D();
-        GameObjectRepository.Player.DrawInfo();
+        GameObjectRepository.Player.Draw((ICameraController)_gameCamera);
 
-        foreach (var gameEvents in _gameEvents)
+
+        foreach (var gameEvent in _gameEvents)
         {
-            gameEvents.Draw();
+            _eventRendererRegistry.Render(gameEvent, (ICameraController)_gameCamera);
         }
     }
     public void Update(GameStateManager gameStateManager)
