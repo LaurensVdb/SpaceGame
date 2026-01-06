@@ -4,10 +4,10 @@ using GameObjects.objects;
 namespace GameObjects.repositories;
 public interface IGameObjectRepository
 {
-    void AddEntity(IGameEntity entity);
-    void RemoveEntity(IGameEntity entity);
-    List<IGameEntity> Entities { get; }
-    IGameEntity Player { get; set; }
+    void AddEntity(BaseGameEntity entity);
+    void RemoveEntity(BaseGameEntity entity);
+    List<BaseGameEntity> Entities { get; }
+    BaseGameEntity Player { get; set; }
     void CreatePlayer();
     void RemoveDeadEntities();
 

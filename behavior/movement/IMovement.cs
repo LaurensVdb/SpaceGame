@@ -4,6 +4,6 @@ namespace MovmementService
 {
     public interface IMovement
     {
-        void Move(IGameEntity entity);
+        void Move(BaseGameEntity entity);
     }
 }

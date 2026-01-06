@@ -8,7 +8,7 @@ namespace GameObjects.objects;
 /* 
 Elk game object moet gebruik maken van de base game entity class
 */
-public abstract class BaseGameEntity : IGameEntity
+public abstract class BaseGameEntity
 {
 
     protected IMovement MovementService;
@@ -52,10 +52,7 @@ public abstract class BaseGameEntity : IGameEntity
         HitPoints = hitPoints;
         hitpointsAtStart = hitPoints;
     }
-    public int HitPointsAtStart { get { return hitpointsAtStart; } }
-    public Texture2D Texture { get; set; }
-    public bool IsMoving { get; set; }
-    public virtual Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
+
 
     //public virtual Rectangle CollisionRectangle {
     //    get {
@@ -70,15 +67,32 @@ public abstract class BaseGameEntity : IGameEntity
     //        return new Rectangle(pos.X,pos.Y,Widht,Height);
     //    }
     //}
+
+
+    public Texture2D Texture { get; set; }
+
+    public virtual Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
+    public bool IsMoving { get; set; }
     public float MovementSpeed { get; set; }
     public int Widht { get; set; }
     public int Height { get; set; }
     public float X { get; set; }
     public float Y { get; set; }
     public bool IsAlive { get; set; }
+    public int HitPointsAtStart { get { return hitpointsAtStart; } }
 
     public int HitPoints { get; set; }
     public int KillCount { get; set; }
+
+    public float Rotation { get; set; }
+
+
+    public int ProtectectionLevel { get; set; }
+
+    public bool CanShoot { get; set; }
+    public bool IsShooting { get; set; }
+
+    public int MaxElapsedMillisecondsShootingTime { get; set; }
 
     public void Move()
     {
@@ -91,14 +105,7 @@ public abstract class BaseGameEntity : IGameEntity
         Drawing.Drawing(this, cameraController);
     }
 
-    public float Rotation { get; set; }
-    public bool CanShoot { get; set; }
-    public bool IsShooting { get; set; }
 
-    public int ProtectectionLevel { get; set; }
-
-    public int ShootingTime { get; set; }
-    public int MaxElapsedMillisecondsShootingTime { get; set; }
 
     public virtual void Shoot(IGameObjectRepository gameObjectRepository) { }
 

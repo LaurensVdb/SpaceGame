@@ -5,6 +5,6 @@ namespace Asteroid_game.drawing
 {
     public interface IDrawing
     {
-        void Drawing(IGameEntity gameEntity, ICameraController cameraController);
+        void Drawing(BaseGameEntity gameEntity, ICameraController cameraController);
     }
 }

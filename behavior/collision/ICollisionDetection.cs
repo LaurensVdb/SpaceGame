@@ -7,7 +7,7 @@ namespace Asteroid_game.behavior.collision
     {
         void CalculateCollsion();
 
-        bool IsCollision(IGameEntity entityCollisionCheckA, IGameEntity entityCollisionCheckB)
+        bool IsCollision(BaseGameEntity entityCollisionCheckA, BaseGameEntity entityCollisionCheckB)
         {
 
             return Raylib.CheckCollisionRecs(entityCollisionCheckA.CollisionRectangle, entityCollisionCheckB.CollisionRectangle);

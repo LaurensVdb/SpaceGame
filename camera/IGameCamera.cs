@@ -6,8 +6,8 @@ public interface IGameCamera
 {
     float Zoom { get; set; }
     float Rotation { get; set; }
-    void CreateCamera(IGameEntity gameObject);
-    void TargetObject(IGameEntity gameObject);
+    void CreateCamera(BaseGameEntity gameObject);
+    void TargetObject(BaseGameEntity gameObject);
     void SetCamera();
 
     Camera2D GetCamera2D();

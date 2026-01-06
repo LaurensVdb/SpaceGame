@@ -31,7 +31,7 @@ namespace Asteroid_game.behavior.collision
             }
         }
 
-        private bool CheckCollision(Bullet bullet, IGameEntity entityCollision)
+        private bool CheckCollision(Bullet bullet, BaseGameEntity entityCollision)
         {
             var isCollision = ((ICollisionDetection)this).IsCollision(bullet, entityCollision);
             if (isCollision && bullet.IsAlive)

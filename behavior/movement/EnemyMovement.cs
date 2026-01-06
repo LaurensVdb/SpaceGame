@@ -6,13 +6,13 @@ namespace MovmementService
 {
     public class EnemyMovement(IGameObjectRepository repository) : IMovement
     {
-        public void Move(IGameEntity entity)
+        public void Move(BaseGameEntity entity)
         {
             var targetPosition = new Vector2(repository.Player.CollisionRectangle.X, repository.Player.CollisionRectangle.Y);
             CalculateMovement(entity, targetPosition);
         }
 
-        private void CalculateMovement(IGameEntity entity, Vector2 targetPosition)
+        private void CalculateMovement(BaseGameEntity entity, Vector2 targetPosition)
         {
             if (entity.IsMoving)
             {

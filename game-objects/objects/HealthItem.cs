@@ -12,7 +12,7 @@ namespace Asteroid_game.game_objects.objects
         {
         }
 
-        public void InteractWithPlayer(IGameEntity player)
+        public void InteractWithPlayer(BaseGameEntity player)
         {
             player.HitPoints++;
             this.IsAlive = false;

@@ -5,5 +5,5 @@ using Raylib_cs;
 namespace GameObjects.factories;
 
 public abstract class GameObjectFactory{
-    public abstract IGameEntity FactoryMethod ();
+    public abstract BaseGameEntity FactoryMethod ();
 }

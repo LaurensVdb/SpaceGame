@@ -11,13 +11,13 @@ namespace Asteroid_game.game_objects.objects
             : base(movementservice, drawing, x, y, movementSpeed, hitPoints, texture2D, canShoot)
         {
         }
-        private async Task Delayedtask(IGameEntity gameEntity)
+        private async Task Delayedtask(BaseGameEntity gameEntity)
         {
             await Task.Delay(10000);
             gameEntity.MaxElapsedMillisecondsShootingTime = 100;
 
         }
-        public void InteractWithPlayer(IGameEntity player)
+        public void InteractWithPlayer(BaseGameEntity player)
         {
 
             player.MaxElapsedMillisecondsShootingTime = 0;

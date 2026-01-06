@@ -16,7 +16,7 @@ public class GameCamera : IGameCamera, ICameraController
         Camera2D = new Camera2D();
     }
 
-    public void CreateCamera(IGameEntity gameObject)
+    public void CreateCamera(BaseGameEntity gameObject)
     {
         var screenWidth = Raylib.GetScreenWidth();
         var screenHeight = Raylib.GetScreenHeight();
@@ -27,7 +27,7 @@ public class GameCamera : IGameCamera, ICameraController
         Raylib.SetMouseOffset(-(int)Camera2D.Offset.X, -(int)Camera2D.Offset.Y);
     }
 
-    public void TargetObject(IGameEntity gameObject)
+    public void TargetObject(BaseGameEntity gameObject)
     {
         Camera2D.Target = new Vector2(gameObject.X, gameObject.Y);
     }

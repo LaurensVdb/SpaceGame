@@ -5,12 +5,12 @@ namespace MovmementService
 {
     public class PlayerMovement() : IMovement
     {
-        public void Move(IGameEntity entity)
+        public void Move(BaseGameEntity entity)
         {
             CalculateMovement(entity);
         }
 
-        private void CalculateMovement(IGameEntity entity)
+        private void CalculateMovement(BaseGameEntity entity)
         {
 
             var mousePosition = Raylib.GetMousePosition();

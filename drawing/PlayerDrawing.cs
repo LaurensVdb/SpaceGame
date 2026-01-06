@@ -8,7 +8,7 @@ namespace Asteroid_game.drawing
     public class PlayerDrawing : IDrawing
     {
 
-        public void Drawing(IGameEntity gameEntity, ICameraController cameraController)
+        public void Drawing(BaseGameEntity gameEntity, ICameraController cameraController)
         {
 
             if (gameEntity.ProtectectionLevel > 0)
@@ -25,7 +25,7 @@ namespace Asteroid_game.drawing
 
         }
 
-        private void DrawInfo(IGameEntity gameEntity, ICameraController cameraController)
+        private void DrawInfo(BaseGameEntity gameEntity, ICameraController cameraController)
         {
             var postext = cameraController.ScreenToWorld(new Vector2(20, 20));
 

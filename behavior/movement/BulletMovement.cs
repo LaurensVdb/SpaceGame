@@ -4,11 +4,11 @@ namespace MovmementService
 {
     public class BulletMovement : IMovement
     {
-        public void Move(IGameEntity entity)
+        public void Move(BaseGameEntity entity)
         {
             CalculateMovement(entity);
         }
-        private void CalculateMovement(IGameEntity entity)
+        private void CalculateMovement(BaseGameEntity entity)
         {
             entity.X += MathF.Cos((entity.Rotation - 90) * (MathF.PI / 180)) * entity.MovementSpeed;
             entity.Y += MathF.Sin((entity.Rotation - 90) * (MathF.PI / 180)) * entity.MovementSpeed;

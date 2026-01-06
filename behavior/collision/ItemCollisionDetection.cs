@@ -11,7 +11,7 @@ namespace Asteroid_game.behavior.collision
         {
             foreach (IGameItem item in gameObjectRepository.GameItems)
             {
-                var isCollision = ((ICollisionDetection)this).IsCollision((IGameEntity)item, gameObjectRepository.Player);
+                var isCollision = ((ICollisionDetection)this).IsCollision((BaseGameEntity)item, gameObjectRepository.Player);
                 if (isCollision)
                 {
                     item.InteractWithPlayer(gameObjectRepository.Player);

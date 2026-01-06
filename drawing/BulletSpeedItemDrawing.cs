@@ -7,7 +7,7 @@ namespace Asteroid_game.drawing
 {
     public class BulletSpeedItemDrawing : IDrawing
     {
-        public void Drawing(IGameEntity gameEntity, ICameraController cameraController)
+        public void Drawing(BaseGameEntity gameEntity, ICameraController cameraController)
         {
             if (gameEntity == null) return;
 

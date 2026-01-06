@@ -4,14 +4,14 @@ namespace MovmementService
 {
     public class StarMovement : IMovement
     {
-        public void Move(IGameEntity entity)
+        public void Move(BaseGameEntity entity)
         {
             CalculateMovement(entity);
         }
 
 
 
-        private void CalculateMovement(IGameEntity entity)
+        private void CalculateMovement(BaseGameEntity entity)
         {
             entity.Y += entity.MovementSpeed;
         }
