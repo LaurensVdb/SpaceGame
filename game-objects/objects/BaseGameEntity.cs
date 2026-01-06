@@ -31,43 +31,11 @@ public abstract class BaseGameEntity
         Drawing = drawing;
     }
 
-
-    public BaseGameEntity(IMovement movementService, IDrawing drawing, float x, float y, int widht, int height, float movementSpeed, int hitPoints)
-    {
-        MovementService = movementService;
-        Widht = widht;
-        Height = height;
-        X = x;
-        Y = y;
-        MovementSpeed = movementSpeed;
-        HitPoints = hitPoints;
-        IsMoving = true;
-        IsAlive = true;
-        hitpointsAtStart = hitPoints;
-        Drawing = drawing;
-    }
-
     public virtual void SetHitPoints(int hitPoints)
     {
         HitPoints = hitPoints;
         hitpointsAtStart = hitPoints;
     }
-
-
-    //public virtual Rectangle CollisionRectangle {
-    //    get {
-    //            float angleInRadians = Rotation * (MathF.PI / 180);
-    //            float cosTheta = MathF.Cos(angleInRadians);
-    //            float sinTheta = MathF.Sin(angleInRadians);
-    //            var pos = new Vector2
-    //            {
-    //                X = (X+(Widht/2) - X) * cosTheta -  (Y+(Height/2) - Y) * sinTheta +(X - (Widht/2)),
-    //                Y = (Y+(Height/2) - Y) * sinTheta +(X+(Widht/2) - X) * cosTheta +(Y -(Height/2))
-    //            }; 
-    //        return new Rectangle(pos.X,pos.Y,Widht,Height);
-    //    }
-    //}
-
 
     public Texture2D Texture { get; set; }
 
@@ -90,7 +58,6 @@ public abstract class BaseGameEntity
     public int ProtectectionLevel { get; set; }
 
     public bool CanShoot { get; set; }
-    public bool IsShooting { get; set; }
 
     public int MaxElapsedMillisecondsShootingTime { get; set; }
 
