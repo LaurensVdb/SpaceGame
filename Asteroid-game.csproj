@@ -46,7 +46,11 @@
     <None Update="sprites\star2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="configuration\enemies.json">
+  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
   </ItemGroup>
+  
 
   <ItemGroup>
     <Folder Include="behavior\shooting\" />

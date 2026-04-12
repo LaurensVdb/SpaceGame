@@ -16,6 +16,8 @@ public class Enemy : ShootableEntity
 {
     //public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
     private readonly Player _player;
+
+    public Player TargetPlayer { get { return _player; }    }
     public Enemy(IMovement movementservice, IDrawing drawing,IShooting shooting,Player player, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D) 
     : base(movementservice, drawing,shooting, x, y, movementSpeed, hitPoints, texture2D)
     {

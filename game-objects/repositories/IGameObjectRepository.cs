@@ -1,4 +1,5 @@
 using Asteroid_game.game_objects.objects;
+using Contentmanagement;
 using GameObjects.objects;
 
 namespace GameObjects.repositories;
@@ -19,4 +20,6 @@ public interface IGameObjectRepository
     IEnumerable<Enemy> Enemies => Entities.OfType<Enemy>().Where(p => p.IsAlive);
 
     IEnumerable<IGameItem> GameItems => Entities.OfType<IGameItem>();
+
+    List<EnemyConfig> EnemyConfgurationData { get;  set; }
 }

@@ -1,0 +1,38 @@
+[
+  {
+    "variantId": 1,
+    "name": "Basic",
+    "textureId": 1,
+    "speed": 2.0,
+    "hitPoints": 1,
+    "canShoot": false,
+    "shootInterval": null
+  },
+  {
+    "variantId": 2,
+    "name": "Shooter",
+    "textureId": 2,
+    "speed": 2.5,
+    "hitPoints": 2,
+    "canShoot": true,
+    "shootInterval": 2000
+  },
+  {
+    "variantId": 3,
+    "name": "Fast",
+    "textureId": 3,
+    "speed": 4.0,
+    "hitPoints": 2,
+    "canShoot": false,
+    "shootInterval": null
+  },
+  {
+    "variantId": 4,
+    "name": "FastShooter",
+    "textureId": 3,
+    "speed": 4.0,
+    "hitPoints": 2,
+    "canShoot": true,
+    "shootInterval": 2000
+  }
+]

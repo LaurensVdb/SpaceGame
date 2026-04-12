@@ -4,11 +4,12 @@ using System.Numerics;
 
 namespace MovmementService
 {
-    public class EnemyMovement(IGameObjectRepository repository) : IMovement
+    public class EnemyMovement() : IMovement
     {
         public void Move(BaseGameEntity entity)
         {
-            var targetPosition = new Vector2(repository.Player.CollisionRectangle.X, repository.Player.CollisionRectangle.Y);
+            var enemy = (Enemy)entity;
+            var targetPosition = new Vector2(enemy.TargetPlayer.CollisionRectangle.X, enemy.TargetPlayer.CollisionRectangle.Y);
             CalculateMovement(entity, targetPosition);
         }
 

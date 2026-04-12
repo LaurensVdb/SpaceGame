@@ -1,4 +1,5 @@
-using Contentmanagement;
+using System.Numerics;
+using Asteroid_game.game_objects.factories;
 using GameObjects.objects;
 using GameObjects.repositories;
 using Raylib_cs;
@@ -7,88 +8,57 @@ namespace Bevahior;
 
 public class EnemySpawner : GameEvent
 {
-
-    private EnemyBuilder enemyBuilder;
-
-
+    private EnemyFactory _enemyFactory;
 
     private IGameObjectRepository gameObjectRepository;
     public EnemySpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
     {
         this.gameObjectRepository = gameObjectRepository;
-        enemyBuilder = new EnemyBuilder(gameObjectRepository);
-
-
+        _enemyFactory = new EnemyFactory();
     }
 
     public override void StartEvent()
     {
-        var screenWidth = Raylib.GetScreenWidth();
-        var screenHeight = Raylib.GetScreenHeight();
-
-        enemyBuilder.Reset();
         timer.Start();
         if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
         {
+            var spawnPosition = CalculateSpawnPosition();
+            CreateEnemy(spawnPosition);
+
             timer.Reset();
-            Random rnd = new Random();
-
-            var randomdirection = rnd.Next(1, 3);
-
-            float newx = 0, newy = 0;
-            switch (randomdirection)
-            {
-                case 1:
-                    //boven 
-                    newx = rnd.Next((int)gameObjectRepository.Player.X - (screenWidth / 2), (int)gameObjectRepository.Player.X + (screenWidth / 2));
-                    newy = gameObjectRepository.Player.Y - (screenHeight / 2);
-                    break;
-                case 2:
-                    //onder 
-
-                    newy = gameObjectRepository.Player.Y + (screenHeight / 2);
-                    break;
-
-            }
-
-            enemyBuilder.SetPosition(newx, newy);
-            enemyBuilder.IsAlive(true);
-            enemyBuilder.IsMovable(true);
-            var randomNumber = rnd.Next(1, gameObjectRepository.CurrentWave + 1);
-
-            switch (randomNumber)
-            {
-
-                case 1:
-                    enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy), 1)]);
-                    enemyBuilder.SetSpeed(2f);
-                    enemyBuilder.SetHitpoints(1);
-                    gameObjectRepository.AddEntity(enemyBuilder.GetItem());
-                    break;
-                case 2:
-                    enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy), 2)]);
-                    enemyBuilder.SetSpeed(2.5f);
-                    enemyBuilder.SetHitpoints(2);
-                    enemyBuilder.CanShoot(2000);
-                    gameObjectRepository.AddEntity(enemyBuilder.GetItem());
-
-                    break;
-                case 3:
-                    enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy), 3)]);
-                    enemyBuilder.SetSpeed(4f);
-                    enemyBuilder.SetHitpoints(2);
-                    gameObjectRepository.AddEntity(enemyBuilder.GetItem());
-                    break;
-                case 4:
-                    enemyBuilder.SetTexture(Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Enemy), 3)]);
-                    enemyBuilder.SetSpeed(4f);
-                    enemyBuilder.SetHitpoints(2);
-                    enemyBuilder.CanShoot(2000);
-                    gameObjectRepository.AddEntity(enemyBuilder.GetItem());
-                    break;
-            }
-
-            timer.Start();
         }
+    }
+    private Vector2 CalculateSpawnPosition()
+    {
+        Random rnd = new Random();
+        var screenWidth = Raylib.GetScreenWidth();
+        var screenHeight = Raylib.GetScreenHeight();
+        var randomdirection = rnd.Next(1, 3);
+        float newx = 0, newy = 0;
+        switch (randomdirection)
+        {
+            case 1:
+                //boven 
+                newx = rnd.Next((int)gameObjectRepository.Player.X - (screenWidth / 2), (int)gameObjectRepository.Player.X + (screenWidth / 2));
+                newy = gameObjectRepository.Player.Y - (screenHeight / 2);
+                break;
+            case 2:
+                //onder 
+                newy = gameObjectRepository.Player.Y + (screenHeight / 2);
+                break;
+
+        }
+        return new Vector2(newx, newy);
+
+    }
+
+    private void CreateEnemy(Vector2 position)
+    {
+        Random rnd = new Random();
+       var randomNumber = rnd.Next(1, gameObjectRepository.CurrentWave + 1);
+        var config = gameObjectRepository.EnemyConfgurationData[randomNumber - 1];
+        config.TargetPlayer = (Player)gameObjectRepository.Player;
+        var enemy = _enemyFactory.CreateEnemy(config, position);
+        gameObjectRepository.AddEntity(enemy);
     }
 }

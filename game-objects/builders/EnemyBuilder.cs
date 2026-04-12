@@ -7,18 +7,19 @@ using Raylib_cs;
 
 public class EnemyBuilder : IGameObjectBuilder
 {
-    Enemy enemy;
-    private float x;
-    private float y;
-    private float movementSpeed;
-    private int hitPoints;
-    private bool canshoot;
-    private Texture2D texture;
-    private readonly IGameObjectRepository _repository;
+    private Enemy _enemy;
+    private float _x=0;
+    private float _y=0;
+    private float _movementSpeed=0;
+    private int _hitPoints=0;
+    private Texture2D _texture=new Texture2D();
+    private Player _player; 
+  
 
-    public EnemyBuilder(IGameObjectRepository repository)
+    public EnemyBuilder()
     {
-        _repository = repository;
+
+      
 
     }
 
@@ -26,51 +27,56 @@ public class EnemyBuilder : IGameObjectBuilder
 
     public void Reset()
     {
-        var player = (Player)_repository.Player;
-        this.enemy = new Enemy(new EnemyMovement(_repository), new EnemyDrawing(),new NoShooting(),player, x, y, movementSpeed, hitPoints, texture);
+     
+        this._enemy = new Enemy(new EnemyMovement(), new EnemyDrawing(),new NoShooting(),_player, _x, _y, _movementSpeed, _hitPoints, _texture);
+    }
+
+    public void SetTargetPlayer(Player player)
+    {
+        this._player = player;
     }
     public void CanShoot(int shootingTime)
     {
       
-        enemy.SetShootingStrategy(new EnemyDefaultShooting(shootingTime));
+        _enemy.SetShootingStrategy(new EnemyDefaultShooting(shootingTime));
     }
 
     public void SetHitpoints(int hitPoints)
     {
-        enemy.IsAlive = true;
-        enemy.SetHitPoints(hitPoints);
+        _enemy.IsAlive = true;
+        _enemy.SetHitPoints(hitPoints);
     }
 
     public void SetPosition(float x, float y)
     {
-        enemy.X = x;
-        enemy.Y = y;
+        _enemy.X = x;
+        _enemy.Y = y;
     }
 
     public void SetTexture(Texture2D texture2D)
     {
-        enemy.Texture = texture2D;
-        enemy.Widht = texture2D.Width;
-        enemy.Height = texture2D.Height;
+        _enemy.Texture = texture2D;
+        _enemy.Widht = texture2D.Width;
+        _enemy.Height = texture2D.Height;
     }
 
     public Enemy GetItem()
     {
-        var result = enemy;
+        var result = _enemy;
         Reset();
         return result;
     }
 
     public void IsMovable(bool isMoving)
     {
-        enemy.IsMoving = true;
+        _enemy.IsMoving = true;
     }
     public void IsAlive(bool isAlive)
     {
-        enemy.IsAlive = true;
+        _enemy.IsAlive = true;
     }
     public void SetSpeed(float speed)
     {
-        enemy.MovementSpeed = speed;
+        _enemy.MovementSpeed = speed;
     }
 }

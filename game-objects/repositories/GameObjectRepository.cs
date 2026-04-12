@@ -1,3 +1,4 @@
+using Contentmanagement;
 using GameObjects.factories;
 using GameObjects.objects;
 
@@ -13,6 +14,7 @@ public sealed class GameObjectRepository : IGameObjectRepository
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public BaseGameEntity Player { get; set; }
     public int CurrentWave { get; set; }
+    public List<EnemyConfig> EnemyConfgurationData { get;  set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     public GameObjectRepository()

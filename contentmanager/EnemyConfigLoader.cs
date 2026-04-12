@@ -1,20 +1,29 @@
 using System.Text.Json;
+using GameObjects.objects;
 
+namespace Contentmanagement;
+
+public class EnemyConfig
+{
+    public string Name { get; set; }
+    public int TextureId { get; set; }
+    public float Speed { get; set; }
+    public int HitPoints { get; set; }
+    public bool CanShoot { get; set; }
+    public int? ShootInterval { get; set; }
+    public Player TargetPlayer { get; internal set; }
+}
 public class EnemyConfigLoader
 {
-    public class EnemyConfig
+
+    public List<EnemyConfig> Load(string filePath)
     {
-        public string Name { get; set; }
-        public int TextureId { get; set; }
-        public float Speed { get; set; }
-        public int HitPoints { get; set; }
-        public bool CanShoot { get; set; }
-        public int? ShootInterval { get; set; }
-    }
-    public static List<EnemyConfig> Load(string filePath)
-    {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
         var json = File.ReadAllText(filePath);
-        return JsonSerializer.Deserialize<List<EnemyConfig>>(json)
+        return JsonSerializer.Deserialize<List<EnemyConfig>>(json,options)
             ?? new List<EnemyConfig>();
     }
 }

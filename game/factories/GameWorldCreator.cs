@@ -4,6 +4,7 @@ using Asteroid_game.behavior.movement;
 using Asteroid_game.behavior.shooting;
 using Bevahior;
 using Camera;
+using Contentmanagement;
 using Game;
 using GameObjects.repositories;
 using GameStateBevahior;
@@ -13,6 +14,9 @@ public class GameWorldCreator : GameWorldFactory
     public override IGameState Create()
     {
         var repo = new GameObjectRepository();
+        var config = new EnemyConfigLoader().Load("configuration/enemies.json");
+        repo.EnemyConfgurationData = config;
+
         var gameEvents = new List<IGameEvent>
         {
             new ParticleSpawner(repo,200),
