@@ -1,5 +1,6 @@
 using Asteroid_game.behavior.collision;
 using Asteroid_game.behavior.movement;
+using Asteroid_game.behavior.shooting;
 using Asteroid_game.camera;
 using Bevahior;
 using Camera;
@@ -19,9 +20,11 @@ public sealed class GameWorld : IGameState, IGameWorld
     private readonly ICollisionDetectionService _collisionDetectionService;
     private readonly IMovementService _movementService;
     private readonly IGameCamera _gameCamera;
+
+    private readonly IShootingService _shootingService;
     private readonly EventRendererRegistry _eventRendererRegistry = new EventRendererRegistry();
 
-    public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, IMovementService movementService, List<IGameEvent> gameEvents)
+    public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, IMovementService movementService,IShootingService shootingService, List<IGameEvent> gameEvents)
     {
         this.GameObjectRepository = gameObjectRepository;
 
@@ -29,6 +32,7 @@ public sealed class GameWorld : IGameState, IGameWorld
 
         _collisionDetectionService = collisionDetectionService;
         _movementService = movementService;
+        _shootingService = shootingService;
         _gameCamera = camera;
 
         // register default renderers
@@ -74,7 +78,7 @@ public sealed class GameWorld : IGameState, IGameWorld
 
         _collisionDetectionService.CollisionDetection();
         _movementService.MoveObjects();
-
+        _shootingService.Shoot();
         _gameCamera.TargetObject(GameObjectRepository.Player);
         GameObjectRepository.RemoveDeadEntities();
     }

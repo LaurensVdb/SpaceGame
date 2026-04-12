@@ -10,13 +10,9 @@ namespace Asteroid_game.behavior.movement
             foreach (var entity in gameEntities)
             {
                 entity.Move();
-                if (entity.CanShoot)
-                {
-                    entity.Shoot(gameObjectRepository);
-                }
+              
             }
             gameObjectRepository.Player.Move();
-            gameObjectRepository.Player.Shoot(gameObjectRepository);
         }
     }
 }

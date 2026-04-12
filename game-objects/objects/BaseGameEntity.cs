@@ -1,3 +1,5 @@
+using System.Numerics;
+using Asteroid_game.behavior.shooting;
 using Asteroid_game.camera;
 using Asteroid_game.drawing;
 using GameObjects.repositories;
@@ -13,8 +15,10 @@ public abstract class BaseGameEntity
 
     protected IMovement MovementService;
     protected IDrawing Drawing;
+
     private int hitpointsAtStart;
-    public BaseGameEntity(IMovement movementService, IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false)
+    public BaseGameEntity(IMovement movementService, IDrawing drawing, float x, float y, float movementSpeed, 
+    int hitPoints, Texture2D texture2D)
     {
         MovementService = movementService;
         X = x;
@@ -27,7 +31,6 @@ public abstract class BaseGameEntity
         Height = texture2D.Height;
         IsAlive = true;
         hitpointsAtStart = hitPoints;
-        CanShoot = canShoot;
         Drawing = drawing;
     }
 
@@ -57,8 +60,6 @@ public abstract class BaseGameEntity
 
     public int ProtectectionLevel { get; set; }
 
-    public bool CanShoot { get; set; }
-
     public int MaxElapsedMillisecondsShootingTime { get; set; }
 
     public void Move()
@@ -66,15 +67,10 @@ public abstract class BaseGameEntity
         MovementService.Move(this);
     }
 
-
     public virtual void Draw(ICameraController cameraController)
     {
         Drawing.Drawing(this, cameraController);
     }
-
-
-
-    public virtual void Shoot(IGameObjectRepository gameObjectRepository) { }
 
     public virtual void TakeDamage(int damagePoints)
     {

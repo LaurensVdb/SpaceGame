@@ -26,6 +26,7 @@ public class EnemySpawner : GameEvent
         var screenWidth = Raylib.GetScreenWidth();
         var screenHeight = Raylib.GetScreenHeight();
 
+        enemyBuilder.Reset();
         timer.Start();
         if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
         {

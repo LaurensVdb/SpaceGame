@@ -1,42 +1,39 @@
+using Asteroid_game.behavior.shooting;
 using Asteroid_game.drawing;
+using Asteroid_game.game_objects.objects;
 using Contentmanagement;
 using GameObjects.repositories;
 using MovmementService;
 using Raylib_cs;
 using System.Diagnostics;
+using System.Numerics;
 
 namespace GameObjects.objects;
 
 
 
-public class Enemy : BaseGameEntity
+public class Enemy : ShootableEntity
 {
-    private Stopwatch timer;
-
     //public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
-
-    public Enemy(IMovement movementservice, IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false) : base(movementservice, drawing, x, y, movementSpeed, hitPoints, texture2D, canShoot)
+    private readonly Player _player;
+    public Enemy(IMovement movementservice, IDrawing drawing,IShooting shooting,Player player, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D) 
+    : base(movementservice, drawing,shooting, x, y, movementSpeed, hitPoints, texture2D)
     {
-
-        timer = new Stopwatch();
-        timer.Start();
-        if (canShoot)
-            MaxElapsedMillisecondsShootingTime = 2000;
+        _player=player;
     }
 
 
-    public override void Shoot(IGameObjectRepository gameObjectRepository)
+    public void SetShootingStrategy(IShooting shooting)
     {
-        var deltaX = gameObjectRepository.Player.X - X;
-        var deltaY = gameObjectRepository.Player.Y - Y;
+        ShootingService = shooting;
+    }
+    public override Bullet? Shoot()
+    {
+        var deltaX = _player.X - X;
+        var deltaY = _player.Y - Y;
         var playerrotation = MathF.Atan2(deltaY, deltaX) * (180f / MathF.PI) + 90;
-        if (timer.ElapsedMilliseconds >= MaxElapsedMillisecondsShootingTime)
-        {
-            timer.Reset();
-            gameObjectRepository.AddEntity(new Bullet(new BulletMovement(), new BulletDrawing(), X, Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)], 10f, 0, playerrotation, true));
-            timer.Start();
-        }
 
+        var position = new Vector2(X, Y);
+        return ShootingService.Shooting(position,playerrotation);
     }
-
 }

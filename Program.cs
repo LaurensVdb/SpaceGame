@@ -10,7 +10,7 @@ class Program
   {
     InitWindow(1920, 1080, "space adventure");
  
-    ToggleFullscreen();
+    //ToggleFullscreen();
     SetTargetFPS(60);
 
 

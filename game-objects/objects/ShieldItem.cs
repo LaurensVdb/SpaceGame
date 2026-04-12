@@ -7,8 +7,8 @@ namespace Asteroid_game.game_objects.objects
 {
     public class ShieldItem : BaseGameEntity, IGameItem
     {
-        public ShieldItem(IMovement movementservice, IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D, bool canShoot = false)
-            : base(movementservice, drawing, x, y, movementSpeed, hitPoints, texture2D, canShoot)
+        public ShieldItem(IMovement movementservice, IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
+            : base(movementservice, drawing, x, y, movementSpeed, hitPoints, texture2D)
         {
         }
 

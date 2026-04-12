@@ -1,3 +1,4 @@
+using Asteroid_game.behavior.shooting;
 using Asteroid_game.drawing;
 using GameObjects.objects;
 using GameObjects.repositories;
@@ -18,19 +19,20 @@ public class EnemyBuilder : IGameObjectBuilder
     public EnemyBuilder(IGameObjectRepository repository)
     {
         _repository = repository;
-        Reset();
+
     }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     public void Reset()
     {
-        this.enemy = new Enemy(new EnemyMovement(_repository), new EnemyDrawing(), x, y, movementSpeed, hitPoints, texture, canshoot);
+        var player = (Player)_repository.Player;
+        this.enemy = new Enemy(new EnemyMovement(_repository), new EnemyDrawing(),new NoShooting(),player, x, y, movementSpeed, hitPoints, texture);
     }
     public void CanShoot(int shootingTime)
     {
-        enemy.CanShoot = true;
-        enemy.MaxElapsedMillisecondsShootingTime = shootingTime;
+      
+        enemy.SetShootingStrategy(new EnemyDefaultShooting(shootingTime));
     }
 
     public void SetHitpoints(int hitPoints)
