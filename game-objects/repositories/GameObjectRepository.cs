@@ -23,7 +23,7 @@ public sealed class GameObjectRepository : IGameObjectRepository
     public void CreatePlayer()
     {
         PlayerFactory playerFactory = new PlayerFactory();
-        Player = playerFactory.FactoryMethod();
+        Player = playerFactory.Create();
     }
     public void AddEntity(BaseGameEntity entity)
     {

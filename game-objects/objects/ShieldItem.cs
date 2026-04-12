@@ -13,7 +13,7 @@ namespace Asteroid_game.game_objects.objects
         }
 
 
-        public void InteractWithPlayer(BaseGameEntity player)
+        public void InteractWithPlayer(Player player)
         {
             player.ProtectectionLevel = 10;
             IsAlive = false;

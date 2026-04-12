@@ -11,18 +11,18 @@ namespace Asteroid_game.game_objects.objects
             : base(movementservice, drawing, x, y, movementSpeed, hitPoints, texture2D)
         {
         }
-        private async Task Delayedtask(BaseGameEntity gameEntity)
+        private async Task Delayedtask(Player gameEntity)
         {
             await Task.Delay(10000);
-            gameEntity.MaxElapsedMillisecondsShootingTime = 100;
+            gameEntity.ShootingService.MaxElapsedMilliseconds = 500;
 
         }
-        public void InteractWithPlayer(BaseGameEntity player)
+        public void InteractWithPlayer(Player gameEntity)
         {
 
-            player.MaxElapsedMillisecondsShootingTime = 0;
+            gameEntity.ShootingService.MaxElapsedMilliseconds = 0;
             IsAlive = false;
-            _ = Delayedtask(player);
+            _ = Delayedtask(gameEntity);
 
         }
     }

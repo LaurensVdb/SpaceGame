@@ -1,8 +1,6 @@
-﻿using Asteroid_game.behavior.movement;
-using Asteroid_game.drawing;
-using Asteroid_game.game_objects.objects;
+﻿using System.Numerics;
+using Asteroid_game.game_objects.factories;
 using Bevahior;
-using Contentmanagement;
 using GameObjects.repositories;
 using Raylib_cs;
 
@@ -10,31 +8,39 @@ namespace Asteroid_game.behavior
 {
     public class ShieldItemSpawner : GameEvent
     {
-        private IGameObjectRepository gameObjectRepository;
-
+        private IGameObjectRepository _gameObjectRepository;
+        private ShieldItemFactory _shieldItemFactory;
         public ShieldItemSpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
         {
 
-            this.gameObjectRepository = gameObjectRepository;
+            this._gameObjectRepository = gameObjectRepository;
+            _shieldItemFactory = new ShieldItemFactory();
         }
         public override void StartEvent()
         {
-            var screenWidth = Raylib.GetScreenWidth();
-            var screenHeight = Raylib.GetScreenHeight();
             timer.Start();
 
-            var playerProtectionLevel = gameObjectRepository.Player.ProtectectionLevel;
+            var playerProtectionLevel = _gameObjectRepository.Player.ProtectectionLevel;
             if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds && playerProtectionLevel < 10)
             {
                 timer.Reset();
-                Random rnd = new Random();
-                gameObjectRepository.AddEntity(new ShieldItem(new NoMovement(), new ShieldItemDrawing(),
-                  rnd.Next((int)gameObjectRepository.Player.X - (screenWidth / 2), (int)gameObjectRepository.Player.X + (screenWidth / 2)),
-                rnd.Next((int)gameObjectRepository.Player.Y - (screenHeight / 2), (int)gameObjectRepository.Player.Y + (screenHeight / 2)),
-                0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(ShieldItem), 1)]
-          ));
+                CreateShieldItem();
                 timer.Start();
             }
+        }
+
+        private void CreateShieldItem()
+        {
+            var screenWidth = Raylib.GetScreenWidth();
+            var screenHeight = Raylib.GetScreenHeight();
+
+            Random rnd = new Random();
+            var x = rnd.Next((int)_gameObjectRepository.Player.X - (screenWidth / 2), (int)_gameObjectRepository.Player.X + (screenWidth / 2));
+            var y = rnd.Next((int)_gameObjectRepository.Player.Y - (screenHeight / 2), (int)_gameObjectRepository.Player.Y + (screenHeight / 2));
+            var position = new Vector2(x, y);
+
+            var shieldItem = _shieldItemFactory.Create(position);
+            _gameObjectRepository.AddEntity(shieldItem);
         }
     }
 }

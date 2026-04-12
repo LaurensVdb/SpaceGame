@@ -16,7 +16,7 @@ public class GameWorldCreator : GameWorldFactory
         var gameEvents = new List<IGameEvent>
         {
             new ParticleSpawner(repo,200),
-            new PlayerItemSpawner(repo,10000),
+            new PlayerHealtItemSpawner(repo,10000),
             new WaveEvent(repo,10000),
             new ShieldItemSpawner(repo,20000),
             new BulletSpeedItemSpawner(repo,21000)

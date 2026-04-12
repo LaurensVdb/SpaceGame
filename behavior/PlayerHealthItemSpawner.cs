@@ -1,34 +1,36 @@
 ﻿using System.Numerics;
+using Asteroid_game.behavior.movement;
+using Asteroid_game.drawing;
 using Asteroid_game.game_objects.factories;
+using Asteroid_game.game_objects.objects;
 using Bevahior;
+using Contentmanagement;
 using GameObjects.repositories;
 using Raylib_cs;
 
 namespace Asteroid_game.behavior
 {
-    public class BulletSpeedItemSpawner : GameEvent
+    public class PlayerHealtItemSpawner : GameEvent
     {
         private IGameObjectRepository _gameObjectRepository;
-        private BulletSpeedItemFactory _bulletSpeedItemFactory;
-
-        public BulletSpeedItemSpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
+        private HealtItemFactory _healthItemFactory;
+        public PlayerHealtItemSpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
         {
-            _bulletSpeedItemFactory = new BulletSpeedItemFactory();
+            _healthItemFactory = new HealtItemFactory();
             this._gameObjectRepository = gameObjectRepository;
         }
         public override void StartEvent()
         {
             timer.Start();
-
             if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
             {
                 timer.Reset();
-                CreateBulletSpeedItem();
+                CreateHealthItem();
                 timer.Start();
             }
         }
 
-        private void CreateBulletSpeedItem()
+        private void CreateHealthItem()
         {
             var screenWidth = Raylib.GetScreenWidth();
             var screenHeight = Raylib.GetScreenHeight();
@@ -36,10 +38,10 @@ namespace Asteroid_game.behavior
             Random rnd = new Random();
             var x = rnd.Next((int)_gameObjectRepository.Player.X - (screenWidth / 2), (int)_gameObjectRepository.Player.X + (screenWidth / 2));
             var y = rnd.Next((int)_gameObjectRepository.Player.Y - (screenHeight / 2), (int)_gameObjectRepository.Player.Y + (screenHeight / 2));
-            var position = new Vector2(x, y);
+            var posistion = new Vector2(x, y);
 
-            var bulletSpeedItem = _bulletSpeedItemFactory.Create(position);
-            _gameObjectRepository.AddEntity(bulletSpeedItem);
+            var healthItem = _healthItemFactory.Create(posistion);
+            _gameObjectRepository.AddEntity(healthItem);
         }
     }
 }

@@ -50,6 +50,7 @@
 
   <ItemGroup>
     <Folder Include="behavior\shooting\" />
+    <Folder Include="factories\" />
   </ItemGroup>
 
 </Project>

@@ -4,6 +4,6 @@ namespace Asteroid_game.game_objects.objects
 {
     public interface IGameItem
     {
-        void InteractWithPlayer(BaseGameEntity player);
+        void InteractWithPlayer(Player player);
     }
 }
