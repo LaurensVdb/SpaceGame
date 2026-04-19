@@ -9,9 +9,14 @@ using Game;
 using GameObjects.repositories;
 using GameStateBevahior;
 
-public class GameWorldCreator : GameWorldFactory
+public interface IGameWorldFactory
 {
-    public override IGameState Create()
+    IGameState Create();
+}
+
+public class GameWorldFactory : IGameWorldFactory
+{
+    public IGameState Create()
     {
         var repo = new GameObjectRepository();
         var config = new EnemyConfigLoader().Load("configuration/enemies.json");
