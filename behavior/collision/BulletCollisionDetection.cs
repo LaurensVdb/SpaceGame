@@ -1,7 +1,7 @@
-﻿using GameObjects.objects;
-using GameObjects.repositories;
+﻿using GameObjects.Objects;
+using GameObjects.Repositories;
 
-namespace Events.behavior.collision
+namespace Behavior.Collision
 {
     public class BulletCollisionDetection(IGameObjectRepository gameObjectRepository) : ICollisionDetection
     {

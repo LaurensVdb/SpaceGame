@@ -1,4 +1,4 @@
-namespace Bevahior
+namespace Behavior.Events
 {
     public interface IDrawableGameEvent
     {

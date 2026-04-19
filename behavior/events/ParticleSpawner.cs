@@ -1,11 +1,11 @@
-using Contentmanagement;
-using GameObjects.objects;
-using GameObjects.repositories;
-using MovmementService;
+using ContentManagement;
+using GameObjects.Objects;
+using GameObjects.Repositories;
+using Behavior.Movement;
 using Raylib_cs;
-using Asteroid_game.drawing;
+using Drawing;
 
-namespace Bevahior;
+namespace Behavior.Events;
 
 public class ParticleSpawner : GameEvent
 {

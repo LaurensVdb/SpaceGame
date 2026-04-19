@@ -1,6 +1,6 @@
-﻿using GameObjects.objects;
+﻿using GameObjects.Objects;
 
-namespace MovmementService
+namespace Behavior.Movement
 {
     public class StarMovement : IMovement
     {

@@ -1,8 +1,9 @@
-using Contentmanagement;
-using GameObjects.factories;
-using GameObjects.objects;
+using ContentManagement;
+using GameObjects.Factories;
+using GameObjects.Objects;
 
-namespace GameObjects.repositories;
+namespace GameObjects.Repositories;
+
 public sealed class GameObjectRepository : IGameObjectRepository
 {
 
@@ -14,7 +15,7 @@ public sealed class GameObjectRepository : IGameObjectRepository
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public BaseGameEntity Player { get; set; }
     public int CurrentWave { get; set; }
-    public List<EnemyConfig> EnemyConfgurationData { get;  set; }
+    public List<EnemyConfig> EnemyConfgurationData { get; set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     public GameObjectRepository()

@@ -1,8 +1,7 @@
-﻿using Asteroid_game.game_objects.objects;
-using GameObjects.objects;
-using GameObjects.repositories;
+﻿using GameObjects.Objects;
+using GameObjects.Repositories;
 
-namespace Events.behavior.collision
+namespace Behavior.Collision
 {
     public class ItemCollisionDetection(IGameObjectRepository gameObjectRepository) : ICollisionDetection
     {

@@ -1,14 +1,11 @@
-using Asteroid_game.behavior.shooting;
-using Asteroid_game.drawing;
-using Asteroid_game.game_objects.objects;
-using Contentmanagement;
-using GameObjects.repositories;
-using MovmementService;
+using Behavior.Shooting;
+using Drawing;
+using GameObjects.Objects;
+using Behavior.Movement;
 using Raylib_cs;
-using System.Diagnostics;
 using System.Numerics;
 
-namespace GameObjects.objects;
+namespace GameObjects.Objects;
 
 
 
@@ -17,11 +14,11 @@ public class Enemy : ShootableEntity
     //public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
     private readonly Player _player;
 
-    public Player TargetPlayer { get { return _player; }    }
-    public Enemy(IMovement movementservice, IDrawing drawing,IShooting shooting,Player player, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D) 
-    : base(movementservice, drawing,shooting, x, y, movementSpeed, hitPoints, texture2D)
+    public Player TargetPlayer { get { return _player; } }
+    public Enemy(IMovement movementservice, IDrawing drawing, IShooting shooting, Player player, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
+    : base(movementservice, drawing, shooting, x, y, movementSpeed, hitPoints, texture2D)
     {
-        _player=player;
+        _player = player;
     }
 
 
@@ -36,6 +33,6 @@ public class Enemy : ShootableEntity
         var playerrotation = MathF.Atan2(deltaY, deltaX) * (180f / MathF.PI) + 90;
 
         var position = new Vector2(X, Y);
-        return ShootingService.Shooting(position,playerrotation);
+        return ShootingService.Shooting(position, playerrotation);
     }
 }

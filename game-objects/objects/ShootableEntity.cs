@@ -1,17 +1,15 @@
-using System;
-using System.Numerics;
-using Asteroid_game.behavior.shooting;
-using Asteroid_game.drawing;
-using GameObjects.objects;
-using MovmementService;
+using Behavior.Shooting;
+using Drawing;
+using GameObjects.Objects;
+using Behavior.Movement;
 using Raylib_cs;
 
-namespace Asteroid_game.game_objects.objects;
+namespace GameObjects.Objects;
 
-public abstract  class ShootableEntity : BaseGameEntity
+public abstract class ShootableEntity : BaseGameEntity
 {
     public IShooting ShootingService;
-    public ShootableEntity(IMovement movementService, IDrawing drawing, IShooting shootingService, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D) 
+    public ShootableEntity(IMovement movementService, IDrawing drawing, IShooting shootingService, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
     : base(movementService, drawing, x, y, movementSpeed, hitPoints, texture2D)
     {
         ShootingService = shootingService;

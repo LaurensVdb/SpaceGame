@@ -1,21 +1,20 @@
 using System;
 using System.Diagnostics;
 using System.Numerics;
-using Asteroid_game.drawing;
-using Asteroid_game.game_objects.objects;
-using Contentmanagement;
-using GameObjects.objects;
-using GameObjects.repositories;
-using MovmementService;
+using Drawing;
+using GameObjects.Objects;
+using ContentManagement;
+using GameObjects.Repositories;
+using Behavior.Movement;
 
-namespace Asteroid_game.behavior.shooting;
+namespace Behavior.Shooting;
 
 public class EnemyDefaultShooting : IShooting
 {
-   
 
-    public Stopwatch shootTimer { get ; set; }
-    public int MaxElapsedMilliseconds { get;set; }
+
+    public Stopwatch shootTimer { get; set; }
+    public int MaxElapsedMilliseconds { get; set; }
 
     public EnemyDefaultShooting(int maxElapsedMilliseconds)
     {
@@ -30,13 +29,13 @@ public class EnemyDefaultShooting : IShooting
         Bullet? bullet = null;
         if (shootTimer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
         {
-       
+
             bullet = new Bullet(new BulletMovement(), new BulletDrawing(),
             position.X, position.Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)], 10f, 0, rotatepoint, true);
             shootTimer.Reset();
 
-          
+
         }
-          return bullet;
+        return bullet;
     }
 }

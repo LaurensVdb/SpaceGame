@@ -1,19 +1,17 @@
-using System;
-using System.Numerics;
-using GameObjects.objects;
+using GameObjects.Objects;
 
-namespace Asteroid_game.behavior.shooting;
+namespace Behavior.Shooting;
 
 public class ShootingTarget
 {
     public ShootingTarget(BaseGameEntity target)
     {
-        
+
     }
 
     public ShootingTarget()
     {
-        
+
     }
-    
+
 }

@@ -1,16 +1,17 @@
 using System.Numerics;
-using GameStateBevahior;
+using GameState;
 using Raylib_cs;
 
-namespace GameMenuBevahior;
+namespace Menu;
 
-public interface IMenuItem{
+public interface IMenuItem
+{
     void DrawMenuItem();
     public int X { get; }
     public int Y { get; }
     public int Order { get; }
     public Color Color { get; }
-    public IGameState GameState {get;}
+    public IGameState GameState { get; }
     public int FontSize { get; }
     public Vector2 Position { get; }
 

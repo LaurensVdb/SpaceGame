@@ -1,6 +1,7 @@
-namespace GameMenuBevahior;
+namespace Menu;
 
-public interface IMenu{
+public interface IMenu
+{
     void UpdateMenu();
     void DrawStartMenu();
 

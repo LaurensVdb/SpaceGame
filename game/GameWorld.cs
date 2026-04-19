@@ -1,12 +1,11 @@
-using Asteroid_game.behavior.movement;
-using Asteroid_game.behavior.shooting;
-using Asteroid_game.camera;
-using Bevahior;
+using Behavior.Movement;
+using Behavior.Shooting;
 using Camera;
-using Events.behavior.collision;
-using GameMenuBevahior;
-using GameObjects.repositories;
-using GameStateBevahior;
+using Behavior.Events;
+using Behavior.Collision;
+using Menu;
+using GameObjects.Repositories;
+using GameState;
 using Raylib_cs;
 namespace Game;
 

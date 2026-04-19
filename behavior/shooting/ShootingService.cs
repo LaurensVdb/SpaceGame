@@ -1,11 +1,9 @@
 using System;
 using System.Numerics;
-using System.Runtime.Intrinsics;
-using Asteroid_game.game_objects.objects;
-using GameObjects.objects;
-using GameObjects.repositories;
+using GameObjects.Objects;
+using GameObjects.Repositories;
 
-namespace Asteroid_game.behavior.shooting;
+namespace Behavior.Shooting;
 
 public interface IShootingService
 {

@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Asteroid_game.camera
+namespace Camera
 {
     public interface ICameraController
     {

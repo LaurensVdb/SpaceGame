@@ -1,6 +1,6 @@
-﻿using GameObjects.objects;
+﻿using GameObjects.Objects;
 
-namespace Asteroid_game.game_objects.objects
+namespace GameObjects.Objects
 {
     public interface IGameItem
     {

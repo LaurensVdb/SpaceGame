@@ -1,10 +1,10 @@
 using System.Numerics;
-using Asteroid_game.behavior.movement;
-using Asteroid_game.drawing;
-using Asteroid_game.game_objects.objects;
-using Contentmanagement;
+using Behavior.Movement;
+using Drawing;
+using GameObjects.Objects;
+using ContentManagement;
 
-namespace Asteroid_game.game_objects.factories;
+namespace GameObjects.Factories;
 
 public interface IShieldItemFactory
 {

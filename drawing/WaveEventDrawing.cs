@@ -1,9 +1,9 @@
-using Asteroid_game.camera;
-using Bevahior;
+using Camera;
+using Behavior.Events;
 using Raylib_cs;
 using System.Numerics;
 
-namespace Asteroid_game.drawing
+namespace Drawing
 {
     public class WaveEventDrawing
     {

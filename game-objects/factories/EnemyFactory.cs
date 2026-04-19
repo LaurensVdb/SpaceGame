@@ -1,10 +1,10 @@
 using System;
 using System.Numerics;
-using Contentmanagement;
-using GameObjects.factories;
-using GameObjects.objects;
+using ContentManagement;
+using GameObjects.Factories;
+using GameObjects.Objects;
 
-namespace Asteroid_game.game_objects.factories;
+namespace GameObjects.Factories;
 
 public interface IEnemyFactory
 {

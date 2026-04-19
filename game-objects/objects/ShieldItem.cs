@@ -1,9 +1,9 @@
-﻿using Asteroid_game.drawing;
-using GameObjects.objects;
-using MovmementService;
+﻿using Drawing;
+using GameObjects.Objects;
+using Behavior.Movement;
 using Raylib_cs;
 
-namespace Asteroid_game.game_objects.objects
+namespace GameObjects.Objects
 {
     public class ShieldItem : BaseGameEntity, IGameItem
     {

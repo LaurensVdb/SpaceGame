@@ -1,7 +1,7 @@
-﻿using GameObjects.objects;
+﻿using GameObjects.Objects;
 using Raylib_cs;
 
-namespace MovmementService
+namespace Behavior.Movement
 {
     public class PlayerMovement() : IMovement
     {

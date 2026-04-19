@@ -1,10 +1,10 @@
 using System.Numerics;
-using Asteroid_game.game_objects.factories;
-using GameObjects.objects;
-using GameObjects.repositories;
+using GameObjects.Factories;
+using GameObjects.Objects;
+using GameObjects.Repositories;
 using Raylib_cs;
 
-namespace Bevahior;
+namespace Behavior.Events;
 
 public class EnemySpawner : GameEvent
 {

@@ -1,4 +1,4 @@
-﻿namespace Events.behavior.collision
+﻿namespace Behavior.Collision
 {
 
     public class CollisionDetectionService(IEnumerable<ICollisionDetection> collisionDetections) : ICollisionDetectionService

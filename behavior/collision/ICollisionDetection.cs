@@ -1,7 +1,7 @@
-﻿using GameObjects.objects;
+﻿using GameObjects.Objects;
 using Raylib_cs;
 
-namespace Events.behavior.collision
+namespace Behavior.Collision
 {
     public interface ICollisionDetection
     {

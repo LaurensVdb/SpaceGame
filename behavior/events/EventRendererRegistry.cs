@@ -1,6 +1,6 @@
-using Asteroid_game.camera;
+using Camera;
 
-namespace Bevahior
+namespace Behavior.Events
 {
     public class EventRendererRegistry
     {

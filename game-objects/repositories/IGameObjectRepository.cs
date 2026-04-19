@@ -1,8 +1,8 @@
-using Asteroid_game.game_objects.objects;
-using Contentmanagement;
-using GameObjects.objects;
+using GameObjects.Objects;
+using ContentManagement;
 
-namespace GameObjects.repositories;
+namespace GameObjects.Repositories;
+
 public interface IGameObjectRepository
 {
     void AddEntity(BaseGameEntity entity);
@@ -21,5 +21,5 @@ public interface IGameObjectRepository
 
     IEnumerable<IGameItem> GameItems => Entities.OfType<IGameItem>();
 
-    List<EnemyConfig> EnemyConfgurationData { get;  set; }
+    List<EnemyConfig> EnemyConfgurationData { get; set; }
 }

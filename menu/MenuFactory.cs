@@ -1,8 +1,8 @@
 using Game;
-using GameStateBevahior;
+using GameState;
 using Raylib_cs;
 
-namespace GameMenuBevahior;
+namespace Menu;
 
 public abstract class MenuFactory
 {

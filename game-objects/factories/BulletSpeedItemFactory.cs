@@ -1,13 +1,12 @@
 using System;
 using System.Numerics;
-using Asteroid_game.behavior.movement;
-using Asteroid_game.drawing;
-using Asteroid_game.game_objects.objects;
-using Contentmanagement;
-using GameObjects.factories;
-using GameObjects.objects;
+using Behavior.Movement;
+using Drawing;
+using GameObjects.Objects;
+using ContentManagement;
+using GameObjects.Factories;
 
-namespace Asteroid_game.game_objects.factories;
+namespace GameObjects.Factories;
 
 public interface IBulletSpeedItemFactory
 {

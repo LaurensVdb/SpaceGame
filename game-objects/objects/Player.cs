@@ -1,11 +1,11 @@
 using System.Numerics;
-using Asteroid_game.behavior.shooting;
-using Asteroid_game.drawing;
-using Asteroid_game.game_objects.objects;
-using MovmementService;
+using Behavior.Shooting;
+using Drawing;
+using GameObjects.Objects;
+using Behavior.Movement;
 using Raylib_cs;
 
-namespace GameObjects.objects;
+namespace GameObjects.Objects;
 
 public class Player : ShootableEntity
 {
@@ -31,6 +31,6 @@ public class Player : ShootableEntity
     public override Bullet? Shoot()
     {
         var rotatepoint = RotatePoint(new Vector2(X, Y), new Vector2(X, Y), Rotation);
-        return ShootingService.Shooting(rotatepoint,Rotation);
+        return ShootingService.Shooting(rotatepoint, Rotation);
     }
 }

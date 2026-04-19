@@ -1,8 +1,8 @@
-﻿using GameObjects.objects;
-using GameObjects.repositories;
+﻿using GameObjects.Objects;
+using GameObjects.Repositories;
 using System.Numerics;
 
-namespace MovmementService
+namespace Behavior.Movement
 {
     public class EnemyMovement() : IMovement
     {

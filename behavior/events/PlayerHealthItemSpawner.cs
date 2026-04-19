@@ -1,10 +1,10 @@
 ﻿using System.Numerics;
-using Bevahior;
-using GameObjects.repositories;
+using Behavior.Events;
+using GameObjects.Repositories;
 using Raylib_cs;
-using Asteroid_game.game_objects.factories;
+using GameObjects.Factories;
 
-namespace Events.behavior
+namespace Behavior.Events
 {
     public class PlayerHealtItemSpawner : GameEvent
     {

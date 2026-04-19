@@ -1,7 +1,6 @@
-﻿using GameObjects.objects;
-using MovmementService;
+﻿using GameObjects.Objects;
 
-namespace Asteroid_game.behavior.movement
+namespace Behavior.Movement
 {
     public class NoMovement : IMovement
     {

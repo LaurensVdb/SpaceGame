@@ -1,9 +1,10 @@
-namespace GameStateBevahior; 
+namespace GameState;
 
-public interface  IGameState{
- 
+public interface IGameState
+{
+
         void Update(GameStateManager gameStateManager);
         void Draw();
-     
+
 
 }

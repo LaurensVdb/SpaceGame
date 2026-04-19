@@ -1,13 +1,12 @@
-using Asteroid_game.behavior.movement;
-using Asteroid_game.behavior.shooting;
-using Bevahior;
+using Behavior.Movement;
+using Behavior.Shooting;
+using Behavior.Events;
 using Camera;
-using Contentmanagement;
-using Events.behavior;
-using Events.behavior.collision;
+using ContentManagement;
+using Behavior.Collision;
 using Game;
-using GameObjects.repositories;
-using GameStateBevahior;
+using GameObjects.Repositories;
+using GameState;
 
 public interface IGameWorldFactory
 {

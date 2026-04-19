@@ -1,8 +1,8 @@
 using System.Numerics;
-using GameStateBevahior;
+using GameState;
 using Raylib_cs;
 
-namespace GameMenuBevahior;
+namespace Menu;
 
 public class GameOverMenu : BaseMenu
 {
@@ -10,12 +10,12 @@ public class GameOverMenu : BaseMenu
     {
     }
 
-    
+
     public override void Draw()
     {
         //Title screen + maybe bacbkground
-        Vector2 pos = MenuItems.OrderBy(p=>p.Order).First().Position;
-        Raylib.DrawText("GAME OVER! YOU DIED!",(int)pos.X,(int)pos.Y-100,50,Color.Gold);
+        Vector2 pos = MenuItems.OrderBy(p => p.Order).First().Position;
+        Raylib.DrawText("GAME OVER! YOU DIED!", (int)pos.X, (int)pos.Y - 100, 50, Color.Gold);
         //loop over existing menu items
         base.Draw();
     }

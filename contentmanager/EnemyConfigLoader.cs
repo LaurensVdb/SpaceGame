@@ -1,7 +1,7 @@
 using System.Text.Json;
-using GameObjects.objects;
+using GameObjects.Objects;
 
-namespace Contentmanagement;
+namespace ContentManagement;
 
 public class EnemyConfig
 {
@@ -23,7 +23,7 @@ public class EnemyConfigLoader
             PropertyNameCaseInsensitive = true
         };
         var json = File.ReadAllText(filePath);
-        return JsonSerializer.Deserialize<List<EnemyConfig>>(json,options)
+        return JsonSerializer.Deserialize<List<EnemyConfig>>(json, options)
             ?? new List<EnemyConfig>();
     }
 }

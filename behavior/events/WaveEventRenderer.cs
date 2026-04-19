@@ -1,8 +1,8 @@
-using Asteroid_game.camera;
-using Asteroid_game.drawing;
+using Camera;
+using Drawing;
 
 
-namespace Bevahior
+namespace Behavior.Events
 {
     public class WaveEventRenderer : IEventRenderer
     {

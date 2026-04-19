@@ -1,12 +1,12 @@
 using System.Numerics;
-using Asteroid_game.behavior.shooting;
-using Asteroid_game.camera;
-using Asteroid_game.drawing;
-using GameObjects.repositories;
-using MovmementService;
+using Behavior.Shooting;
+using Camera;
+using Drawing;
+using GameObjects.Repositories;
+using Behavior.Movement;
 using Raylib_cs;
 
-namespace GameObjects.objects;
+namespace GameObjects.Objects;
 /* 
 Elk game object moet gebruik maken van de base game entity class
 */
@@ -17,7 +17,7 @@ public abstract class BaseGameEntity
     protected IDrawing Drawing;
 
     private int hitpointsAtStart;
-    public BaseGameEntity(IMovement movementService, IDrawing drawing, float x, float y, float movementSpeed, 
+    public BaseGameEntity(IMovement movementService, IDrawing drawing, float x, float y, float movementSpeed,
     int hitPoints, Texture2D texture2D)
     {
         MovementService = movementService;

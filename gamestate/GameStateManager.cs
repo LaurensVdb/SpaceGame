@@ -1,10 +1,10 @@
 using Raylib_cs;
-namespace GameStateBevahior;
+namespace GameState;
 
 public class GameStateManager
 {
 
-    public bool IsExit=false;
+    public bool IsExit = false;
     private IGameState state;
     public IGameState State
     {
@@ -32,13 +32,13 @@ public class GameStateManager
             this.state.Update(this);
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.Black);
-                this.state.Draw();
+            this.state.Draw();
             Raylib.EndDrawing();
 
 
         }
         Raylib.CloseWindow();
-      
+
     }
 
 

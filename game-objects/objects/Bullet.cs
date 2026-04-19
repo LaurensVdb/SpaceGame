@@ -1,8 +1,8 @@
-using Asteroid_game.drawing;
-using MovmementService;
+using Drawing;
+using Behavior.Movement;
 using Raylib_cs;
 
-namespace GameObjects.objects;
+namespace GameObjects.Objects;
 
 public class Bullet : BaseGameEntity
 {

@@ -1,4 +1,4 @@
-﻿namespace Asteroid_game.behavior.movement
+﻿namespace Behavior.Movement
 {
     public interface IMovementService
     {

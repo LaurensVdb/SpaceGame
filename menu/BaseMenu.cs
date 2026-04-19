@@ -1,7 +1,7 @@
-using GameStateBevahior;
+using GameState;
 using Raylib_cs;
 
-namespace GameMenuBevahior;
+namespace Menu;
 
 public class BaseMenu(List<IMenuItem> menuItems) : IGameState
 {

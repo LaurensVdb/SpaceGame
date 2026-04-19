@@ -1,10 +1,10 @@
 ﻿using System.Numerics;
-using Asteroid_game.game_objects.factories;
-using Bevahior;
-using GameObjects.repositories;
+using GameObjects.Factories;
+using Behavior.Events;
+using GameObjects.Repositories;
 using Raylib_cs;
 
-namespace Events.behavior
+namespace Behavior.Events
 {
     public class ShieldItemSpawner : GameEvent
     {

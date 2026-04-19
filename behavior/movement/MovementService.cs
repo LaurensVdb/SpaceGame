@@ -1,6 +1,6 @@
-﻿using GameObjects.repositories;
+﻿using GameObjects.Repositories;
 
-namespace Asteroid_game.behavior.movement
+namespace Behavior.Movement
 {
     public class MovementService(IGameObjectRepository gameObjectRepository) : IMovementService
     {
@@ -10,7 +10,7 @@ namespace Asteroid_game.behavior.movement
             foreach (var entity in gameEntities)
             {
                 entity.Move();
-              
+
             }
             gameObjectRepository.Player.Move();
         }

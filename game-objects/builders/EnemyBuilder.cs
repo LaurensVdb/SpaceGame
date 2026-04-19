@@ -1,25 +1,25 @@
-using Asteroid_game.behavior.shooting;
-using Asteroid_game.drawing;
-using GameObjects.objects;
-using GameObjects.repositories;
-using MovmementService;
+using Behavior.Shooting;
+using Drawing;
+using GameObjects.Objects;
+using GameObjects.Repositories;
+using Behavior.Movement;
 using Raylib_cs;
 
 public class EnemyBuilder : IGameObjectBuilder
 {
     private Enemy _enemy;
-    private float _x=0;
-    private float _y=0;
-    private float _movementSpeed=0;
-    private int _hitPoints=0;
-    private Texture2D _texture=new Texture2D();
-    private Player _player; 
-  
+    private float _x = 0;
+    private float _y = 0;
+    private float _movementSpeed = 0;
+    private int _hitPoints = 0;
+    private Texture2D _texture = new Texture2D();
+    private Player _player;
+
 
     public EnemyBuilder()
     {
 
-      
+
 
     }
 
@@ -27,8 +27,8 @@ public class EnemyBuilder : IGameObjectBuilder
 
     public void Reset()
     {
-     
-        this._enemy = new Enemy(new EnemyMovement(), new EnemyDrawing(),new NoShooting(),_player, _x, _y, _movementSpeed, _hitPoints, _texture);
+
+        this._enemy = new Enemy(new EnemyMovement(), new EnemyDrawing(), new NoShooting(), _player, _x, _y, _movementSpeed, _hitPoints, _texture);
     }
 
     public void SetTargetPlayer(Player player)
@@ -37,7 +37,7 @@ public class EnemyBuilder : IGameObjectBuilder
     }
     public void CanShoot(int shootingTime)
     {
-      
+
         _enemy.SetShootingStrategy(new EnemyDefaultShooting(shootingTime));
     }
 

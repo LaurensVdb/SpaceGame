@@ -1,15 +1,13 @@
 using System;
 using System.Diagnostics;
 using System.Numerics;
-using Asteroid_game.game_objects.objects;
-using GameObjects.objects;
-using GameObjects.repositories;
+using GameObjects.Objects;
 
-namespace Asteroid_game.behavior.shooting;
+namespace Behavior.Shooting;
 
 public interface IShooting
 {
-    Bullet? Shooting(Vector2 position,float rotatepoint);
-    Stopwatch shootTimer{get;set;}
-    int MaxElapsedMilliseconds{get;set;}
+    Bullet? Shooting(Vector2 position, float rotatepoint);
+    Stopwatch shootTimer { get; set; }
+    int MaxElapsedMilliseconds { get; set; }
 }

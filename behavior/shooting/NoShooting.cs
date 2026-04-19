@@ -1,10 +1,9 @@
 using System;
 using System.Diagnostics;
 using System.Numerics;
-using GameObjects.objects;
-using GameObjects.repositories;
+using GameObjects.Objects;
 
-namespace Asteroid_game.behavior.shooting;
+namespace Behavior.Shooting;
 
 public class NoShooting : IShooting
 {
@@ -13,8 +12,8 @@ public class NoShooting : IShooting
 
     public Bullet? Shooting(Vector2 position, float rotatepoint)
     {
-       return null;
+        return null;
     }
 
-   
+
 }

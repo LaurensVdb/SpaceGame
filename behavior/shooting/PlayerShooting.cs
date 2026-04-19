@@ -1,15 +1,14 @@
 using System;
 using System.Diagnostics;
 using System.Numerics;
-using Asteroid_game.drawing;
-using Asteroid_game.game_objects.objects;
-using Contentmanagement;
-using GameObjects.objects;
-using GameObjects.repositories;
-using MovmementService;
+using Drawing;
+using GameObjects.Objects;
+using ContentManagement;
+using GameObjects.Repositories;
+using Behavior.Movement;
 using Raylib_cs;
 
-namespace Asteroid_game.behavior.shooting;
+namespace Behavior.Shooting;
 
 public class PlayerShooting : IShooting
 {
@@ -24,7 +23,7 @@ public class PlayerShooting : IShooting
         MaxElapsedMilliseconds = maxElapsedMilliseconds;
     }
 
-    public Bullet? Shooting(Vector2 position,float rotation)
+    public Bullet? Shooting(Vector2 position, float rotation)
     {
         shootTimer.Start();
         Bullet? bullet = null;

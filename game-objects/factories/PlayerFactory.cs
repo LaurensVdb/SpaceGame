@@ -1,11 +1,11 @@
 using System.Numerics;
-using Asteroid_game.behavior.shooting;
-using Asteroid_game.drawing;
-using Contentmanagement;
-using GameObjects.objects;
-using MovmementService;
+using Behavior.Shooting;
+using Drawing;
+using ContentManagement;
+using GameObjects.Objects;
+using Behavior.Movement;
 
-namespace GameObjects.factories;
+namespace GameObjects.Factories;
 
 public interface IPlayerFactory
 {

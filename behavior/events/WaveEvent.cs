@@ -1,6 +1,6 @@
-﻿using GameObjects.repositories;
+﻿using GameObjects.Repositories;
 
-namespace Bevahior
+namespace Behavior.Events
 {
     public class WaveEvent : GameEvent
     {

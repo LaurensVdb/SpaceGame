@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Bevahior;
+namespace Behavior.Events;
 
 public abstract class GameEvent : IGameEvent
 {

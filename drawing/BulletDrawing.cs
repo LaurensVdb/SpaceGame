@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Asteroid_game.camera;
-using GameObjects.objects;
+﻿using Camera;
+using GameObjects.Objects;
 using Raylib_cs;
 using System.Numerics;
 
-namespace Asteroid_game.drawing
+namespace Drawing
 {
     public class BulletDrawing : IDrawing
     {
