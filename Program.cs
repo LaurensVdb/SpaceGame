@@ -15,7 +15,7 @@ class Program
 
 
     //HideCursor();
-    GameMenuCreator gameMenuCreator = new GameMenuCreator();
+    GameMenuFactory gameMenuCreator = new GameMenuFactory();
 
 
     var menu = gameMenuCreator.Create();

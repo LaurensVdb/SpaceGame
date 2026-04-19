@@ -61,12 +61,12 @@ public sealed class GameWorld : IGameState, IGameWorld
     {
         if (!GameObjectRepository.Player.IsAlive)
         {
-            MenuFactory factory = new GameOverMenuCreator();
+            IMenuFactory factory = new GameOverMenuFactory();
             gameStateManager.State = factory.Create();
         }
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
-            MenuFactory factory = new GameMenuCreator();
+            IMenuFactory factory = new GameMenuFactory();
             gameStateManager.State = factory.Create();
         }
 

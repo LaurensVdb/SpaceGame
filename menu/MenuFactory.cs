@@ -4,13 +4,13 @@ using Raylib_cs;
 
 namespace Menu;
 
-public abstract class MenuFactory
+public interface IMenuFactory
 {
-    public abstract IGameState Create();
+    IGameState Create();
 }
-public class GameMenuCreator : MenuFactory
+public class GameMenuFactory : IMenuFactory
 {
-    public override IGameState Create()
+    public IGameState Create()
     {
         List<IMenuItem> menuItems =
            [
@@ -22,9 +22,9 @@ public class GameMenuCreator : MenuFactory
         return new GameMenu(menuItems);
     }
 }
-public class GameOverMenuCreator : MenuFactory
+public class GameOverMenuFactory : IMenuFactory
 {
-    public override IGameState Create()
+    public IGameState Create()
     {
         List<IMenuItem> menuItems =
           [
