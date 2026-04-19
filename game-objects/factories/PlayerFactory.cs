@@ -7,15 +7,15 @@ using MovmementService;
 
 namespace GameObjects.factories;
 
-public class PlayerFactory : GameObjectFactory
+public interface IPlayerFactory
 {
-    public override BaseGameEntity Create()
-    {
-        return new Player(new PlayerMovement(), new PlayerDrawing(),new PlayerShooting(500), 1920 / 2, 1080 / 2, 5f, 3, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Player), 1)]);
-    }
+    Player Create();
+}
 
-    public override BaseGameEntity Create(Vector2 position)
+public class PlayerFactory : IPlayerFactory
+{
+    public Player Create()
     {
-        return new Player(new PlayerMovement(), new PlayerDrawing(),new PlayerShooting(500), position.X, position.Y, 5f, 3, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Player), 1)]);
+        return new Player(new PlayerMovement(), new PlayerDrawing(), new PlayerShooting(500), 1920 / 2, 1080 / 2, 5f, 3, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Player), 1)]);
     }
 }

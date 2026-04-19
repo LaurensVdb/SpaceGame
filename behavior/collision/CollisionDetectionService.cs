@@ -1,4 +1,4 @@
-﻿namespace Asteroid_game.behavior.collision
+﻿namespace Events.behavior.collision
 {
 
     public class CollisionDetectionService(IEnumerable<ICollisionDetection> collisionDetections) : ICollisionDetectionService

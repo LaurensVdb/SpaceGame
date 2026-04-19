@@ -1,9 +1,9 @@
-using Asteroid_game.drawing;
 using Contentmanagement;
 using GameObjects.objects;
 using GameObjects.repositories;
 using MovmementService;
 using Raylib_cs;
+using Asteroid_game.drawing;
 
 namespace Bevahior;
 

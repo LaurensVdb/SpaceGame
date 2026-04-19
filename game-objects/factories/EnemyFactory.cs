@@ -6,10 +6,15 @@ using GameObjects.objects;
 
 namespace Asteroid_game.game_objects.factories;
 
-public class EnemyFactory
+public interface IEnemyFactory
+{
+    Enemy Create(EnemyConfig config, Vector2 position);
+}
+
+public class EnemyFactory : IEnemyFactory
 {
 
-      public Enemy CreateEnemy(EnemyConfig config, Vector2 position)
+    public Enemy Create(EnemyConfig config, Vector2 position)
     {
         var enemyBuilder = new EnemyBuilder();
         enemyBuilder.SetTargetPlayer(config.TargetPlayer);
@@ -22,7 +27,7 @@ public class EnemyFactory
                 new Tuple<Type, int>(typeof(Enemy), config.TextureId)]);
         enemyBuilder.SetSpeed(config.Speed);
         enemyBuilder.SetHitpoints(config.HitPoints);
-       
+
         if (config.CanShoot && config.ShootInterval.HasValue)
         {
             enemyBuilder.CanShoot(config.ShootInterval.Value);

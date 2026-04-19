@@ -9,16 +9,16 @@ using GameObjects.objects;
 
 namespace Asteroid_game.game_objects.factories;
 
-public class BulletSpeedItemFactory : GameObjectFactory
+public interface IBulletSpeedItemFactory
 {
-    public override BaseGameEntity Create()
-    {
-        throw new NotImplementedException();
-    }
+    BulletSpeedItem Create(Vector2 position);
+}
 
-    public override BaseGameEntity Create(Vector2 position)
+public class BulletSpeedItemFactory : IBulletSpeedItemFactory
+{
+    public BulletSpeedItem Create(Vector2 position)
     {
-       return new BulletSpeedItem(new NoMovement(), new BulletSpeedItemDrawing(),
-                 (int)position.X, (int)position.Y, 0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(BulletSpeedItem), 1)]);
+        return new BulletSpeedItem(new NoMovement(), new BulletSpeedItemDrawing(),
+                  (int)position.X, (int)position.Y, 0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(BulletSpeedItem), 1)]);
     }
 }

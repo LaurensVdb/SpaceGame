@@ -8,7 +8,7 @@ namespace Bevahior;
 
 public class EnemySpawner : GameEvent
 {
-    private EnemyFactory _enemyFactory;
+    private IEnemyFactory _enemyFactory;
 
     private IGameObjectRepository gameObjectRepository;
     public EnemySpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
@@ -55,10 +55,10 @@ public class EnemySpawner : GameEvent
     private void CreateEnemy(Vector2 position)
     {
         Random rnd = new Random();
-       var randomNumber = rnd.Next(1, gameObjectRepository.CurrentWave + 1);
+        var randomNumber = rnd.Next(1, gameObjectRepository.CurrentWave + 1);
         var config = gameObjectRepository.EnemyConfgurationData[randomNumber - 1];
         config.TargetPlayer = (Player)gameObjectRepository.Player;
-        var enemy = _enemyFactory.CreateEnemy(config, position);
+        var enemy = _enemyFactory.Create(config, position);
         gameObjectRepository.AddEntity(enemy);
     }
 }

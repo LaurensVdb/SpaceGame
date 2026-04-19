@@ -1,10 +1,10 @@
-using Asteroid_game.behavior;
-using Asteroid_game.behavior.collision;
 using Asteroid_game.behavior.movement;
 using Asteroid_game.behavior.shooting;
 using Bevahior;
 using Camera;
 using Contentmanagement;
+using Events.behavior;
+using Events.behavior.collision;
 using Game;
 using GameObjects.repositories;
 using GameStateBevahior;
@@ -34,6 +34,6 @@ public class GameWorldCreator : GameWorldFactory
         });
 
 
-        return new GameWorld(repo, new GameCamera(), collisionDetectionService, new MovementService(repo),new ShootingService(repo), gameEvents);
+        return new GameWorld(repo, new GameCamera(), collisionDetectionService, new MovementService(repo), new ShootingService(repo), gameEvents);
     }
 }

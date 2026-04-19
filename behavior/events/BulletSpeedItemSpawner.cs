@@ -1,35 +1,34 @@
 ﻿using System.Numerics;
-using Asteroid_game.game_objects.factories;
 using Bevahior;
 using GameObjects.repositories;
 using Raylib_cs;
+using Asteroid_game.game_objects.factories;
 
-namespace Asteroid_game.behavior
+namespace Events.behavior
 {
-    public class ShieldItemSpawner : GameEvent
+    public class BulletSpeedItemSpawner : GameEvent
     {
         private IGameObjectRepository _gameObjectRepository;
-        private ShieldItemFactory _shieldItemFactory;
-        public ShieldItemSpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
-        {
+        private IBulletSpeedItemFactory _bulletSpeedItemFactory;
 
+        public BulletSpeedItemSpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
+        {
+            _bulletSpeedItemFactory = new BulletSpeedItemFactory();
             this._gameObjectRepository = gameObjectRepository;
-            _shieldItemFactory = new ShieldItemFactory();
         }
         public override void StartEvent()
         {
             timer.Start();
 
-            var playerProtectionLevel = _gameObjectRepository.Player.ProtectectionLevel;
-            if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds && playerProtectionLevel < 10)
+            if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
             {
                 timer.Reset();
-                CreateShieldItem();
+                CreateBulletSpeedItem();
                 timer.Start();
             }
         }
 
-        private void CreateShieldItem()
+        private void CreateBulletSpeedItem()
         {
             var screenWidth = Raylib.GetScreenWidth();
             var screenHeight = Raylib.GetScreenHeight();
@@ -39,8 +38,8 @@ namespace Asteroid_game.behavior
             var y = rnd.Next((int)_gameObjectRepository.Player.Y - (screenHeight / 2), (int)_gameObjectRepository.Player.Y + (screenHeight / 2));
             var position = new Vector2(x, y);
 
-            var shieldItem = _shieldItemFactory.Create(position);
-            _gameObjectRepository.AddEntity(shieldItem);
+            var bulletSpeedItem = _bulletSpeedItemFactory.Create(position);
+            _gameObjectRepository.AddEntity(bulletSpeedItem);
         }
     }
 }

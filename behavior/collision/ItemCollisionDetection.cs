@@ -2,7 +2,7 @@
 using GameObjects.objects;
 using GameObjects.repositories;
 
-namespace Asteroid_game.behavior.collision
+namespace Events.behavior.collision
 {
     public class ItemCollisionDetection(IGameObjectRepository gameObjectRepository) : ICollisionDetection
     {

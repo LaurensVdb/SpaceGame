@@ -1,6 +1,7 @@
 using Asteroid_game.camera;
 using Asteroid_game.drawing;
 
+
 namespace Bevahior
 {
     public class WaveEventRenderer : IEventRenderer

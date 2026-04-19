@@ -9,17 +9,18 @@ using GameObjects.objects;
 
 namespace Asteroid_game.game_objects.factories;
 
-public class HealtItemFactory : GameObjectFactory
+public interface IHealtItemFactory
 {
-    public override BaseGameEntity Create()
-    {
-        throw new NotImplementedException();
-    }
+    HealthItem Create(Vector2 position);
+}
 
-    public override BaseGameEntity Create(Vector2 position)
+public class HealtItemFactory : IHealtItemFactory
+{
+
+    public HealthItem Create(Vector2 position)
     {
-       return new HealthItem(new NoMovement(), new HealthItemDrawing(),
-               (int)position.X, (int)position.Y, 0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(HealthItem), 1)]);
-         
+        return new HealthItem(new NoMovement(), new HealthItemDrawing(),
+                (int)position.X, (int)position.Y, 0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(HealthItem), 1)]);
+
     }
 }

@@ -1,9 +1,9 @@
-using Asteroid_game.behavior.collision;
 using Asteroid_game.behavior.movement;
 using Asteroid_game.behavior.shooting;
 using Asteroid_game.camera;
 using Bevahior;
 using Camera;
+using Events.behavior.collision;
 using GameMenuBevahior;
 using GameObjects.repositories;
 using GameStateBevahior;
@@ -24,7 +24,7 @@ public sealed class GameWorld : IGameState, IGameWorld
     private readonly IShootingService _shootingService;
     private readonly EventRendererRegistry _eventRendererRegistry = new EventRendererRegistry();
 
-    public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, IMovementService movementService,IShootingService shootingService, List<IGameEvent> gameEvents)
+    public GameWorld(IGameObjectRepository gameObjectRepository, IGameCamera camera, ICollisionDetectionService collisionDetectionService, IMovementService movementService, IShootingService shootingService, List<IGameEvent> gameEvents)
     {
         this.GameObjectRepository = gameObjectRepository;
 

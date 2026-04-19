@@ -1,36 +1,35 @@
 ﻿using System.Numerics;
-using Asteroid_game.behavior.movement;
-using Asteroid_game.drawing;
 using Asteroid_game.game_objects.factories;
-using Asteroid_game.game_objects.objects;
 using Bevahior;
-using Contentmanagement;
 using GameObjects.repositories;
 using Raylib_cs;
 
-namespace Asteroid_game.behavior
+namespace Events.behavior
 {
-    public class PlayerHealtItemSpawner : GameEvent
+    public class ShieldItemSpawner : GameEvent
     {
         private IGameObjectRepository _gameObjectRepository;
-        private HealtItemFactory _healthItemFactory;
-        public PlayerHealtItemSpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
+        private IShieldItemFactory _shieldItemFactory;
+        public ShieldItemSpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
         {
-            _healthItemFactory = new HealtItemFactory();
+
             this._gameObjectRepository = gameObjectRepository;
+            _shieldItemFactory = new ShieldItemFactory();
         }
         public override void StartEvent()
         {
             timer.Start();
-            if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds)
+
+            var playerProtectionLevel = _gameObjectRepository.Player.ProtectectionLevel;
+            if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds && playerProtectionLevel < 10)
             {
                 timer.Reset();
-                CreateHealthItem();
+                CreateShieldItem();
                 timer.Start();
             }
         }
 
-        private void CreateHealthItem()
+        private void CreateShieldItem()
         {
             var screenWidth = Raylib.GetScreenWidth();
             var screenHeight = Raylib.GetScreenHeight();
@@ -38,10 +37,10 @@ namespace Asteroid_game.behavior
             Random rnd = new Random();
             var x = rnd.Next((int)_gameObjectRepository.Player.X - (screenWidth / 2), (int)_gameObjectRepository.Player.X + (screenWidth / 2));
             var y = rnd.Next((int)_gameObjectRepository.Player.Y - (screenHeight / 2), (int)_gameObjectRepository.Player.Y + (screenHeight / 2));
-            var posistion = new Vector2(x, y);
+            var position = new Vector2(x, y);
 
-            var healthItem = _healthItemFactory.Create(posistion);
-            _gameObjectRepository.AddEntity(healthItem);
+            var shieldItem = _shieldItemFactory.Create(position);
+            _gameObjectRepository.AddEntity(shieldItem);
         }
     }
 }
