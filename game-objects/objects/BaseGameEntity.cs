@@ -1,8 +1,5 @@
-using System.Numerics;
-using Behavior.Shooting;
 using Camera;
 using Drawing;
-using GameObjects.Repositories;
 using Behavior.Movement;
 using Raylib_cs;
 
@@ -57,10 +54,7 @@ public abstract class BaseGameEntity
 
     public float Rotation { get; set; }
 
-
     public int ProtectectionLevel { get; set; }
-
-    public int MaxElapsedMillisecondsShootingTime { get; set; }
 
     public void Move()
     {
