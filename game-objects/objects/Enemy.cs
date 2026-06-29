@@ -10,7 +10,7 @@ namespace GameObjects.Objects;
 
 
 
-public class Enemy : ShootableEntity, IMovableEntity, IDrawableEntity
+public class Enemy : ShootableEntity, IMovableEntity, IDrawableEntity, IDamageableEntity
 {
     //public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
     private readonly Player _player;
@@ -18,8 +18,13 @@ public class Enemy : ShootableEntity, IMovableEntity, IDrawableEntity
     private readonly IDrawing drawing;
 
     public Player TargetPlayer { get { return _player; } }
-    public Enemy(IMovement movementservice, IDrawing drawing, IShooting shooting, Player player, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-    : base(shooting, x, y, movementSpeed, hitPoints, texture2D)
+
+    public int ProtectectionLevel { get; set; }
+    public int HitPointsAtStart { get; set; }
+    public int HitPoints { get; set; }
+
+    public Enemy(IMovement movementservice, IDrawing drawing, IShooting shooting, Player player, float x, float y, float movementSpeed, Texture2D texture2D)
+    : base(shooting, x, y, movementSpeed, texture2D)
     {
         _player = player;
         movementService = movementservice;
@@ -49,5 +54,29 @@ public class Enemy : ShootableEntity, IMovableEntity, IDrawableEntity
     public void Draw(ICameraController cameraController)
     {
         this.drawing.Drawing(this, cameraController);
+    }
+
+    public virtual void TakeDamage(int damagePoints)
+    {
+
+        if (ProtectectionLevel <= 0)
+        {
+            HitPoints -= damagePoints;
+        }
+        else
+        {
+            ProtectectionLevel--;
+        }
+
+        if (HitPoints <= 0)
+        {
+            IsAlive = false;
+        }
+    }
+
+    public void SetHitPoints(int hitPoints)
+    {
+        HitPoints = hitPoints;
+        HitPointsAtStart = hitPoints;
     }
 }

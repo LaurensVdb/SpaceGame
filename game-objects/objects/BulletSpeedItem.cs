@@ -10,8 +10,8 @@ namespace GameObjects.Objects
     {
         private readonly IDrawing drawing;
 
-        public BulletSpeedItem(IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-            : base(x, y, movementSpeed, hitPoints, texture2D)
+        public BulletSpeedItem(IDrawing drawing, float x, float y, float movementSpeed, Texture2D texture2D)
+            : base(x, y, movementSpeed, texture2D)
         {
             this.drawing = drawing;
         }

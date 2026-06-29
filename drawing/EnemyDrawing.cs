@@ -13,11 +13,12 @@ namespace Drawing
 
             if (gameEntity.IsAlive)
             {
+                var damageAbleEntity = (IDamageableEntity)gameEntity;
                 int newWidth = 1;
-                if (gameEntity.HitPointsAtStart > 0)
-                    newWidth = gameEntity.Widht / gameEntity.HitPointsAtStart;
+                if (damageAbleEntity.HitPointsAtStart > 0)
+                    newWidth = gameEntity.Widht / damageAbleEntity.HitPointsAtStart;
 
-                Raylib.DrawRectangle((int)gameEntity.X, (int)gameEntity.Y - 10, newWidth * gameEntity.HitPoints, 5, Color.Gold);
+                Raylib.DrawRectangle((int)gameEntity.X, (int)gameEntity.Y - 10, newWidth * damageAbleEntity.HitPoints, 5, Color.Gold);
                 Raylib.DrawTextureV(gameEntity.Texture, new Vector2(gameEntity.X, gameEntity.Y), Color.White);
             }
         }

@@ -19,7 +19,7 @@ public class HealtItemFactory : IHealtItemFactory
     public HealthItem Create(Vector2 position)
     {
         return new HealthItem(new HealthItemDrawing(),
-                (int)position.X, (int)position.Y, 0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(HealthItem), 1)]);
+                (int)position.X, (int)position.Y, 0.5f, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(HealthItem), 1)]);
 
     }
 }

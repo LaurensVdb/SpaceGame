@@ -28,7 +28,7 @@ public class ParticleSpawner : GameEvent
             gameObjectRepository.Entities.Add(new Star(new StarMovement(), new StarDrawing(),
               rnd.Next((int)gameObjectRepository.Player.X - (screenWidth), (int)gameObjectRepository.Player.X + (screenWidth)),
             rnd.Next((int)gameObjectRepository.Player.Y - (screenHeight), (int)gameObjectRepository.Player.Y + (screenHeight)),
-            0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Star), rnd.Next(1, 3))]
+            0.5f, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Star), rnd.Next(1, 3))]
       ));
             timer.Start();
         }

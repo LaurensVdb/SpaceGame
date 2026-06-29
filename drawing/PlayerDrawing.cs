@@ -11,7 +11,8 @@ namespace Drawing
         public void Drawing(BaseGameEntity gameEntity, ICameraController cameraController)
         {
 
-            if (gameEntity.ProtectectionLevel > 0)
+            var playeProtection = (IDamageableEntity)gameEntity;
+            if (playeProtection.ProtectectionLevel > 0)
             {
                 Raylib.DrawCircleLines((int)gameEntity.X, (int)gameEntity.Y, 50, Color.Yellow);
             }
@@ -28,10 +29,11 @@ namespace Drawing
         private void DrawInfo(BaseGameEntity gameEntity, ICameraController cameraController)
         {
             var postext = cameraController.ScreenToWorld(new Vector2(20, 20));
+            var damageAbleEntity = (IDamageableEntity)gameEntity;
+            Raylib.DrawText($"Life energy: {damageAbleEntity.HitPoints}", (int)postext.X, (int)postext.Y, 20, Color.Gold);
 
-            Raylib.DrawText($"Life energy: {gameEntity.HitPoints}", (int)postext.X, (int)postext.Y, 20, Color.Gold);
-
-            Raylib.DrawText($"Shield energy: {gameEntity.ProtectectionLevel}", (int)postext.X, (int)postext.Y + 30, 20, Color.Gold);
+            var playeProtection = (IDamageableEntity)gameEntity;
+            Raylib.DrawText($"Shield energy: {playeProtection.ProtectectionLevel}", (int)postext.X, (int)postext.Y + 30, 20, Color.Gold);
 
 
             Raylib.DrawText($"Enemies killed {gameEntity.KillCount}", (int)postext.X, (int)postext.Y + 60, 20, Color.Gold);

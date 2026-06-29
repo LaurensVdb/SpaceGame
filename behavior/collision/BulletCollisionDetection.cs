@@ -26,7 +26,6 @@ namespace Behavior.Collision
                 foreach (Enemy enemy in gameObjectRepository.Enemies)
                 {
                     CheckCollision(bullet, enemy);
-                    //IncreaseKillcountWhenEnemyIsDead(enemy);
                 }
             }
         }
@@ -37,7 +36,7 @@ namespace Behavior.Collision
             if (isCollision && bullet.IsAlive)
             {
                 bullet.IsAlive = false;
-                entityCollision.TakeDamage(1);
+                ((IDamageableEntity)entityCollision).TakeDamage(1);
             }
             return isCollision;
         }

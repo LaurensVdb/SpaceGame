@@ -31,7 +31,7 @@ public class EnemyDefaultShooting : IShooting
         {
 
             bullet = new Bullet(new BulletMovement(), new BulletDrawing(),
-            position.X, position.Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)], 10f, 0, rotatepoint, true);
+            position.X, position.Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)], 10f, rotatepoint, true);
             shootTimer.Reset();
 
 

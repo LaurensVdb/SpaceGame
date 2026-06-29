@@ -3,6 +3,7 @@ using GameObjects.Factories;
 using Behavior.Events;
 using GameObjects.Repositories;
 using Raylib_cs;
+using GameObjects.Objects;
 
 namespace Behavior.Events
 {
@@ -20,7 +21,7 @@ namespace Behavior.Events
         {
             timer.Start();
 
-            var playerProtectionLevel = _gameObjectRepository.Player.ProtectectionLevel;
+            var playerProtectionLevel = ((IDamageableEntity)_gameObjectRepository.Player).ProtectectionLevel;
             if (timer.ElapsedMilliseconds >= MaxElapsedMilliseconds && playerProtectionLevel < 10)
             {
                 timer.Reset();

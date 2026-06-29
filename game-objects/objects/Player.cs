@@ -8,12 +8,12 @@ using Camera;
 
 namespace GameObjects.Objects;
 
-public class Player : ShootableEntity, IMovableEntity, IDrawableEntity
+public class Player : ShootableEntity, IMovableEntity, IDrawableEntity, IDamageableEntity
 {
     private readonly IMovement movementService;
     private readonly IDrawing drawing;
-    public Player(IMovement movementservice, IDrawing drawing, IShooting shooting, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-        : base(shooting, x, y, movementSpeed, hitPoints, texture2D)
+    public Player(IMovement movementservice, IDrawing drawing, IShooting shooting, float x, float y, float movementSpeed, Texture2D texture2D)
+        : base(shooting, x, y, movementSpeed, texture2D)
     {
         ProtectectionLevel = 0;
         movementService = movementservice;
@@ -33,6 +33,10 @@ public class Player : ShootableEntity, IMovableEntity, IDrawableEntity
     }
     public override Rectangle CollisionRectangle => new Rectangle(X - (Widht / 2), Y - (Height / 2), Widht, Height);
 
+    public int ProtectectionLevel { get; set; }
+    public int HitPointsAtStart { get; set; }
+    public int HitPoints { get; set; }
+
     public override Bullet? Shoot()
     {
         var rotatepoint = RotatePoint(new Vector2(X, Y), new Vector2(X, Y), Rotation);
@@ -47,5 +51,28 @@ public class Player : ShootableEntity, IMovableEntity, IDrawableEntity
     public void Draw(ICameraController cameraController)
     {
         this.drawing.Drawing(this, cameraController);
+    }
+
+    public virtual void TakeDamage(int damagePoints)
+    {
+
+        if (ProtectectionLevel <= 0)
+        {
+            HitPoints -= damagePoints;
+        }
+        else
+        {
+            ProtectectionLevel--;
+        }
+
+        if (HitPoints <= 0)
+        {
+            IsAlive = false;
+        }
+    }
+
+    public void SetHitPoints(int hitPoints)
+    {
+        HitPoints = hitPoints;
     }
 }
