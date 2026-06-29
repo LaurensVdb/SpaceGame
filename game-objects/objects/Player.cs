@@ -7,12 +7,14 @@ using Raylib_cs;
 
 namespace GameObjects.Objects;
 
-public class Player : ShootableEntity
+public class Player : ShootableEntity, IMovableEntity
 {
+    private readonly IMovement movementService;
     public Player(IMovement movementservice, IDrawing drawing, IShooting shooting, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-        : base(movementservice, drawing, shooting, x, y, movementSpeed, hitPoints, texture2D)
+        : base(drawing, shooting, x, y, movementSpeed, hitPoints, texture2D)
     {
         ProtectectionLevel = 0;
+        movementService = movementservice;
     }
 
     private Vector2 RotatePoint(Vector2 pointToRotate, Vector2 centerPoint, float angleInDegrees)
@@ -32,5 +34,10 @@ public class Player : ShootableEntity
     {
         var rotatepoint = RotatePoint(new Vector2(X, Y), new Vector2(X, Y), Rotation);
         return ShootingService.Shooting(rotatepoint, Rotation);
+    }
+
+    public void Move()
+    {
+        this.movementService.Move(this);
     }
 }

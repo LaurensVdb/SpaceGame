@@ -1,4 +1,5 @@
-﻿using GameObjects.Repositories;
+﻿using GameObjects.Objects;
+using GameObjects.Repositories;
 
 namespace Behavior.Movement
 {
@@ -6,13 +7,14 @@ namespace Behavior.Movement
     {
         public void MoveObjects()
         {
-            var gameEntities = gameObjectRepository.Entities.ToList();
+            var gameEntities = gameObjectRepository.MovableEntities.ToList();
             foreach (var entity in gameEntities)
             {
                 entity.Move();
 
             }
-            gameObjectRepository.Player.Move();
+            var objectToMove = (IMovableEntity)gameObjectRepository.Player;
+            objectToMove.Move();
         }
     }
 }

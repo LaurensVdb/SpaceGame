@@ -7,8 +7,8 @@ namespace GameObjects.Objects
 {
     public class ShieldItem : BaseGameEntity, IGameItem
     {
-        public ShieldItem(IMovement movementservice, IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-            : base(movementservice, drawing, x, y, movementSpeed, hitPoints, texture2D)
+        public ShieldItem(IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
+            : base(drawing, x, y, movementSpeed, hitPoints, texture2D)
         {
         }
 

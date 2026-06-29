@@ -17,7 +17,7 @@ public class BulletSpeedItemFactory : IBulletSpeedItemFactory
 {
     public BulletSpeedItem Create(Vector2 position)
     {
-        return new BulletSpeedItem(new NoMovement(), new BulletSpeedItemDrawing(),
+        return new BulletSpeedItem(new BulletSpeedItemDrawing(),
                   (int)position.X, (int)position.Y, 0.5f, 0, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(BulletSpeedItem), 1)]);
     }
 }

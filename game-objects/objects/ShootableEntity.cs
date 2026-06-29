@@ -9,8 +9,8 @@ namespace GameObjects.Objects;
 public abstract class ShootableEntity : BaseGameEntity
 {
     public IShooting ShootingService;
-    public ShootableEntity(IMovement movementService, IDrawing drawing, IShooting shootingService, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-    : base(movementService, drawing, x, y, movementSpeed, hitPoints, texture2D)
+    public ShootableEntity(IDrawing drawing, IShooting shootingService, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
+    : base(drawing, x, y, movementSpeed, hitPoints, texture2D)
     {
         ShootingService = shootingService;
     }

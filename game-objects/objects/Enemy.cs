@@ -9,16 +9,18 @@ namespace GameObjects.Objects;
 
 
 
-public class Enemy : ShootableEntity
+public class Enemy : ShootableEntity, IMovableEntity
 {
     //public override Rectangle CollisionRectangle => new Rectangle(X, Y, Widht, Height);
     private readonly Player _player;
+    private readonly IMovement movementService;
 
     public Player TargetPlayer { get { return _player; } }
     public Enemy(IMovement movementservice, IDrawing drawing, IShooting shooting, Player player, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-    : base(movementservice, drawing, shooting, x, y, movementSpeed, hitPoints, texture2D)
+    : base(drawing, shooting, x, y, movementSpeed, hitPoints, texture2D)
     {
         _player = player;
+        movementService = movementservice;
     }
 
 
@@ -34,5 +36,10 @@ public class Enemy : ShootableEntity
 
         var position = new Vector2(X, Y);
         return ShootingService.Shooting(position, playerrotation);
+    }
+
+    public void Move()
+    {
+        movementService.Move(this);
     }
 }

@@ -7,8 +7,8 @@ namespace GameObjects.Objects
 {
     public class BulletSpeedItem : BaseGameEntity, IGameItem
     {
-        public BulletSpeedItem(IMovement movementservice, IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-            : base(movementservice, drawing, x, y, movementSpeed, hitPoints, texture2D)
+        public BulletSpeedItem(IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
+            : base(drawing, x, y, movementSpeed, hitPoints, texture2D)
         {
         }
         private async Task Delayedtask(Player gameEntity)
