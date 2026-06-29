@@ -4,17 +4,20 @@ using Drawing;
 using GameObjects.Objects;
 using Behavior.Movement;
 using Raylib_cs;
+using Camera;
 
 namespace GameObjects.Objects;
 
-public class Player : ShootableEntity, IMovableEntity
+public class Player : ShootableEntity, IMovableEntity, IDrawableEntity
 {
     private readonly IMovement movementService;
+    private readonly IDrawing drawing;
     public Player(IMovement movementservice, IDrawing drawing, IShooting shooting, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-        : base(drawing, shooting, x, y, movementSpeed, hitPoints, texture2D)
+        : base(shooting, x, y, movementSpeed, hitPoints, texture2D)
     {
         ProtectectionLevel = 0;
         movementService = movementservice;
+        this.drawing = drawing;
     }
 
     private Vector2 RotatePoint(Vector2 pointToRotate, Vector2 centerPoint, float angleInDegrees)
@@ -39,5 +42,10 @@ public class Player : ShootableEntity, IMovableEntity
     public void Move()
     {
         this.movementService.Move(this);
+    }
+
+    public void Draw(ICameraController cameraController)
+    {
+        this.drawing.Drawing(this, cameraController);
     }
 }

@@ -7,6 +7,7 @@ using Menu;
 using GameObjects.Repositories;
 using GameState;
 using Raylib_cs;
+using GameObjects.Objects;
 namespace Game;
 
 public sealed class GameWorld : IGameState, IGameWorld
@@ -45,11 +46,12 @@ public sealed class GameWorld : IGameState, IGameWorld
     public void Draw()
     {
         _gameCamera.SetCamera();
-        foreach (var entities in GameObjectRepository.Entities)
+        foreach (var entities in GameObjectRepository.Entities.OfType<IDrawableEntity>())
         {
             entities.Draw((ICameraController)_gameCamera);
         }
-        GameObjectRepository.Player.Draw((ICameraController)_gameCamera);
+        var drawplayer = (IDrawableEntity)GameObjectRepository.Player;
+        drawplayer.Draw((ICameraController)_gameCamera);
 
 
         foreach (var gameEvent in _gameEvents)

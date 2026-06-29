@@ -2,14 +2,18 @@
 using GameObjects.Objects;
 using Behavior.Movement;
 using Raylib_cs;
+using Camera;
 
 namespace GameObjects.Objects
 {
-    public class BulletSpeedItem : BaseGameEntity, IGameItem
+    public class BulletSpeedItem : BaseGameEntity, IGameItem, IDrawableEntity
     {
+        private readonly IDrawing drawing;
+
         public BulletSpeedItem(IDrawing drawing, float x, float y, float movementSpeed, int hitPoints, Texture2D texture2D)
-            : base(drawing, x, y, movementSpeed, hitPoints, texture2D)
+            : base(x, y, movementSpeed, hitPoints, texture2D)
         {
+            this.drawing = drawing;
         }
         private async Task Delayedtask(Player gameEntity)
         {
@@ -24,6 +28,11 @@ namespace GameObjects.Objects
             IsAlive = false;
             _ = Delayedtask(gameEntity);
 
+        }
+
+        public void Draw(ICameraController cameraController)
+        {
+            this.drawing.Drawing(this, cameraController);
         }
     }
 }

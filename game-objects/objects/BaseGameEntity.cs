@@ -9,11 +9,8 @@ Elk game object moet gebruik maken van de base game entity class
 */
 public abstract class BaseGameEntity
 {
-
-    protected IDrawing Drawing;
-
     private int hitpointsAtStart;
-    public BaseGameEntity(IDrawing drawing, float x, float y, float movementSpeed,
+    public BaseGameEntity(float x, float y, float movementSpeed,
     int hitPoints, Texture2D texture2D)
     {
         X = x;
@@ -26,7 +23,6 @@ public abstract class BaseGameEntity
         Height = texture2D.Height;
         IsAlive = true;
         hitpointsAtStart = hitPoints;
-        Drawing = drawing;
     }
 
     public virtual void SetHitPoints(int hitPoints)
@@ -53,11 +49,6 @@ public abstract class BaseGameEntity
     public float Rotation { get; set; }
 
     public int ProtectectionLevel { get; set; }
-
-    public virtual void Draw(ICameraController cameraController)
-    {
-        Drawing.Drawing(this, cameraController);
-    }
 
     public virtual void TakeDamage(int damagePoints)
     {
