@@ -36,7 +36,7 @@ namespace Drawing
             Raylib.DrawText($"Shield energy: {playeProtection.ProtectectionLevel}", (int)postext.X, (int)postext.Y + 30, 20, Color.Gold);
 
 
-            Raylib.DrawText($"Enemies killed {gameEntity.KillCount}", (int)postext.X, (int)postext.Y + 60, 20, Color.Gold);
+            Raylib.DrawText($"Enemies killed {((ShootableEntity)gameEntity).KillCount}", (int)postext.X, (int)postext.Y + 60, 20, Color.Gold);
 
         }
 

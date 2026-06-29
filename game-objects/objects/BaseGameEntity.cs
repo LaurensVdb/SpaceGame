@@ -28,8 +28,6 @@ public abstract class BaseGameEntity
     public float X { get; set; }
     public float Y { get; set; }
     public bool IsAlive { get; set; }
-    public int KillCount { get; set; }
-
     public float Rotation { get; set; }
 
 }

@@ -9,6 +9,8 @@ namespace GameObjects.Objects;
 public abstract class ShootableEntity : BaseGameEntity
 {
     public IShooting ShootingService;
+
+    public int KillCount { get; set; }
     public ShootableEntity(IShooting shootingService, float x, float y, float movementSpeed, Texture2D texture2D)
     : base(x, y, movementSpeed, texture2D)
     {

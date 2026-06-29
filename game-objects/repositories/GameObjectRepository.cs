@@ -45,7 +45,7 @@ public sealed class GameObjectRepository : IGameObjectRepository
 
     public void RemoveDeadEntities()
     {
-        Player.KillCount += Entities.OfType<Enemy>().Count(e => !e.IsAlive);
+        ((ShootableEntity)Player).KillCount += Entities.OfType<Enemy>().Count(e => !e.IsAlive);
         Entities.RemoveAll(e => !e.IsAlive);
     }
 

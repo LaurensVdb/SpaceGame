@@ -1,4 +1,5 @@
-﻿using GameObjects.Repositories;
+﻿using GameObjects.Objects;
+using GameObjects.Repositories;
 
 namespace Behavior.Events
 {
@@ -38,7 +39,7 @@ namespace Behavior.Events
                 }
                 else
                 {
-                    if (gameObjectRepository.Player.KillCount >= maxEnemies)
+                    if (((ShootableEntity)gameObjectRepository.Player).KillCount >= maxEnemies)
                     {
                         currentWaveIsActive = false;
                     }
@@ -53,7 +54,7 @@ namespace Behavior.Events
                     currentWaveIsActive = true;
                     gameObjectRepository.CurrentWave++;
                     maxEnemies = maxEnemies * gameObjectRepository.CurrentWave;
-                    gameObjectRepository.Player.KillCount = 0;
+                    ((ShootableEntity)gameObjectRepository.Player).KillCount = 0;
                     gameObjectRepository.TotalEnemiesSpawned = 0;
 
                     timer.Reset();
