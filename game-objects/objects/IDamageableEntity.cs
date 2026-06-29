@@ -7,5 +7,4 @@ public interface IDamageableEntity
     public int ProtectectionLevel { get; set; }
     public int HitPoints { get; set; }
     public int HitPointsAtStart { get; set; }
-    public void SetHitPoints(int hitPoints);
 }

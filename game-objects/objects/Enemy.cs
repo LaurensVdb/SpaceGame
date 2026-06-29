@@ -20,9 +20,17 @@ public class Enemy : ShootableEntity, IMovableEntity, IDrawableEntity, IDamageab
     public Player TargetPlayer { get { return _player; } }
 
     public int ProtectectionLevel { get; set; }
-    public int HitPointsAtStart { get; set; }
-    public int HitPoints { get; set; }
+    public int HitPointsAtStart
+    {
+        get;
+        set
+        {
+            field = value;
+            HitPoints = value;
+        }
+    }
 
+    public int HitPoints { get; set; }
     public Enemy(IMovement movementservice, IDrawing drawing, IShooting shooting, Player player, float x, float y, float movementSpeed, Texture2D texture2D)
     : base(shooting, x, y, movementSpeed, texture2D)
     {
@@ -56,7 +64,7 @@ public class Enemy : ShootableEntity, IMovableEntity, IDrawableEntity, IDamageab
         this.drawing.Drawing(this, cameraController);
     }
 
-    public virtual void TakeDamage(int damagePoints)
+    public void TakeDamage(int damagePoints)
     {
 
         if (ProtectectionLevel <= 0)
@@ -74,9 +82,5 @@ public class Enemy : ShootableEntity, IMovableEntity, IDrawableEntity, IDamageab
         }
     }
 
-    public void SetHitPoints(int hitPoints)
-    {
-        HitPoints = hitPoints;
-        HitPointsAtStart = hitPoints;
-    }
+
 }

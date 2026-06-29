@@ -44,7 +44,7 @@ public class EnemyBuilder : IGameObjectBuilder
     public void SetHitpoints(int hitPoints)
     {
         _enemy.IsAlive = true;
-        _enemy.SetHitPoints(hitPoints);
+        _enemy.HitPointsAtStart = hitPoints;
     }
 
     public void SetPosition(float x, float y)

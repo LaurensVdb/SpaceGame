@@ -17,7 +17,7 @@ public class PlayerFactory : IPlayerFactory
     public Player Create()
     {
         var player = new Player(new PlayerMovement(), new PlayerDrawing(), new PlayerShooting(500), 1920 / 2, 1080 / 2, 5f, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Player), 1)]);
-        player.SetHitPoints(10);
+        player.HitPointsAtStart = 10;
         return player;
     }
 }

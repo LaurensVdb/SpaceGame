@@ -34,7 +34,16 @@ public class Player : ShootableEntity, IMovableEntity, IDrawableEntity, IDamagea
     public override Rectangle CollisionRectangle => new Rectangle(X - (Widht / 2), Y - (Height / 2), Widht, Height);
 
     public int ProtectectionLevel { get; set; }
-    public int HitPointsAtStart { get; set; }
+    public int HitPointsAtStart
+    {
+        get;
+        set
+        {
+            field = value;
+            HitPoints = value;
+        }
+    }
+
     public int HitPoints { get; set; }
 
     public override Bullet? Shoot()
@@ -53,7 +62,7 @@ public class Player : ShootableEntity, IMovableEntity, IDrawableEntity, IDamagea
         this.drawing.Drawing(this, cameraController);
     }
 
-    public virtual void TakeDamage(int damagePoints)
+    public void TakeDamage(int damagePoints)
     {
 
         if (ProtectectionLevel <= 0)
@@ -69,10 +78,5 @@ public class Player : ShootableEntity, IMovableEntity, IDrawableEntity, IDamagea
         {
             IsAlive = false;
         }
-    }
-
-    public void SetHitPoints(int hitPoints)
-    {
-        HitPoints = hitPoints;
     }
 }
