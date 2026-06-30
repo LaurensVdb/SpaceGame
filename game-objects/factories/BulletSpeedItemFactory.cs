@@ -18,6 +18,6 @@ public class BulletSpeedItemFactory : IBulletSpeedItemFactory
     public BulletSpeedItem Create(Vector2 position)
     {
         return new BulletSpeedItem(new BulletSpeedItemDrawing(),
-                  (int)position.X, (int)position.Y, 0.5f, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(BulletSpeedItem), 1)]);
+                  (int)position.X, (int)position.Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(BulletSpeedItem), 1)]);
     }
 }

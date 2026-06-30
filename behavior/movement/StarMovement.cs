@@ -13,7 +13,7 @@ namespace Behavior.Movement
 
         private void CalculateMovement(BaseGameEntity entity)
         {
-            entity.Y += entity.MovementSpeed;
+            entity.Y += ((IMovableEntity)entity).MovementSpeed;
         }
     }
 }

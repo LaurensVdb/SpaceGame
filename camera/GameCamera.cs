@@ -20,7 +20,7 @@ public class GameCamera : IGameCamera, ICameraController
     {
         var screenWidth = Raylib.GetScreenWidth();
         var screenHeight = Raylib.GetScreenHeight();
-        Camera2D.Target = new Vector2(gameObject.X + gameObject.MovementSpeed, gameObject.Y + gameObject.MovementSpeed);
+        Camera2D.Target = new Vector2(gameObject.X + ((IMovableEntity)gameObject).MovementSpeed, gameObject.Y + ((IMovableEntity)gameObject).MovementSpeed);
         Camera2D.Offset = new Vector2((screenWidth - 122) / 2, (screenHeight - 182) / 2);
         Camera2D.Rotation = Rotation;
         Camera2D.Zoom = Zoom;

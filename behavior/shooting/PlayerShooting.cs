@@ -35,7 +35,9 @@ public class PlayerShooting : IShooting
                 //var rotatepoint = RotatePoint(new Vector2(position.X, position.Y), new Vector2(position.X, position.Y), entity.Rotation);
                 bullet = new Bullet(new BulletMovement(), new BulletDrawing(),
                 position.X, position.Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(Bullet), 1)],
-                10f, rotation);
+                rotation);
+
+                bullet.MovementSpeed = 10f;
                 shootTimer.Reset();
 
             }

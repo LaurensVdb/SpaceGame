@@ -20,11 +20,11 @@ namespace Behavior.Movement
 
             if (Raylib.IsKeyDown(KeyboardKey.Right))
             {
-                if (Raylib.IsKeyDown(KeyboardKey.Right)) entity.X += entity.MovementSpeed;
+                if (Raylib.IsKeyDown(KeyboardKey.Right)) entity.X += ((IMovableEntity)entity).MovementSpeed;
             }
-            if (Raylib.IsKeyDown(KeyboardKey.Left)) entity.X -= entity.MovementSpeed;
-            if (Raylib.IsKeyDown(KeyboardKey.Up)) entity.Y -= entity.MovementSpeed;
-            if (Raylib.IsKeyDown(KeyboardKey.Down)) entity.Y += entity.MovementSpeed;
+            if (Raylib.IsKeyDown(KeyboardKey.Left)) entity.X -= ((IMovableEntity)entity).MovementSpeed;
+            if (Raylib.IsKeyDown(KeyboardKey.Up)) entity.Y -= ((IMovableEntity)entity).MovementSpeed;
+            if (Raylib.IsKeyDown(KeyboardKey.Down)) entity.Y += ((IMovableEntity)entity).MovementSpeed;
 
 
 

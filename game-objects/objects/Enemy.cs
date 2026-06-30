@@ -30,9 +30,11 @@ public class Enemy : ShootableEntity, IMovableEntity, IDrawableEntity, IDamageab
         }
     }
 
+    public bool IsMoving { get; set; }
+    public float MovementSpeed { get; set; }
     public int HitPoints { get; set; }
-    public Enemy(IMovement movementservice, IDrawing drawing, IShooting shooting, Player player, float x, float y, float movementSpeed, Texture2D texture2D)
-    : base(shooting, x, y, movementSpeed, texture2D)
+    public Enemy(IMovement movementservice, IDrawing drawing, IShooting shooting, Player player, float x, float y, Texture2D texture2D)
+    : base(shooting, x, y, texture2D)
     {
         _player = player;
         movementService = movementservice;

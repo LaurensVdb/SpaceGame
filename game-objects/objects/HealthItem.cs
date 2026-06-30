@@ -10,8 +10,8 @@ namespace GameObjects.Objects
     {
         private readonly IDrawing drawing;
 
-        public HealthItem(IDrawing drawing, float x, float y, float movementSpeed, Texture2D texture2D)
-            : base(x, y, movementSpeed, texture2D)
+        public HealthItem(IDrawing drawing, float x, float y, Texture2D texture2D)
+            : base(x, y, texture2D)
         {
             this.drawing = drawing;
         }

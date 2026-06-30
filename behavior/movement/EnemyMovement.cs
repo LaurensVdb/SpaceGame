@@ -15,23 +15,23 @@ namespace Behavior.Movement
 
         private void CalculateMovement(BaseGameEntity entity, Vector2 targetPosition)
         {
-            if (entity.IsMoving)
+            if (((IMovableEntity)entity).IsMoving)
             {
                 if (entity.X <= targetPosition.X)
                 {
-                    entity.X += entity.MovementSpeed;
+                    entity.X += ((IMovableEntity)entity).MovementSpeed;
                 }
                 if (entity.X >= targetPosition.X)
                 {
-                    entity.X -= entity.MovementSpeed;
+                    entity.X -= ((IMovableEntity)entity).MovementSpeed;
                 }
                 if (entity.Y <= targetPosition.Y)
                 {
-                    entity.Y += entity.MovementSpeed;
+                    entity.Y += ((IMovableEntity)entity).MovementSpeed;
                 }
                 if (entity.Y >= targetPosition.Y)
                 {
-                    entity.Y -= entity.MovementSpeed;
+                    entity.Y -= ((IMovableEntity)entity).MovementSpeed;
                 }
             }
         }

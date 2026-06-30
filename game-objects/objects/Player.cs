@@ -12,8 +12,8 @@ public class Player : ShootableEntity, IMovableEntity, IDrawableEntity, IDamagea
 {
     private readonly IMovement movementService;
     private readonly IDrawing drawing;
-    public Player(IMovement movementservice, IDrawing drawing, IShooting shooting, float x, float y, float movementSpeed, Texture2D texture2D)
-        : base(shooting, x, y, movementSpeed, texture2D)
+    public Player(IMovement movementservice, IDrawing drawing, IShooting shooting, float x, float y, Texture2D texture2D)
+        : base(shooting, x, y, texture2D)
     {
         ProtectectionLevel = 0;
         movementService = movementservice;
@@ -33,6 +33,8 @@ public class Player : ShootableEntity, IMovableEntity, IDrawableEntity, IDamagea
     }
     public override Rectangle CollisionRectangle => new Rectangle(X - (Widht / 2), Y - (Height / 2), Widht, Height);
 
+    public bool IsMoving { get; set; }
+    public float MovementSpeed { get; set; }
     public int ProtectectionLevel { get; set; }
     public int HitPointsAtStart
     {

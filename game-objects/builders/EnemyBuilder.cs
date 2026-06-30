@@ -28,7 +28,7 @@ public class EnemyBuilder : IGameObjectBuilder
     public void Reset()
     {
 
-        this._enemy = new Enemy(new EnemyMovement(), new EnemyDrawing(), new NoShooting(), _player, _x, _y, _movementSpeed, _texture);
+        this._enemy = new Enemy(new EnemyMovement(), new EnemyDrawing(), new NoShooting(), _player, _x, _y, _texture);
     }
 
     public void SetTargetPlayer(Player player)

@@ -16,7 +16,7 @@ public class ShieldItemFactory : IShieldItemFactory
     public ShieldItem Create(Vector2 position)
     {
         return new ShieldItem(new ShieldItemDrawing(),
-            (int)position.X, (int)position.Y, 0.5f, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(ShieldItem), 1)]);
+            (int)position.X, (int)position.Y, Contentmanager.Instance.TexturesForTypes[new Tuple<Type, int>(typeof(ShieldItem), 1)]);
     }
 }
 

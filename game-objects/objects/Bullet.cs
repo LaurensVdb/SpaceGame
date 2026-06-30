@@ -11,8 +11,11 @@ public class Bullet : BaseGameEntity, IMovableEntity, IDrawableEntity
     private readonly IDrawing drawing;
     private bool isEnemy;
     public bool IsEnemy { get { return isEnemy; } }
-    public Bullet(IMovement movementservice, IDrawing drawing, float x, float y, Texture2D texture, float movementSpeed, float bulletRotation, bool isEnemy = false)
-        : base(x, y, movementSpeed, texture)
+
+    public bool IsMoving { get; set; }
+    public float MovementSpeed { get; set; }
+    public Bullet(IMovement movementservice, IDrawing drawing, float x, float y, Texture2D texture, float bulletRotation, bool isEnemy = false)
+        : base(x, y, texture)
     {
         this.Rotation = bulletRotation;
         this.movementservice = movementservice;
