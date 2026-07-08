@@ -11,7 +11,7 @@ public class EnemyConfig
     public int HitPoints { get; set; }
     public bool CanShoot { get; set; }
     public int? ShootInterval { get; set; }
-    public Player TargetPlayer { get; internal set; }
+    public Player TargetPlayer { get; set; }
 }
 public class EnemyConfigLoader
 {

@@ -8,13 +8,13 @@ namespace Behavior.Events;
 
 public class EnemySpawner : GameEvent
 {
-    private IEnemyFactory _enemyFactory;
+    private IEnemyBuilder _enemyBuilder;
 
     private IGameObjectRepository gameObjectRepository;
     public EnemySpawner(IGameObjectRepository gameObjectRepository, int maxElapsedMilliseconds) : base(maxElapsedMilliseconds)
     {
         this.gameObjectRepository = gameObjectRepository;
-        _enemyFactory = new EnemyFactory();
+        _enemyBuilder = new EnemyBuilder();
     }
 
     public override void StartEvent()
@@ -58,7 +58,9 @@ public class EnemySpawner : GameEvent
         var randomNumber = rnd.Next(1, gameObjectRepository.CurrentWave + 1);
         var config = gameObjectRepository.EnemyConfgurationData[randomNumber - 1];
         config.TargetPlayer = (Player)gameObjectRepository.Player;
-        var enemy = _enemyFactory.Create(config, position);
+
+        _enemyBuilder.CreateFromConfig(config, position);
+        var enemy = _enemyBuilder.Get();
         gameObjectRepository.AddEntity(enemy);
     }
 }

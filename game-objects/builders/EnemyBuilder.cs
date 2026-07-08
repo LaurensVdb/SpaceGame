@@ -1,39 +1,31 @@
 using Behavior.Shooting;
 using Drawing;
 using GameObjects.Objects;
-using GameObjects.Repositories;
 using Behavior.Movement;
 using Raylib_cs;
+using ContentManagement;
+using System.Numerics;
 
-public class EnemyBuilder : IGameObjectBuilder
+public class EnemyBuilder : IEnemyBuilder
 {
     private Enemy _enemy;
-    private float _x = 0;
-    private float _y = 0;
-    private float _movementSpeed = 0;
-    private int _hitPoints = 0;
-    private Texture2D _texture = new Texture2D();
-    private Player _player;
-
-
     public EnemyBuilder()
     {
-
-
-
+        Reset();
     }
+
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     public void Reset()
     {
 
-        this._enemy = new Enemy(new EnemyMovement(), new EnemyDrawing(), new NoShooting(), _player, _x, _y, _texture);
+        this._enemy = new Enemy(new EnemyMovement(), new EnemyDrawing(), new NoShooting(), 0, 0, default);
     }
 
     public void SetTargetPlayer(Player player)
     {
-        this._player = player;
+        this._enemy.TargetPlayer = player;
     }
     public void CanShoot(int shootingTime)
     {
@@ -60,7 +52,7 @@ public class EnemyBuilder : IGameObjectBuilder
         _enemy.Height = texture2D.Height;
     }
 
-    public Enemy GetItem()
+    public Enemy Get()
     {
         var result = _enemy;
         Reset();
@@ -79,4 +71,23 @@ public class EnemyBuilder : IGameObjectBuilder
     {
         _enemy.MovementSpeed = speed;
     }
+    public void CreateFromConfig(EnemyConfig config, Vector2 position)
+    {
+        this.SetTargetPlayer(config.TargetPlayer);
+        this.SetPosition(position.X, position.Y);
+        this.IsAlive(true);
+        this.IsMovable(true);
+        this.SetTexture(
+            Contentmanager.Instance.TexturesForTypes[
+                new Tuple<Type, int>(typeof(Enemy), config.TextureId)]);
+        this.SetSpeed(config.Speed);
+        this.SetHitpoints(config.HitPoints);
+
+        if (config.CanShoot && config.ShootInterval.HasValue)
+        {
+            this.CanShoot(config.ShootInterval.Value);
+        }
+
+    }
+
 }
