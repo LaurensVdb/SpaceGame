@@ -1,4 +1,30 @@
 {
+  "textureAssets": {
+    "player": {
+      "1": "sprites/player.png"
+    },
+    "enemy": {
+      "1": "sprites/enemy1.png",
+      "2": "sprites/enemy2.png",
+      "3": "sprites/enemy3.png"
+    },
+    "bullet": {
+      "1": "sprites/bullet2.png"
+    },
+    "star": {
+      "1": "sprites/star.png",
+      "2": "sprites/star2.png"
+    },
+    "healthItem": {
+      "1": "sprites/heart.png"
+    },
+    "shieldItem": {
+      "1": "sprites/shield.png"
+    },
+    "bulletSpeedItem": {
+      "1": "sprites/bullet-item.png"
+    }
+  },
   "Enemies": [
     {
       "variantId": 1,
@@ -38,6 +64,7 @@
     }
   ],
   "player": {
+    "textureId": 1,
     "hitPoints": 5,
     "position": {
       "x": 960,
