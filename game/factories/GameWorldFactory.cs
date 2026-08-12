@@ -18,9 +18,8 @@ public class GameWorldFactory : IGameWorldFactory
     public IGameState Create()
     {
         var repo = new GameObjectRepository();
-        var config = new ConfigLoader().Load("configuration/enemies.json");
-        repo.EnemyConfgurationData = config.Enemies;
-        repo.PlayerConfigurationData = config.Player;
+        var configloader = new ConfigLoader();
+        configloader.Load("configuration/enemies.json", repo);
 
         var gameEvents = new List<IGameEvent>
         {

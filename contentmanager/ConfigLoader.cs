@@ -1,13 +1,14 @@
 using System.Text.Json;
 using ContentManagement;
+using GameObjects.Repositories;
 
 public class ConfigLoader
 {
-
-    public GameConfig Load(string filePath)
+    public void Load(string filePath, IGameObjectRepository repository)
     {
-        return ReadFromFile(filePath);
-
+        var config = ReadFromFile(filePath);
+        repository.EnemyConfgurationData = config.Enemies;
+        repository.PlayerConfigurationData = config.Player;
     }
 
     private GameConfig ReadFromFile(string filePath)

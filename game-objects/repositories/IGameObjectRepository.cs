@@ -24,4 +24,5 @@ public interface IGameObjectRepository
     IEnumerable<IMovableEntity> MovableEntities => Entities.OfType<IMovableEntity>();
 
     List<EnemyConfig> EnemyConfgurationData { get; set; }
+    PlayerConfig PlayerConfigurationData { get; set; }
 }
